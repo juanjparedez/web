@@ -182,3 +182,27 @@ test('radio sub-navigation connects tutorials, global Morse console and free vs 
   await morseConsole.getByRole('button', { name: /Vista completa/ }).click();
   await expect(page.locator('#transmision')).toBeVisible();
 });
+
+test('skins and custom inventory entities render cleanly across desktop and mobile', async ({ page }) => {
+  await page.addInitScript(() => {
+    localStorage.setItem('theme', 'light');
+    localStorage.setItem('hios-skin', 'blueprint');
+    localStorage.setItem('hios.inventory.custom.v1', JSON.stringify([{
+      id: 'custom:radio:antena-yagi-2m',
+      domain: 'radio',
+      kind: 'tutorial',
+      badge: 'ANTENA · 2M',
+      title: 'Construcción de Yagi portátil 145 MHz',
+      summary: 'Cálculo de reflector, dipolo excitado y directores para operación satelital.',
+      href: '/radio/tutoriales',
+      status: 'published',
+    }]));
+  });
+  await page.goto(COURSE);
+  await expect(page.locator('html')).toHaveAttribute('data-skin', 'blueprint');
+  await expect(page.getByTestId('radio-hub-entities')).toContainText('Construcción de Yagi portátil 145 MHz');
+  for (const width of [320, 390, 768, 1280]) {
+    await page.setViewportSize({ width, height: 844 });
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  }
+});

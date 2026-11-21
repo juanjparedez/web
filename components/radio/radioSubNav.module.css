@@ -4,12 +4,14 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px 16px;
-  padding: 10px 16px;
+  padding: 10px 14px;
   margin: 0 auto 24px;
   max-width: 1180px;
-  border-radius: 12px;
-  background: var(--hios-surface-1, rgba(15, 23, 42, 0.72));
-  border: 1px solid var(--hios-border, rgba(148, 163, 184, 0.22));
+  border-radius: var(--surface-radius, 12px);
+  background: var(--hios-bg-secondary);
+  border: 1px solid var(--hios-border);
+  box-shadow: var(--hios-shadow-sm);
+  transition: background var(--hios-transition-fast), border-color var(--hios-transition-fast);
 }
 
 .links {
@@ -24,34 +26,40 @@
   align-items: center;
   gap: 6px;
   padding: 6px 11px;
-  border-radius: 8px;
+  border-radius: calc(var(--surface-radius, 12px) * 0.65);
   font-size: 0.86rem;
   font-weight: 500;
-  color: var(--hios-text-secondary, #cbd5e1);
+  color: var(--hios-text-secondary);
   text-decoration: none;
   border: 1px solid transparent;
-  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  transition:
+    background var(--hios-transition-fast),
+    color var(--hios-transition-fast),
+    border-color var(--hios-transition-fast),
+    transform var(--hios-transition-fast);
 }
 
 .link:hover {
-  color: var(--hios-text-primary, #f8fafc);
-  background: rgba(56, 189, 248, 0.08);
+  color: var(--hios-text);
+  background: color-mix(in srgb, var(--accent-2-text) 10%, var(--hios-bg-elevated));
+  border-color: color-mix(in srgb, var(--accent-2-text) 28%, var(--hios-border));
 }
 
 .linkActive {
-  color: var(--hios-text-primary, #f8fafc);
-  background: rgba(8, 145, 178, 0.18);
-  border-color: rgba(34, 211, 238, 0.45);
+  color: var(--hios-text);
+  background: color-mix(in srgb, var(--accent-2-text) 15%, var(--hios-bg-elevated));
+  border-color: color-mix(in srgb, var(--accent-2-text) 55%, var(--hios-border));
   font-weight: 600;
 }
 
 .badge {
-  font-family: var(--font-stack-mono, monospace);
+  font-family: var(--font-stack-mono);
   font-size: 0.7rem;
-  padding: 1px 5px;
+  padding: 1px 6px;
   border-radius: 4px;
-  background: rgba(148, 163, 184, 0.16);
-  color: var(--hios-text-primary, #e2e8f0);
+  background: color-mix(in srgb, var(--accent-2-text) 14%, var(--hios-bg));
+  color: var(--accent-2-text);
+  border: 1px solid color-mix(in srgb, var(--accent-2-text) 25%, transparent);
 }
 
 .offlineBox {
@@ -65,18 +73,24 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 11px;
-  border-radius: 8px;
+  padding: 6px 12px;
+  border-radius: calc(var(--surface-radius, 12px) * 0.65);
   font-size: 0.8rem;
   font-weight: 600;
+  font-family: inherit;
   cursor: pointer;
-  background: rgba(15, 118, 110, 0.2);
-  color: var(--hios-text-primary, #f8fafc);
-  border: 1px solid rgba(45, 212, 191, 0.4);
+  background: color-mix(in srgb, var(--accent-2-text) 14%, var(--hios-bg-elevated));
+  color: var(--hios-text);
+  border: 1px solid color-mix(in srgb, var(--accent-2-text) 45%, var(--hios-border));
+  transition:
+    background var(--hios-transition-fast),
+    border-color var(--hios-transition-fast),
+    transform var(--hios-transition-fast);
 }
 
 .offlineBtn:hover:not(:disabled) {
-  background: rgba(15, 118, 110, 0.32);
+  background: color-mix(in srgb, var(--accent-2-text) 24%, var(--hios-bg-elevated));
+  border-color: var(--accent-2-text);
 }
 
 .offlineBtn:disabled {
@@ -85,18 +99,26 @@
 }
 
 .clearBtn {
-  padding: 5px 9px;
-  border-radius: 7px;
+  padding: 5px 10px;
+  border-radius: calc(var(--surface-radius, 12px) * 0.55);
   font-size: 0.76rem;
+  font-family: inherit;
   cursor: pointer;
-  background: transparent;
-  color: var(--hios-text-muted, #94a3b8);
-  border: 1px solid var(--hios-border, rgba(148, 163, 184, 0.28));
+  background: var(--hios-bg);
+  color: var(--hios-text-secondary);
+  border: 1px solid var(--hios-border);
+  transition: color var(--hios-transition-fast), border-color var(--hios-transition-fast);
+}
+
+.clearBtn:hover {
+  color: var(--hios-text);
+  border-color: var(--accent-text);
 }
 
 .statusText {
   font-size: 0.75rem;
-  color: var(--hios-text-muted, #94a3b8);
+  color: var(--hios-text-muted);
+  font-family: var(--font-stack-mono);
 }
 
 @media (max-width: 640px) {

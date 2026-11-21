@@ -22,16 +22,16 @@
 .sources a { overflow-wrap: anywhere; }
 .sources p { flex-basis: 100%; color: var(--hios-text-secondary); margin: 0; }
 .srOnly { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
-.legalAlert { margin: 24px 0; padding: 18px 20px; border-radius: 12px; border: 1px solid rgba(250, 204, 21, 0.45); background: rgba(234, 179, 8, 0.09); }
-.legalAlert h3 { margin: 0 0 8px; font-size: 1.08rem; color: #facc15; }
+.legalAlert { margin: 24px 0; padding: 18px 20px; border-radius: var(--surface-radius, 12px); border: 1px solid color-mix(in srgb, var(--accent-text) 45%, var(--hios-border)); background: color-mix(in srgb, var(--accent) 10%, var(--hios-bg-secondary)); }
+.legalAlert h3 { margin: 0 0 8px; font-size: 1.08rem; color: var(--accent-text); }
 .legalAlert p { margin: 0 0 10px; font-size: .9375rem; }
 .legalGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 14px; margin: 16px 0; }
-.legalCard { padding: 14px 16px; border-radius: 10px; border: 1px solid var(--hios-border); background: var(--hios-bg-secondary); }
+.legalCard { padding: 14px 16px; border-radius: var(--surface-radius, 10px); border: 1px solid var(--hios-border); background: var(--hios-bg-elevated); }
 .legalCard h4 { margin: 0 0 6px; font-size: .95rem; }
 .legalCard p { margin: 0; font-size: .875rem; color: var(--hios-text-secondary); }
 .sdrSection { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--hios-border); }
 .dualApproach { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 16px; margin-top: 14px; }
-.approachBox { padding: 14px 16px; border-radius: 10px; border: 1px solid var(--hios-border); background: var(--hios-bg-secondary); }
+.approachBox { padding: 14px 16px; border-radius: var(--surface-radius, 10px); border: 1px solid var(--hios-border); background: var(--hios-bg-secondary); }
 .approachBox h4 { margin: 0 0 6px; font-size: .95rem; color: var(--accent-2-text); }
 .approachBox p { margin: 0; font-size: .88rem; color: var(--hios-text-secondary); }
 

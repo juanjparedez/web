@@ -5,6 +5,7 @@ import { useLocale } from 'next-intl';
 import { useUsageSummary } from '@/lib/hooks/useUsageSummary';
 import { UsageAnalyticsResults } from '@/components/workbench/UsageAnalyticsResults';
 import { TrafficAdmin } from './TrafficAdmin';
+import { InventoryAdmin } from './InventoryAdmin';
 import { AdminGate, RangePicker } from './AdminGate';
 import styles from './adminPanel.module.css';
 
@@ -16,6 +17,7 @@ function Panel() {
     <header className={styles.head}><span className={'tech-label ' + styles.kicker}>HIOS / ADMIN</span><h1 className={styles.title}>Panel</h1>
       <RangePicker days={days} onChange={setDays} />
     </header>
+    <InventoryAdmin />
     <TrafficAdmin days={days} />
     <details className={styles.section}><summary>Eventos voluntarios (opt-in, muestra parcial)</summary>
       {status === 'loading' ? <p>…</p> : null}
