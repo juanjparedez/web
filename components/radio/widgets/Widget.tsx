@@ -17,6 +17,7 @@ const WIDGETS = {
   harmonics: load('HarmonicsLab', () => import('./HarmonicsLab')),
   modulation: load('ModulationScope', () => import('./ModulationScope')),
   receiver: load('ReceiverLab', () => import('./ReceiverLab')),
+  sdr: load('SdrSnrLab', () => import('./SdrSnrLab')),
   coax: load('CoaxLab', () => import('./CoaxLab')),
   swr: load('StandingWaveLab', () => import('./StandingWaveLab')),
   antenna: load('AntennaLab', () => import('./AntennaLab')),

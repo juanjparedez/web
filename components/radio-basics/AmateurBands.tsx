@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Button } from 'antd';
 import { useLocale, useTranslations } from 'next-intl';
 import { amateurBands, amateurBandSources, formatAmateurBandRange, type AmateurBand, type AmateurBandId } from '@/lib/radio/amateurBands';
+import { SdrSnrLab } from '@/components/radio/widgets/SdrSnrLab';
 import styles from './amateurBands.module.css';
 
 function AmateurBandTable({ selected, onSelect }: {
@@ -114,6 +115,9 @@ function TechnologyExplanation() {
               <strong>Diferencia fundamental:</strong> Codificar (Morse, Baudot, FT8, DMR, APRS) traduce información usando un estándar público que cualquiera puede demodular. <strong>Encriptar (AES, ARC4)</strong> aplica una transformación matemática con clave secreta para ocultar el mensaje. El Reglamento de Radiocomunicaciones de la UIT (Art. 25) y ENACOM <strong>prohíben la encriptación en bandas de radioaficionados</strong> (salvo el canal de telecomando de satélites amateur), porque el servicio es abierto, experimental y auditable.
             </p>
           </article>
+        </div>
+        <div style={{ marginTop: 20 }}>
+          <SdrSnrLab />
         </div>
       </div>
     </section>

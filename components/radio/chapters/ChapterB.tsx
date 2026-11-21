@@ -57,6 +57,7 @@ export function ChapterB() {
         />
         <Eq vars={[['C', 'capacidad máxima del canal [bits/s]'], ['B', 'ancho de banda [Hz]'], ['S/N', 'relación potencia de señal a ruido lineal']]}>C = B · log₂(1 + S/N)   (Teorema de Shannon-Hartley)</Eq>
         <Key><p>Relación señal/ruido (S/N): cuánto más fuerte es la señal que el piso de ruido térmico (Pn = kB·T·B). Un filtro más angosto reduce B, disminuye la potencia de ruido que entra al detector y mejora directamente la relación S/N.</p></Key>
+        <Sim name="sdr" label="comparador DSP de ancho de banda, SNR y SDR" />
       </Section>
 
       <Section id="receptor" kicker="B.3" title="El receptor: Superheterodino y SDR (Muestreo I/Q)">

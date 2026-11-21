@@ -15,6 +15,7 @@ const TOOLS = [
   { href: 'a-electricidad#resonancia', label: 'Resonancia LC', badge: 'LC' },
   { href: 'a-electricidad#filtros', label: 'Filtro y armónicas', badge: 'LPF' },
   { href: 'b-modulacion-equipos#modulacion', label: 'Osciloscopio de modulación', badge: 'MOD' },
+  { href: 'b-modulacion-equipos#digitales', label: 'Comparador SDR, SNR y Shannon', badge: 'SDR' },
   { href: 'c-antenas-propagacion#roe', label: 'ROE en el coaxil', badge: 'ROE' },
   { href: 'c-antenas-propagacion#antenas', label: 'Calculadora de antenas', badge: 'ANT' },
   { href: 'c-antenas-propagacion#coaxil', label: 'Pérdida de coaxil', badge: 'COAX' },

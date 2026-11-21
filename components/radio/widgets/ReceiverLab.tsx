@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { resonatorResponse } from '@/lib/radio/physics';
+import { sdrAdcDynamicRangeDb, sdrEffectiveDynamicRangeDb } from '@/lib/radio/sdrSnr';
 import { Instrument, Screen, Controls, Readouts, Chips } from '../ui/Instrument';
 import { RangeField } from '../ui/RangeField';
 import { si, fmt } from '../ui/format';
@@ -35,10 +36,14 @@ export function ReceiverLab() {
   const [rf, setRf] = useState(146e6);
   const [fi, setFi] = useState(10.7e6);
   const [picked, setPicked] = useState('mix');
+  const [sdrRate, setSdrRate] = useState(2.4e6);
+  const [sdrBits, setSdrBits] = useState('12');
   const chain = CHAINS[arch];
   const lo = rf + fi;
   const image = rf + 2 * fi;
   const rejection = -20 * Math.log10(resonatorResponse(image, rf, 20));
+  const adcDr = sdrAdcDynamicRangeDb(Number(sdrBits));
+  const effDr = sdrEffectiveDynamicRangeDb(Number(sdrBits), sdrRate, 2400);
   const bw = 560 / chain.length;
   const info = chain.find((b) => b.id === picked) ?? chain[0];
   return (
@@ -80,7 +85,19 @@ export function ReceiverLab() {
             { label: 'Rechazo de imagen (filtro Q=20)', value: `${fmt(rejection, 3)} dB`, tone: rejection < 40 ? 'bad' : 'good' },
           ]} />
         </>
-      ) : null}
+      ) : (
+        <>
+          <Controls>
+            <RangeField label="Tasa de muestreo I/Q (fs)" value={sdrRate} min={250e3} max={10e6} step={250e3} display={si(sdrRate, 'S/s')} onChange={setSdrRate} />
+            <Chips label="Resolución del ADC" value={sdrBits} onChange={setSdrBits} options={[{ value: '8', label: '8 bits' }, { value: '12', label: '12 bits' }, { value: '14', label: '14 bits' }, { value: '16', label: '16 bits' }]} />
+          </Controls>
+          <Readouts items={[
+            { label: 'Span espectral I/Q visible (Δf = fs)', value: si(sdrRate, 'Hz') },
+            { label: 'Rango dinámico bruto del ADC', value: `${fmt(adcDr, 1)} dB`, tone: adcDr >= 70 ? 'good' : 'warn' },
+            { label: 'DR efectivo tras filtro DSP (2,4 kHz)', value: `${fmt(effDr, 1)} dB`, tone: 'good' },
+          ]} />
+        </>
+      )}
     </Instrument>
   );
 }

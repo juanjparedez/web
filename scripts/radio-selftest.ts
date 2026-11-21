@@ -18,6 +18,15 @@ import { CHAPTERS } from '../lib/radio/chapters.ts';
 import { EXAM_QUESTIONS, questionsFor, buildMock, MOCK_LAYOUT } from '../lib/radio/exam.ts';
 import { filteredHarmonicsDbc } from '../lib/radio/harmonics.ts';
 import { buildChirpCsv, CHIRP_CSV_HEADER, CTCSS_SUBCHANNELS, PRESET_CHIRP_CHANNELS, sanitizeUv5rName } from '../lib/radio/chirpBuilder.ts';
+import {
+  bandwidthAdvantageVsSsbDb,
+  modeSnrDb,
+  sdrAdcDynamicRangeDb,
+  sdrDecimationGainDb,
+  sdrEffectiveDynamicRangeDb,
+  shannonCapacityBps,
+  thermalNoiseFloorDbm,
+} from '../lib/radio/sdrSnr.ts';
 import { sample, spectrum } from '../components/radio/widgets/modulation.ts';
 
 const near = (a: number, b: number, tol: number, msg: string) =>
@@ -225,5 +234,15 @@ assert.ok(frsLine, 'canal FRS C01 presente');
 assert.equal(frsLine[5], 'Tone', 'subtono CTCSS en TX para abrir squelch de walkie-talkie');
 assert.equal(frsLine[6], '100.0', 'frecuencia CTCSS 100.0 Hz en columna rToneFreq');
 assert.equal(frsLine[10], 'NFM', 'walkie-talkies UHF operan en FM Narrow (12,5 kHz)');
+
+// Física térmica de ruido, SNR por modo, Shannon-Hartley y rango dinámico SDR.
+near(thermalNoiseFloorDbm(2400, 0), -140.175, 0.01, 'piso de ruido térmico kTB en 2400 Hz a 290 K');
+near(bandwidthAdvantageVsSsbDb(150), 12.041, 0.01, 'CW 150 Hz gana +12,04 dB de piso de ruido frente a SSB 2400 Hz');
+near(bandwidthAdvantageVsSsbDb(50), 16.812, 0.01, 'FT8 50 Hz gana +16,81 dB de piso de ruido frente a SSB 2400 Hz');
+assert.ok(modeSnrDb(-130, 150, 5) > modeSnrDb(-130, 2400, 5), 'a igual señal en antena, CW tiene mayor SNR que SSB');
+near(shannonCapacityBps(2400, 0), 2400, 1e-6, 'con SNR = 0 dB (S/N = 1), capacidad de Shannon C = B');
+near(sdrAdcDynamicRangeDb(8), 49.92, 0.01, 'RTL-SDR 8 bits DR ≈ 49,92 dB');
+near(sdrDecimationGainDb(2.4e6, 2400), 30, 0.01, 'diezmado I/Q de 2,4 MS/s a 2,4 kHz suma +30 dB de ganancia de procesado');
+near(sdrEffectiveDynamicRangeDb(8, 2.4e6, 2400), 79.92, 0.01, 'DR efectivo RTL-SDR 8b en 2,4 kHz ≈ 79,92 dB');
 
 console.log(`All radio self-tests passed (${QUIZ.length} propias, ${BANK_TECNICA.length} técnicas, ${OFFICIAL_RULES.length} reglamento oficial)`);
