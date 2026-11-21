@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import { PageIntro } from '@/components/ui/PageIntro';
+import { RadioCourseNavigation } from '@/components/radio-basics/RadioCourseNavigation';
+import courseStyles from '@/components/radio-basics/radioCourse.module.css';
 import { CHAPTERS } from '@/lib/radio/chapters';
 import { SpanishOnlyNotice } from './SpanishOnlyNotice';
 import { LicenseLadder } from './LicenseLadder';
@@ -31,7 +33,7 @@ const TOOLS = [
 export function RadioLanding({ locale }: { locale: string }) {
   const base = `/${locale}/radio`;
   return (
-    <main className={styles.page} lang="es">
+    <main className={courseStyles.page} lang="es">
       <RadioSubNav />
       <PageIntro
         eyebrow={<Link href={base}>← Índice del curso · Guía de Argentina</Link>}
@@ -41,54 +43,59 @@ export function RadioLanding({ locale }: { locale: string }) {
         compact
       />
       {locale !== 'es' ? <SpanishOnlyNotice /> : null}
-      <p className={landing.lead}>
-        <a href="/downloads/radio/guia-radioaficionado-novicio.pdf" download className={landing.pdf}>⬇ Descargar la guía completa en PDF</a>
-        {' '}Bloques A a D con diagramas, fórmulas, ejemplos y el banco de preguntas con respuestas.
-        {' '}También podés <Link href={`${base}/imprimir`}>verla en una sola página para imprimir</Link>.
-      </p>
+      <div className={courseStyles.shell} data-wide="true">
+        <RadioCourseNavigation page="programa" />
+        <div className={courseStyles.reading}>
+          <p className={landing.lead}>
+            <a href="/downloads/radio/guia-radioaficionado-novicio.pdf" download className={landing.pdf}>⬇ Descargar la guía completa en PDF</a>
+            {' '}Bloques A a D con diagramas, fórmulas, ejemplos y el banco de preguntas con respuestas.
+            {' '}También podés <Link href={`${base}/imprimir`}>verla en una sola página para imprimir</Link>.
+          </p>
 
-      <section className={landing.block}>
-        <h2>El camino: una categoría a la vez</h2>
-        <p className={landing.lead}>Las categorías no son temarios distintos: las materias son las mismas, pero cada escalón pide años de actividad, más Morse y habilita más potencia y bandas. La guía arranca por Novicio, que es la base de todo.</p>
-        <LicenseLadder />
-      </section>
+          <section className={landing.block}>
+            <h2>El camino: una categoría a la vez</h2>
+            <p className={landing.lead}>Las categorías no son temarios distintos: las materias son las mismas, pero cada escalón pide años de actividad, más Morse y habilita más potencia y bandas. La guía arranca por Novicio, que es la base de todo.</p>
+            <LicenseLadder />
+          </section>
 
-      <section className={landing.block}>
-        <h2>Novicio: el temario</h2>
-        <div className={landing.grid}>
-          {CHAPTERS.map((c) => (
-            <Link key={c.slug} href={`${base}/${c.slug}`} className={landing.card}>
-              <span className={landing.code}>{c.code}</span>
-              <strong>{c.title}</strong>
-              <span>{c.summary}</span>
-              <span className={landing.count}>{c.sections.length} temas</span>
-            </Link>
-          ))}
+          <section className={landing.block}>
+            <h2>Novicio: el temario</h2>
+            <div className={landing.grid}>
+              {CHAPTERS.map((c) => (
+                <Link key={c.slug} href={`${base}/${c.slug}`} className={landing.card}>
+                  <span className={landing.code}>{c.code}</span>
+                  <strong>{c.title}</strong>
+                  <span>{c.summary}</span>
+                  <span className={landing.count}>{c.sections.length} temas</span>
+                </Link>
+              ))}
+            </div>
+          </section>
+
+          <section className={landing.block}>
+            <h2>Programa oficial de ENACOM, punto por punto</h2>
+            <p className={landing.lead}>Cada tema del Programa Básico de Estudios y la sección de la guía que lo explica.</p>
+            <ProgramMap base={base} />
+          </section>
+
+          <section className={landing.block}>
+            <h2>Herramientas</h2>
+            <div className={landing.tools}>
+              {TOOLS.map((t) => (
+                <Link key={t.href} href={`${base}/${t.href}`} className={landing.tool}>
+                  <span className={styles.badge}>{t.badge}</span>{t.label}
+                </Link>
+              ))}
+            </div>
+          </section>
+
+          <section className={landing.block}>
+            <h2>Cómo sacar la licencia</h2>
+            <LicenseSteps className={landing.steps} />
+            <Callout tone="info"><p>Fuentes: {SOURCES_TEXT}</p></Callout>
+          </section>
         </div>
-      </section>
-
-      <section className={landing.block}>
-        <h2>Programa oficial de ENACOM, punto por punto</h2>
-        <p className={landing.lead}>Cada tema del Programa Básico de Estudios y la sección de la guía que lo explica.</p>
-        <ProgramMap base={base} />
-      </section>
-
-      <section className={landing.block}>
-        <h2>Herramientas</h2>
-        <div className={landing.tools}>
-          {TOOLS.map((t) => (
-            <Link key={t.href} href={`${base}/${t.href}`} className={landing.tool}>
-              <span className={styles.badge}>{t.badge}</span>{t.label}
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className={landing.block}>
-        <h2>Cómo sacar la licencia</h2>
-        <LicenseSteps className={landing.steps} />
-        <Callout tone="info"><p>Fuentes: {SOURCES_TEXT}</p></Callout>
-      </section>
+      </div>
     </main>
   );
 }

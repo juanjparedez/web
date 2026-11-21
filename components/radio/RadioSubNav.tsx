@@ -111,10 +111,10 @@ export function RadioSubNav() {
 
   const items = [
     { href: base, label: 'Fundamentos', badge: '12', exact: true },
+    { href: `${base}/morse`, label: 'Consola Morse', badge: 'CW' },
     { href: `${base}/instrumentos`, label: 'Instrumentos (Multímetro)', badge: 'DMM' },
     { href: `${base}/lecciones/laboratory`, label: 'Laboratorio', badge: 'DC' },
     { href: `${base}/tutoriales`, label: 'Tutoriales y Equipos', badge: 'UV-5R' },
-    { href: `${base}/morse`, label: 'Consola Morse', badge: 'CW' },
     { href: `${base}/lecciones/bands`, label: 'Espectro y Bandas', badge: 'RF' },
     { href: `${base}/programa`, label: 'Programa ENACOM', badge: 'LU' },
     { href: `${base}/lecciones/glossary`, label: 'Glosario y SDR', badge: 'DSP' },

@@ -36,20 +36,37 @@ export function RadioBasicsTool() {
   useLegacyCourseLinks();
   return (
     <div className={styles.home} data-testid="radio-course-home">
+      <section aria-labelledby="radio-stations-title">
+        <div className={styles.stationsHeader}>
+          <span className={styles.hubBadge}>ACCESO DIRECTO · ESTACIONES Y TALLER</span>
+          <h2 id="radio-stations-title">Consola Morse, Equipos, Instrumentos y Programa Oficial</h2>
+          <p>Entrá directo a practicar Código Morse con audio y ruido QRN, configurar tu Baofeng UV-5R, usar el multímetro o explorar las bandas.</p>
+        </div>
+        <div className={styles.hubGrid} data-testid="radio-hub-entities">
+          {radioModules.map((entity) => {
+            const isMorse = entity.id === 'radio-morse-console';
+            return (
+              <Link
+                key={entity.id}
+                href={`/${locale}${entity.href}`}
+                className={`${styles.hubCard} ${isMorse ? styles.hubCardHighlight : ''}`}
+              >
+                <span className={styles.hubBadge}>{entity.badge}</span>
+                <h3>{entity.id === 'radio-enacom-program' ? t('programLink') : entity.title}</h3>
+                <p>{entity.summary}</p>
+                <span className={styles.hubCta}>
+                  {isMorse ? '▶ Abrir Consola Morse (CW) →' : 'Abrir sección →'}
+                </span>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
       <div className={styles.homeIntro}>
         <h2>{t('hubTitle')}</h2>
         <p>{t('hubIntro')}</p>
         <Button type="primary" size="large" onClick={() => router.push('/' + locale + radioPagePath('voltage'))}>{t('start')}</Button>
       </div>
-      <section aria-label="Módulos de radioaficionado" className={styles.hubGrid} data-testid="radio-hub-entities">
-        {radioModules.map((entity) => (
-          <Link key={entity.id} href={`/${locale}${entity.href}`} className={styles.hubCard}>
-            <span className={styles.hubBadge}>{entity.badge}</span>
-            <h3>{entity.id === 'radio-enacom-program' ? t('programLink') : entity.title}</h3>
-            <p>{entity.summary}</p>
-          </Link>
-        ))}
-      </section>
       <section aria-labelledby="radio-lessons-title">
         <h2 id="radio-lessons-title">{t('lessonsLabel')}</h2>
         <ol className={styles.lessonList} data-testid="radio-lesson-list">

@@ -75,6 +75,24 @@ export function SignalLesson({ topic }: { topic: Topic }) {
   const dual = DUAL_APPROACH[topic];
   return (
     <section>
+      {topic === 'morse' ? (
+        <div className={styles.worked} data-testid="morse-console-callout" style={{ marginBottom: 24, borderColor: 'var(--accent-2-text)' }}>
+          <h2>★ Consola Interactiva de Código Morse (CW): Audio, Transmisión, Traductor y Koch</h2>
+          <p>
+            Esta página explica los fundamentos físicos del tiempo de punto y el ancho de banda en CW. Para practicar
+            con sonido real, control global de ruido QRN, manipulador (llave o paletas), traductor y recepción Koch,
+            entrá directo a la consola completa:
+          </p>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginTop: 12 }}>
+            <Link href={`/${locale}/radio/morse#transmision`} style={{ fontWeight: 700, color: 'var(--accent-2-text)' }}>
+              ▶ {t('link')} (Consola CW Completa) →
+            </Link>
+            <Link href={`/${locale}/radio/morse#alfabeto`}>2 · Alfabeto Sonoro ITU →</Link>
+            <Link href={`/${locale}/radio/morse#traductor`}>3 · Traductor Texto ↔ Morse →</Link>
+            <Link href={`/${locale}/radio/morse#entrenador`}>4 · Entrenador Koch →</Link>
+          </div>
+        </div>
+      ) : null}
       <p>{t('definition')}</p>
       <SignalFigure topic={topic} caption={t('caption')} />
       <div className={styles.worked}>
@@ -93,7 +111,6 @@ export function SignalLesson({ topic }: { topic: Topic }) {
       {topic === 'morse' && <MorseBranches />}
       {topic === 'waves' && <Link href={`/${locale}/radio/a-electricidad#alterna`}>{t('link')}</Link>}
       {topic === 'propagation' && <Link href={`/${locale}/radio/lecciones/bands`}>{t('link')}</Link>}
-      {topic === 'morse' && <Link href={`/${locale}/radio/morse#transmision`}>{t('link')}</Link>}
     </section>
   );
 }
