@@ -2,6 +2,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { translatedMetadata } from '@/lib/seo-metadata';
 import { PageIntro } from '@/components/ui/PageIntro';
 import { RadioBasicsTool } from '@/components/radio-basics/RadioBasicsTool';
+import { RadioSubNav } from '@/components/radio/RadioSubNav';
 import styles from '@/components/radio-basics/radioCourse.module.css';
 
 // Fully static: prerenderizada por locale y servida del static-assets cache.
@@ -24,6 +25,7 @@ export default async function RadioPage({ params }: PageProps) {
   const course = await getTranslations({ locale, namespace: 'RadioCourse' });
   return (
     <main className={styles.page}>
+      <RadioSubNav />
       <PageIntro eyebrow={course('eyebrow')} title={t('title')} description={t('description')} area="knowledge" compact />
       <RadioBasicsTool />
     </main>

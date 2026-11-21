@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { ArrowRightOutlined, ArrowDownOutlined, CustomerServiceOutlined } from '@ant-design/icons';
+import { ArrowRightOutlined, ArrowDownOutlined, WifiOutlined } from '@ant-design/icons';
 import { LabShowcase } from './LabShowcase';
 import { useLocale, useTranslations } from 'next-intl';
 import styles from './heroSection.module.css';
@@ -58,7 +58,7 @@ function HeroCopy() {
   const locale = useLocale();
   const t = useTranslations('Hero');
   const lab = useTranslations('Landing');
-  const packs = useTranslations('Workbench.packs');
+  const sec = useTranslations('Header.sections');
   return (
     <div className={styles.content}>
       <span className={styles.eyebrow}>
@@ -81,8 +81,8 @@ function HeroCopy() {
         <Link href={`/${locale}#projects`} className={styles.secondary}>
           {t('secondary')} <ArrowDownOutlined />
         </Link>
-        <Link href={`/${locale}/composer`} className={styles.studioPill}>
-          <CustomerServiceOutlined /> {packs('chiptune.title')}
+        <Link href={`/${locale}/radio`} className={styles.studioPill}>
+          <WifiOutlined /> {sec('radio')}
         </Link>
       </div>
 

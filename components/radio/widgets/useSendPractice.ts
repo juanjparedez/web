@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { ditMs, morseToText, textToMorse } from '@/lib/radio/codes';
 import { playMorse } from './morseAudio';
-import { tuneOscillator } from './morseSound';
+import { registerActiveMorse, tuneOscillator } from './morseSound';
 import { MorseKeyer } from './morseKeyer';
 
 type Phase = 'idle' | 'listen' | 'send' | 'correct' | 'retry' | 'audioError';
@@ -63,7 +63,8 @@ export function useSendPractice() {
         setPhase(decoded === word ? 'correct' : 'retry');
       });
       let stopPrompt: (() => void) | undefined;
-      cleanup.current = () => { stopPrompt?.(); input.stop(); untune(); void ctx.close(); };
+      const unregister = registerActiveMorse(() => reset(), `Transmisión CW (${word})`);
+      cleanup.current = () => { unregister(); stopPrompt?.(); input.stop(); untune(); void ctx.close(); };
       const failed = () => { if (id === generation.current) { reset(); setPhase('audioError'); } };
       void ctx.resume().then(() => {
         if (id !== generation.current) return;

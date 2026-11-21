@@ -17,7 +17,7 @@ export function useDiscoveryCatalog() {
   const [usage, setUsage] = useState(EMPTY_USAGE);
   const favorites = useWorkspaceFavorites();
   useEffect(() => { setUsage(readUsage()); }, []);
-  const entries = useMemo(() => workbenchTools.filter(tool => !tool.external).map(tool => ({
+  const entries = useMemo(() => workbenchTools.map(tool => ({
     ...tool, label: packs(`${tool.id}.title`), hint: packs(`${tool.id}.description`),
     keywords: `${t(`activities.${activityFor(tool)}`)} ${toolAliases[tool.id] ?? ''}`,
   })), [packs, t]);

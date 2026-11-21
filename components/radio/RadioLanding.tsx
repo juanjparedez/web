@@ -6,6 +6,7 @@ import { LicenseLadder } from './LicenseLadder';
 import { ProgramMap } from './ProgramMap';
 import { LicenseSteps, SOURCES_TEXT } from './LicenseSteps';
 import { Callout } from './ui/Prose';
+import { RadioSubNav } from './RadioSubNav';
 import landing from './landing.module.css';
 import styles from './radio.module.css';
 
@@ -30,6 +31,7 @@ export function RadioLanding({ locale }: { locale: string }) {
   const base = `/${locale}/radio`;
   return (
     <main className={styles.page} lang="es">
+      <RadioSubNav />
       <PageIntro
         eyebrow={<Link href={base}>← Índice del curso · Guía de Argentina</Link>}
         title="Radioaficionado, de cero a la licencia"

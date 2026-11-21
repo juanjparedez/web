@@ -159,3 +159,26 @@ test('the signal lessons lead from wave size to range and Morse timing', async (
   await lesson.getByRole('button', { name: 'Volver al inicio' }).click();
   await expect(lesson.getByRole('button', { name: 'Escuchar' })).toBeDisabled();
 });
+
+test('radio sub-navigation connects tutorials, global Morse console and free vs licensed spectrum', async ({ page }) => {
+  await page.goto(COURSE);
+  const subnav = page.getByTestId('radio-subnav');
+  await expect(subnav).toBeVisible();
+  await subnav.getByRole('link', { name: /Tutoriales y Equipos/ }).click();
+  await expect(page).toHaveURL(`${COURSE}/tutoriales`);
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Baofeng UV-5R');
+  await expect(page.getByText(/Duplex = off/).first()).toBeVisible();
+  for (const width of [320, 390, 768, 1280]) {
+    await page.setViewportSize({ width, height: 844 });
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  }
+  await page.getByTestId('radio-subnav').getByRole('link', { name: /Consola Morse/ }).click();
+  await expect(page).toHaveURL(`${COURSE}/morse`);
+  const morseConsole = page.getByTestId('morse-global-console');
+  await expect(morseConsole).toBeVisible();
+  await morseConsole.getByRole('button', { name: /3 · Traductor CW/ }).click();
+  await expect(page.locator('#traductor')).toBeVisible();
+  await expect(page.locator('#transmision')).toBeHidden();
+  await morseConsole.getByRole('button', { name: /Vista completa/ }).click();
+  await expect(page.locator('#transmision')).toBeVisible();
+});

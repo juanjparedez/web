@@ -11,7 +11,7 @@ import { DiscoveryCatalog } from './DiscoveryCatalog';
 import { WorkspaceAccess } from './WorkspaceAccess';
 import styles from './workbench.module.css';
 
-const visibleTools = workbenchTools.filter((tool) => !tool.external);
+const visibleTools = workbenchTools;
 
 export function WorkbenchLanding() {
   const locale = useLocale();

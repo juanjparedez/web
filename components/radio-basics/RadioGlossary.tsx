@@ -1,8 +1,9 @@
 'use client';
 
+import Link from 'next/link';
 import { Button, Input, Pagination, Select } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { glossaryCategories, glossarySources, type GlossaryCategory } from '@/lib/radio/glossary';
 import { GLOSSARY_PAGE_SIZE, useRadioGlossary } from './useRadioGlossary';
 import { GlossaryEntry } from './GlossaryEntry';
@@ -36,8 +37,29 @@ function GlossaryControls({ glossary }: { glossary: ReturnType<typeof useRadioGl
 
 function GlossaryNotes() {
   const t = useTranslations('RadioGlossary');
+  const locale = useLocale();
+  const tools = [
+    { href: `/${locale}/radio/lecciones/laboratory`, label: 'Laboratorio DC (Ohm y Kirchhoff)' },
+    { href: `/${locale}/calculators`, label: 'Calculadoras RCL, Filtros y Decibeles' },
+    { href: `/${locale}/radio/a-electricidad#resonancia`, label: 'Simulador de Resonancia LC y Factor Q' },
+    { href: `/${locale}/radio/a-electricidad#filtros`, label: 'Simulador de Filtros Pasabajo y Armónicas (dBc)' },
+    { href: `/${locale}/radio/b-modulacion-equipos#modulacion`, label: 'Osciloscopio de Modulación (CW, AM, FM, USB)' },
+    { href: `/${locale}/workbench/qpsk-modulator`, label: 'Modulador Digital en Cuadratura (QPSK / I-Q)' },
+    { href: `/${locale}/radio/c-antenas-propagacion#roe`, label: 'Simulador de Ondas Estacionarias (ROE / Γ)' },
+    { href: `/${locale}/radio/c-antenas-propagacion#antenas`, label: 'Calculadora Física de Antenas' },
+    { href: `/${locale}/radio/morse`, label: 'Consola Unificada de Código Morse (CW)' },
+    { href: `/${locale}/radio/tutoriales`, label: 'Tutoriales: Baofeng UV-5R (RX-Only / CHIRP)' },
+  ];
   return (
     <aside className={styles.notes}>
+      <h3>Instrumentos y Simuladores Vinculados al Glosario</h3>
+      <div className={styles.related}>
+        {tools.map((item) => (
+          <Link key={item.href} href={item.href} className={styles.toolLink}>
+            {item.label}
+          </Link>
+        ))}
+      </div>
       <p>{t('qNote')}</p>
       <p>{t('bandNote')}</p>
       <a href={glossarySources.enacom.href} target="_blank" rel="noreferrer">{t('bandRules')}</a>

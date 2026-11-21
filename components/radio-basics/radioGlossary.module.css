@@ -18,6 +18,8 @@
 .example strong { font-weight: 500; }
 .entryFooter { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; justify-content: space-between; }
 .entryFooter a { font-size: .875rem; overflow-wrap: anywhere; }
+.toolLink { display: inline-flex; align-items: center; padding: 4px 10px; border-radius: 6px; font-size: .82rem; font-weight: 600; color: var(--accent-2-text); background: rgba(8, 145, 178, 0.14); border: 1px solid rgba(34, 211, 238, 0.35); text-decoration: none; }
+.toolLink:hover { background: rgba(8, 145, 178, 0.25); }
 .related { display: flex; flex-wrap: wrap; gap: 8px; }
 .related :global(.ant-btn) { height: auto; min-height: 32px; white-space: normal; }
 .pagination { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; align-items: center; padding: 24px 0; }

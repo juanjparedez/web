@@ -1,0 +1,111 @@
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 16px;
+  padding: 10px 16px;
+  margin: 0 auto 24px;
+  max-width: 1180px;
+  border-radius: 12px;
+  background: var(--hios-surface-1, rgba(15, 23, 42, 0.72));
+  border: 1px solid var(--hios-border, rgba(148, 163, 184, 0.22));
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 11px;
+  border-radius: 8px;
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: var(--hios-text-secondary, #cbd5e1);
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.link:hover {
+  color: var(--hios-text-primary, #f8fafc);
+  background: rgba(56, 189, 248, 0.08);
+}
+
+.linkActive {
+  color: var(--hios-text-primary, #f8fafc);
+  background: rgba(8, 145, 178, 0.18);
+  border-color: rgba(34, 211, 238, 0.45);
+  font-weight: 600;
+}
+
+.badge {
+  font-family: var(--font-stack-mono, monospace);
+  font-size: 0.7rem;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: rgba(148, 163, 184, 0.16);
+  color: var(--hios-text-primary, #e2e8f0);
+}
+
+.offlineBox {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.offlineBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 11px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: rgba(15, 118, 110, 0.2);
+  color: var(--hios-text-primary, #f8fafc);
+  border: 1px solid rgba(45, 212, 191, 0.4);
+}
+
+.offlineBtn:hover:not(:disabled) {
+  background: rgba(15, 118, 110, 0.32);
+}
+
+.offlineBtn:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.clearBtn {
+  padding: 5px 9px;
+  border-radius: 7px;
+  font-size: 0.76rem;
+  cursor: pointer;
+  background: transparent;
+  color: var(--hios-text-muted, #94a3b8);
+  border: 1px solid var(--hios-border, rgba(148, 163, 184, 0.28));
+}
+
+.statusText {
+  font-size: 0.75rem;
+  color: var(--hios-text-muted, #94a3b8);
+}
+
+@media (max-width: 640px) {
+  .bar {
+    padding: 8px 10px;
+    margin-bottom: 16px;
+  }
+  .link {
+    padding: 5px 8px;
+    font-size: 0.8rem;
+  }
+}

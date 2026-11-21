@@ -17,6 +17,12 @@
 .future { padding-top: 24px; border-top: 1px solid var(--hios-border); }
 .future h2 { font-size: 1.125rem; }
 .future p { font-size: .9375rem; }
+.hubGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; margin-bottom: 36px; }
+.hubCard { display: flex; flex-direction: column; gap: 6px; padding: 16px 18px; border-radius: 12px; border: 1px solid var(--hios-border); background: var(--hios-bg-secondary, rgba(15, 23, 42, 0.55)); color: var(--hios-text); text-decoration: none; transition: border-color 0.15s ease, transform 0.15s ease; }
+.hubCard:hover { border-color: var(--accent-2-text, #22d3ee); transform: translateY(-1px); }
+.hubBadge { font-family: var(--font-stack-mono); font-size: 0.72rem; color: var(--accent-2-text, #22d3ee); text-transform: uppercase; letter-spacing: 0.05em; }
+.hubCard h3 { margin: 0; font-size: 1.05rem; color: var(--hios-text); }
+.hubCard p { font-size: 0.88rem; line-height: 1.55; }
 .page { width: 100%; max-width: 1460px; margin: 0 auto; padding: 28px 24px 56px; }
 .shell { --lesson-cyan: var(--accent-2-text); display: grid; grid-template-columns: 210px minmax(0, 1fr); gap: clamp(24px, 4vw, 64px); margin-top: 28px; font-size: 1rem; line-height: 1.75; color: var(--hios-text); }
 .sidebar { position: sticky; top: 96px; align-self: start; min-width: 0; }

@@ -12,9 +12,9 @@ const ALL_TOOLS = workbenchTools.filter((tool) => !tool.external);
 
 // Highlight the latest AI tools and a few core ones to reflect the new platform reality
 const HIGHLIGHTED_IDS = [
-  'chiptune',
-  'beatmaker',
   'qpsk-modulator',
+  'serial-monitor',
+  'resistor-color-code',
   'esp32-llm-bridge',
   'llm-vram-calc',
   'token-inspector',

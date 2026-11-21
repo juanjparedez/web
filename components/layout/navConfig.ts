@@ -41,37 +41,44 @@ export function useNavGroups(): NavGroupConfig[] {
 
   return [
     {
-      id: 'workbench',
-      kicker: '01 / WORKBENCH',
-      label: t('workbench'),
-      items: [
-        { href: `/${locale}/workbench`, label: t('workbench'), badge: 'LAB' },
-        { href: `/${locale}/explore`, label: ws('explore'), badge: 'CAT' },
-        { href: `/${locale}/workbench/spaces`, label: ws('mySpaces'), badge: 'SYNC', desktopDirect: true },
-        { href: `/${locale}/calculators`, label: sec('calculators'), badge: 'RCL' },
-        { href: `/${locale}/composer`, label: sec('composer'), badge: '8-BIT' },
-      ],
-    },
-    {
       id: 'hardware',
-      kicker: '02 / HARDWARE',
+      kicker: '01 / HARDWARE & MAKER',
       label: t('projects'),
       items: [
-        { href: `/${locale}/projects`, label: t('projects'), badge: 'PCB' },
-        { href: `/${locale}/radio`, label: sec('radio'), badge: 'HAM' },
-        { href: `/${locale}/pinouts`, label: sec('pinouts'), badge: 'GPIO' },
+        { href: `/${locale}/projects`, label: t('projects'), badge: 'PCB', desktopDirect: true },
+        { href: `/${locale}/pinouts`, label: sec('pinouts'), badge: 'GPIO', desktopDirect: true },
         { href: `/${locale}/prints`, label: sec('maker'), badge: '3D' },
       ],
     },
     {
+      id: 'radio',
+      kicker: '02 / RADIO & RF',
+      label: sec('radio'),
+      items: [
+        { href: `/${locale}/radio`, label: sec('radio'), badge: 'HAM', desktopDirect: true },
+      ],
+    },
+    {
+      id: 'workbench',
+      kicker: '03 / WORKBENCH & LAB',
+      label: t('workbench'),
+      items: [
+        { href: `/${locale}/workbench`, label: t('workbench'), badge: 'LAB', desktopDirect: true },
+        { href: `/${locale}/calculators`, label: sec('calculators'), badge: 'RCL', desktopDirect: true },
+        { href: `/${locale}/composer`, label: sec('composer'), badge: '8-BIT' },
+        { href: `/${locale}/explore`, label: ws('explore'), badge: 'CAT' },
+      ],
+    },
+    {
       id: 'more',
-      kicker: '03 / PLATAFORMA',
+      kicker: '04 / BITÁCORA & ARCHIVO',
       label: sec('label'),
       items: [
         { href: `/${locale}/blog`, label: sec('devlog'), badge: 'DOCS', desktopDirect: true },
+        { href: `/${locale}/workbench/spaces`, label: ws('mySpaces'), badge: 'SYNC' },
         { href: `/${locale}/tools`, label: sec('software'), badge: 'STACK' },
-        { href: `/${locale}/guestbook`, label: sec('guestbook'), badge: 'LOG' },
         { href: `/${locale}/stats`, label: sec('stats'), badge: 'DATA' },
+        { href: `/${locale}/guestbook`, label: sec('guestbook'), badge: 'LOG' },
         { href: `/${locale}/colophon`, label: sec('about'), badge: 'INFO' },
       ],
     },

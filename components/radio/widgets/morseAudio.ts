@@ -2,7 +2,7 @@
 
 import { ditMs } from '@/lib/radio/codes';
 
-import { receiverNoise, tuneOscillator } from './morseSound';
+import { receiverNoise, registerActiveMorse, tuneOscillator } from './morseSound';
 
 export interface MorseTiming { wpm: number; farnsworth: number }
 
@@ -67,14 +67,20 @@ export function playMorse(code: string, timing: MorseTiming, onLetter?: (index: 
   osc.start(start);
   osc.stop(at + 0.1);
   let finished = false;
+  let unregister: (() => void) | undefined;
   function finish() {
     if (finished) return;
     finished = true;
+    unregister?.();
     timers.forEach(t => window.clearTimeout(t));
     untune(); stopNoise();
-    osc.stop(); osc.disconnect(); gain.disconnect();
+    try { osc.stop(); } catch { /* already stopped */ }
+    osc.disconnect(); gain.disconnect();
     if (!monitor) void ctx.close();
     onEnd?.();
+  }
+  if (!monitor) {
+    unregister = registerActiveMorse(finish, 'Reproductor CW');
   }
   timers.push(window.setTimeout(finish, (at - ctx.currentTime) * 1000 + 150));
   return finish;

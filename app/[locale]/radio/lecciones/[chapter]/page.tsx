@@ -5,6 +5,7 @@ import { radioPages, isRadioPageId, radioPagePath, radioCoursePath } from '@/con
 import { PageTrail } from '@/components/seo/PageTrail';
 import { RadioCourseShell } from '@/components/radio-basics/RadioCourseShell';
 import { RadioLessonContent } from '@/components/radio-basics/RadioLessonContent';
+import { RadioSubNav } from '@/components/radio/RadioSubNav';
 import styles from '@/components/radio-basics/radioCourse.module.css';
 
 interface Props { params: Promise<{ locale: string; chapter: string }> }
@@ -29,6 +30,7 @@ export default async function RadioCourseLesson({ params }: Props) {
   const title = t(`pages.${chapter}.title`);
   return (
     <main className={styles.page}>
+      <RadioSubNav />
       <PageTrail locale={locale} inContent items={[
         { name: 'HIOS', path: '' },
         { name: t('backToCourse'), path: radioCoursePath },

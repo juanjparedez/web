@@ -5,6 +5,50 @@ const storageKey = 'hios.radio.morse.sound';
 const listeners = new Set<() => void>();
 let current: typeof defaults | undefined;
 
+interface PlaybackState {
+  active: boolean;
+  label: string;
+}
+const defaultPlaybackState: PlaybackState = { active: false, label: '' };
+let playbackState: PlaybackState = defaultPlaybackState;
+let activeStopper: (() => void) | null = null;
+const playbackListeners = new Set<() => void>();
+
+export function defaultPlayback() { return defaultPlaybackState; }
+export function getPlayback() { return playbackState; }
+export function subscribePlayback(notify: () => void) {
+  playbackListeners.add(notify);
+  return () => { playbackListeners.delete(notify); };
+}
+
+export function registerActiveMorse(stop: () => void, label = 'CW') {
+  if (activeStopper && activeStopper !== stop) {
+    const prev = activeStopper;
+    activeStopper = null;
+    prev();
+  }
+  activeStopper = stop;
+  playbackState = { active: true, label };
+  playbackListeners.forEach((notify) => notify());
+  return () => {
+    if (activeStopper === stop) {
+      activeStopper = null;
+      playbackState = defaultPlaybackState;
+      playbackListeners.forEach((notify) => notify());
+    }
+  };
+}
+
+export function stopAllMorse() {
+  if (activeStopper) {
+    const stop = activeStopper;
+    activeStopper = null;
+    playbackState = defaultPlaybackState;
+    playbackListeners.forEach((notify) => notify());
+    stop();
+  }
+}
+
 export function defaultSound() { return defaults; }
 
 export function getSound() {

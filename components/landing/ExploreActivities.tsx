@@ -15,14 +15,14 @@ const journeys = {
     ['tool:json-schema', '/workbench/json-schema', 'JSON Schema'],
   ],
   maker: [
-    ['project:pad', '/projects/pad', 'HIOS PAD'],
     ['pinout:pad', '/pinouts/pad', 'Pinout'],
+    ['page:calculators', '/calculators', 'RCL'],
     ['tool:ohms-law', '/workbench/ohms-law', 'Ohm'],
   ],
   audio: [
     ['tool:chiptune', '/workbench/chiptune', 'Chiptune'],
-    ['tool:beatmaker', '/workbench/beatmaker', 'Beatmaker'],
     ['tool:guitar-tuner', '/workbench/guitar-tuner', 'Tuner'],
+    ['tool:spectrum-analyzer', '/workbench/spectrum-analyzer', 'Spectrum'],
   ],
   ai: [
     ['tool:llm-vram-calc', '/workbench/llm-vram-calc', 'VRAM'],
@@ -30,8 +30,8 @@ const journeys = {
     ['tool:esp32-llm-bridge', '/workbench/esp32-llm-bridge', 'ESP32'],
   ],
   knowledge: [
+    ['tool:radio-basics', '/radio', 'Radio'],
     ['page:blog', '/blog', 'Devlog'],
-    ['tool:notes', '/workbench/notes', 'Markdown'],
     ['page:prints', '/prints', 'Maker'],
   ],
   software: [

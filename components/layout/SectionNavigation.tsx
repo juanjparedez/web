@@ -15,7 +15,7 @@ export function DesktopHeaderNav() {
   const pathname = usePathname();
   const t = useTranslations('Header');
   const sec = useTranslations('Header.sections');
-  const ws = useTranslations('Workspace');
+  const groups = useNavGroups();
   const [open, setOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
 
@@ -39,28 +39,13 @@ export function DesktopHeaderNav() {
     };
   }, [open]);
 
-  const directLinks = [
-    { href: `/${locale}/workbench`, label: t('workbench') },
-    { href: `/${locale}/projects`, label: t('projects') },
-    { href: `/${locale}/radio`, label: sec('radio') },
-    { href: `/${locale}/pinouts`, label: sec('pinouts') },
-    { href: `/${locale}/calculators`, label: sec('calculators') },
-    { href: `/${locale}/blog`, label: sec('devlog') },
-  ];
-
-  const labItems = [
-    { href: `/${locale}/explore`, label: ws('explore') },
-    { href: `/${locale}/prints`, label: sec('maker') },
-    { href: `/${locale}/composer`, label: sec('composer') },
-    { href: `/${locale}/tools`, label: sec('software') },
-  ];
-
-  const systemItems = [
-    { href: `/${locale}/workbench/spaces`, label: ws('mySpaces') },
-    { href: `/${locale}/stats`, label: sec('stats') },
-    { href: `/${locale}/guestbook`, label: sec('guestbook') },
-    { href: `/${locale}/colophon`, label: sec('about') },
-  ];
+  const directLinks = groups.flatMap((group) => group.items.filter((item) => item.desktopDirect));
+  const labItems = groups
+    .filter((group) => group.id !== 'more')
+    .flatMap((group) => group.items.filter((item) => !item.desktopDirect));
+  const systemItems = groups
+    .filter((group) => group.id === 'more')
+    .flatMap((group) => group.items.filter((item) => !item.desktopDirect));
 
   const allDropdownItems = [...labItems, ...systemItems];
   const hasActiveDropdown = allDropdownItems.some((i) => isRouteActive(pathname, i.href, locale));

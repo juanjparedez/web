@@ -3,6 +3,7 @@ import { PageIntro } from '@/components/ui/PageIntro';
 import { chapterNeighbors, type Chapter } from '@/lib/radio/chapters';
 import { CHAPTER_BODIES } from './chapterBodies';
 import { SpanishOnlyNotice } from './SpanishOnlyNotice';
+import { RadioSubNav } from './RadioSubNav';
 import styles from './radio.module.css';
 
 export function ChapterView({ chapter, locale }: { chapter: Chapter; locale: string }) {
@@ -12,6 +13,7 @@ export function ChapterView({ chapter, locale }: { chapter: Chapter; locale: str
   const parts = CHAPTER_BODIES[chapter.slug] ?? [];
   return (
     <main className={styles.page} lang="es">
+      <RadioSubNav />
       <PageIntro
         eyebrow={<Link href={index} style={{ color: 'inherit' }}>Radioaficionado · Novicio</Link>}
         title={`${chapter.code.length === 1 ? `Bloque ${chapter.code}: ` : ''}${chapter.title}`}
