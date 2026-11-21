@@ -42,6 +42,17 @@ export function OhmSection({ showTitle = true }: { showTitle?: boolean }) {
         <OhmGraph />
         <figcaption>{t('graphText')}</figcaption>
       </figure>
+      <div className={styles.worked} data-testid="dual-approach-ohm">
+        <h3>Enfoque 1 · Linealidad óhmica vs. dispositivos no lineales de RF</h3>
+        <p>
+          Un resistor metálico a temperatura constante es un componente lineal: su pendiente I/V (conductancia G = 1/R) es fija y no deforma la forma de onda. En cambio, los diodos y transistores tienen curvas I–V no lineales: esa alinealidad es indispensable para mezclar señales (heterodinaje) y detectar envolventes, pero si sobreexcitás un amplificador de RF genera distorsión armónica e intermodulación (IMD).
+        </p>
+        <h3>Enfoque 2 · Ley de Ohm generalizada en AC/RF (Fasores e Impedancia compleja Z)</h3>
+        <p>
+          En corriente alterna de frecuencia f (pulsación ω = 2πf), bobinas y capacitores almacenan energía en campos magnéticos y eléctricos, introduciendo un desfasaje φ entre tensión y corriente. La resistencia R se generaliza a la impedancia compleja Z = R + jX, donde X = XL − XC = ωL − 1/(ωC):
+        </p>
+        <MathLine className={styles.formula}>Z = R + j(ωL − 1/(ωC))   |   |Z| = √(R² + X²) [Ω]   |   φ = arctan(X / R)</MathLine>
+      </div>
     </section>
   );
 }

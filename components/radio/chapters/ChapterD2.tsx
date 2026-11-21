@@ -32,6 +32,7 @@ export function ChapterD2() {
             <li>PIRE máxima: 1 W en 2200 m, 5 W en 630 m, 25 W en 60 m. <Cite>Banco PBN.6–PBN.8</Cite></li>
             <li>Ancho máximo de digimodos: 3 kHz en 160, 80 y 40 m; 16 kHz en 10, 6 y 2 m. <Cite>Banco PBN.10, PBN.11</Cite></li>
             <li>No se transmite en el límite de una banda o tramo: la emisión tiene ancho y quedaría afuera. <Cite>Banco PB.1</Cite></li>
+            <li><strong>Libre vs. Licenciado:</strong> La recepción (RX) es libre, pero transmitir (TX) en estas bandas exige licencia vigente de ENACOM. Los canales de uso libre (PMR/FRS/CB) sólo pueden operarse sin licencia usando equipos canaleros homologados (antena fija y potencia limitada), no con transceptores de radioaficionado de banda corrida. Si ya tenés un handy y estás estudiando, mirá el <a href="tutoriales">Tutorial para programar el Baofeng UV-5R en modo Solo Escucha (RX-Only)</a>.</li>
           </ul>
         </Key>
         <BandPlanTable />
