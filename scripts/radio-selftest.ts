@@ -17,6 +17,7 @@ import { PROGRAM } from '../lib/radio/program.ts';
 import { CHAPTERS } from '../lib/radio/chapters.ts';
 import { EXAM_QUESTIONS, questionsFor, buildMock, MOCK_LAYOUT } from '../lib/radio/exam.ts';
 import { filteredHarmonicsDbc } from '../lib/radio/harmonics.ts';
+import { buildChirpCsv, CHIRP_CSV_HEADER, CTCSS_SUBCHANNELS, PRESET_CHIRP_CHANNELS, sanitizeUv5rName } from '../lib/radio/chirpBuilder.ts';
 import { sample, spectrum } from '../components/radio/widgets/modulation.ts';
 
 const near = (a: number, b: number, tol: number, msg: string) =>
@@ -205,5 +206,24 @@ for (const it of PROGRAM.flatMap((g) => g.items)) {
     assert.ok(CHAPTERS.find((c) => c.slug === slug)?.sections.some((s) => s.id === id), `programa ${it.code} → ${href}`);
   }
 }
+
+// CHIRP builder para Baofeng UV-5R (RX-only y subtonos CTCSS walkie-talkie).
+assert.equal(CTCSS_SUBCHANNELS.length, 38, '38 subcanales CTCSS estándar');
+assert.equal(CTCSS_SUBCHANNELS.find((s) => s.code === 12)?.hz, 100.0, 'Subcanal 12 = 100.0 Hz');
+assert.equal(sanitizeUv5rName('Repetidora Córdoba 1'), 'REPETID', 'LCD UV-5R máx 7 caracteres ASCII');
+const chirpCsv = buildChirpCsv(PRESET_CHIRP_CHANNELS, { forceRxOnly: true, walkieToneHz: 100.0, includeToneOnRx: false });
+const chirpLines = chirpCsv.split('\n');
+assert.equal(chirpLines[0], CHIRP_CSV_HEADER, 'cabecera oficial CHIRP de 18 columnas');
+assert.equal(chirpLines.length, PRESET_CHIRP_CHANNELS.length + 1, 'una fila por memoria CHIRP');
+for (const line of chirpLines.slice(1)) {
+  const cols = line.split(',');
+  assert.equal(cols.length, 18, '18 columnas CHIRP por fila');
+  assert.equal(cols[3], 'off', 'forceRxOnly fuerza Duplex = off en todas las memorias');
+}
+const frsLine = chirpLines.find((l) => l.includes('FRS C01'))?.split(',');
+assert.ok(frsLine, 'canal FRS C01 presente');
+assert.equal(frsLine[5], 'Tone', 'subtono CTCSS en TX para abrir squelch de walkie-talkie');
+assert.equal(frsLine[6], '100.0', 'frecuencia CTCSS 100.0 Hz en columna rToneFreq');
+assert.equal(frsLine[10], 'NFM', 'walkie-talkies UHF operan en FM Narrow (12,5 kHz)');
 
 console.log(`All radio self-tests passed (${QUIZ.length} propias, ${BANK_TECNICA.length} técnicas, ${OFFICIAL_RULES.length} reglamento oficial)`);

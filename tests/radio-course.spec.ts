@@ -168,6 +168,14 @@ test('radio sub-navigation connects tutorials, global Morse console and free vs 
   await expect(page).toHaveURL(`${COURSE}/tutoriales`);
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Baofeng UV-5R');
   await expect(page.getByText(/Duplex = off/).first()).toBeVisible();
+  const builder = page.getByTestId('chirp-csv-builder');
+  await expect(builder).toBeVisible();
+  await builder.getByLabel(/Subcanal de Walkie-Talkie/).selectOption('100');
+  await expect(builder.locator('td').filter({ hasText: '100.0 Hz' }).first()).toBeVisible();
+  await builder.getByLabel(/Nombre en display/).fill('LU TEST');
+  await builder.getByLabel(/Frecuencia \(MHz\)/).fill('145.650');
+  await builder.getByRole('button', { name: /\+ Sumar canal/ }).click();
+  await expect(builder.getByText('LU TEST')).toBeVisible();
   for (const width of [320, 390, 768, 1280]) {
     await page.setViewportSize({ width, height: 844 });
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);

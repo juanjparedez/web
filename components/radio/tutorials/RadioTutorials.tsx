@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useLocale } from 'next-intl';
 import { PageIntro } from '@/components/ui/PageIntro';
 import { RadioSubNav } from '../RadioSubNav';
+import { ChirpBuilder } from './ChirpBuilder';
 import { KeypadMenusSection, RxTemplateSection, WalkieTalkieSection } from './TutorialSections';
 import styles from './radioTutorials.module.css';
 
@@ -33,12 +34,15 @@ export function RadioTutorials() {
       </div>
 
       <nav className={styles.navPills} aria-label="Índice de tutoriales">
+        <a href="#generador-chirp" className={styles.navPill}>⚡ Armador CSV para CHIRP</a>
         <a href="#arquitectura-uv5r" className={styles.navPill}>1. Arquitectura interna del UV-5R</a>
         <a href="#bloqueo-tx-chirp" className={styles.navPill}>2. Bloquear TX por error (CHIRP)</a>
         <a href="#menus-teclado" className={styles.navPill}>3. Menús críticos del equipo</a>
         <a href="#walkie-talkie" className={styles.navPill}>4. Interoperabilidad Walkie-Talkie (FM, CTCSS/DCS)</a>
         <a href="#frecuencias-rx" className={styles.navPill}>5. Tabla de memorias RX para Argentina</a>
       </nav>
+
+      <ChirpBuilder />
 
       <section id="arquitectura-uv5r" className={styles.section}>
         <span className={styles.kicker}>01 / ELECTRÓNICA DE RF DEL HANDY</span>
