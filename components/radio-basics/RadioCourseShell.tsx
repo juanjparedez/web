@@ -30,7 +30,7 @@ export function RadioCourseShell({ page, children }: { page: RadioPageId; childr
   const t = useTranslations('RadioCourse');
   const index = radioLessons.findIndex((lesson) => lesson.id === page);
   return (
-    <div className={styles.shell} data-wide={['laboratory', 'glossary', 'bands'].includes(page)} data-radio-page={page}>
+    <div className={styles.shell} data-wide={['laboratory', 'glossary', 'bands', 'measurement'].includes(page)} data-radio-page={page}>
       <RadioCourseNavigation page={page} />
       <article className={`${styles.reading} ${lessonStyles.content}`}>
         <header className={styles.pageHeader}>

@@ -27,6 +27,7 @@ import {
   shannonCapacityBps,
   thermalNoiseFloorDbm,
 } from '../lib/radio/sdrSnr.ts';
+import { simulateMultimeter } from '../lib/radio/multimeterSim.ts';
 import { sample, spectrum } from '../components/radio/widgets/modulation.ts';
 
 const near = (a: number, b: number, tol: number, msg: string) =>
@@ -244,5 +245,55 @@ near(shannonCapacityBps(2400, 0), 2400, 1e-6, 'con SNR = 0 dB (S/N = 1), capacid
 near(sdrAdcDynamicRangeDb(8), 49.92, 0.01, 'RTL-SDR 8 bits DR ≈ 49,92 dB');
 near(sdrDecimationGainDb(2.4e6, 2400), 30, 0.01, 'diezmado I/Q de 2,4 MS/s a 2,4 kHz suma +30 dB de ganancia de procesado');
 near(sdrEffectiveDynamicRangeDb(8, 2.4e6, 2400), 79.92, 0.01, 'DR efectivo RTL-SDR 8b en 2,4 kHz ≈ 79,92 dB');
+
+// Simulador físico de Multímetro Digital (DMM): bornes, impedancias, fusibles y punta de RF.
+const dmmOkV = simulateMultimeter({
+  scenarioId: 'psu-transceiver',
+  mode: 'dcv',
+  redJack: 'v-ohm',
+  placement: 'parallel',
+  circuitPowered: true,
+});
+assert.equal(dmmOkV.displayMain, '13,80');
+assert.equal(dmmOkV.status, 'ok');
+assert.equal(dmmOkV.fuseBlown, false);
+
+const dmmShort = simulateMultimeter({
+  scenarioId: 'psu-transceiver',
+  mode: 'dcv',
+  redJack: 'ma',
+  placement: 'parallel',
+  circuitPowered: true,
+});
+assert.equal(dmmShort.status, 'danger', 'punta roja en borne mA puesta en paralelo provoca cortocircuito');
+assert.equal(dmmShort.fuseBlown, true);
+
+const dmm10a = simulateMultimeter({
+  scenarioId: 'psu-transceiver',
+  mode: '10a',
+  redJack: '10a',
+  placement: 'series',
+  circuitPowered: true,
+});
+assert.equal(dmm10a.displayMain, '1,50', 'medición de 1,5 A en serie por shunt de 0,01 Ω');
+assert.equal(dmm10a.status, 'ok');
+
+const dmmHighZ = simulateMultimeter({
+  scenarioId: 'high-z-divider',
+  mode: 'dcv',
+  redJack: 'v-ohm',
+  placement: 'parallel',
+  circuitPowered: true,
+});
+assert.equal(dmmHighZ.displayMain, '4,00', 'divisor 10 MΩ / 10 MΩ cargado con R_in = 10 MΩ cae de 6 V a 4 V');
+
+const dmmRf = simulateMultimeter({
+  scenarioId: 'rf-dummy-load',
+  mode: 'dcv',
+  redJack: 'v-ohm',
+  placement: 'parallel',
+  circuitPowered: true,
+});
+assert.equal(dmmRf.displayMain, '22,11', '5 W en 50 Ω → V_p = 22,36 V − 0,25 V Schottky = 22,11 V DC');
 
 console.log(`All radio self-tests passed (${QUIZ.length} propias, ${BANK_TECNICA.length} técnicas, ${OFFICIAL_RULES.length} reglamento oficial)`);

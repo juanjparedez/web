@@ -189,6 +189,17 @@ test('radio sub-navigation connects tutorials, global Morse console and free vs 
   await expect(page.locator('#transmision')).toBeHidden();
   await morseConsole.getByRole('button', { name: /Vista completa/ }).click();
   await expect(page.locator('#transmision')).toBeVisible();
+
+  await page.getByTestId('radio-subnav').getByRole('link', { name: /Instrumentos \(Multímetro\)/ }).click();
+  await expect(page).toHaveURL(`${COURSE}/instrumentos`);
+  await expect(page.getByTestId('radio-sidebar')).toBeVisible();
+  const dmm = page.getByTestId('multimeter-lab');
+  await expect(dmm).toBeVisible();
+  await expect(dmm.getByTestId('multimeter-digits')).toHaveText('13,80');
+  await dmm.getByRole('button', { name: /mA \/ µA/ }).click();
+  await expect(dmm.getByTestId('multimeter-digits')).toHaveText('FUSE');
+  await dmm.getByRole('button', { name: /Divisor de Alta Impedancia/ }).click();
+  await expect(dmm.getByTestId('multimeter-digits')).toHaveText('4,00');
 });
 
 test('skins and custom inventory entities render cleanly across desktop and mobile', async ({ page }) => {

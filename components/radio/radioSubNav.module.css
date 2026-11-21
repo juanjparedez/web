@@ -3,10 +3,10 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 12px 16px;
-  padding: 10px 14px;
-  margin: 0 auto 24px;
-  max-width: 1180px;
+  gap: 8px 12px;
+  padding: 8px 12px;
+  margin: 0 0 20px;
+  width: 100%;
   border-radius: var(--surface-radius, 12px);
   background: var(--hios-bg-secondary);
   border: 1px solid var(--hios-border);

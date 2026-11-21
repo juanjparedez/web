@@ -48,6 +48,18 @@ export const INVENTORY_DOMAINS: readonly { id: InventoryDomainId; kicker: string
 
 export const RADIO_HUB_MODULES: readonly InventoryEntity[] = [
   {
+    id: 'radio-multimeter-instrument',
+    domain: 'radio',
+    kind: 'tool',
+    badge: 'INSTRUMENTOS · DMM TRUE-RMS',
+    title: 'Uso del Multímetro Digital (DMM)',
+    summary: 'Simulador de selector, bornes COM/V/mA/10A, conexiones en serie y paralelo, impedancia de 10 MΩ, fusibles HRC y punta de RF.',
+    href: `${radioCoursePath}/instrumentos`,
+    tags: ['Multímetro', 'DMM', 'Instrumentación', 'RF'],
+    status: 'published',
+    builtIn: true,
+  },
+  {
     id: 'radio-enacom-program',
     domain: 'radio',
     kind: 'section',

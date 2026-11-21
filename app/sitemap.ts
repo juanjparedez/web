@@ -21,6 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/calculators',
     '/composer',
     '/radio',
+    '/radio/instrumentos',
     '/radio/programa',
     '/radio/tutoriales',
     ...radioPages.map(({ id }) => radioPagePath(id)),

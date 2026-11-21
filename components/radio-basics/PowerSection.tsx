@@ -3,6 +3,7 @@
 import { Alert } from 'antd';
 import { useTranslations } from 'next-intl';
 import { MathLine } from '@/components/common/MathLine';
+import { MultimeterLab } from '@/components/radio/instruments/MultimeterLab';
 import { MeterDiagram } from './MeterDiagram';
 import styles from './radioBasics.module.css';
 
@@ -24,6 +25,7 @@ export function MeasurementSection() {
       </div>
       <p>{t('ohmmeter')}</p>
       <Alert type="warning" showIcon message={t('meterWarning')} />
+      <MultimeterLab />
       <div className={styles.worked} data-testid="dual-approach-measurement">
         <h3>Enfoque 1 · Perturbación del circuito por la impedancia del instrumento</h3>
         <p>

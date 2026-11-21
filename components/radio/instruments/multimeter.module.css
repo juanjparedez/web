@@ -1,0 +1,419 @@
+.labBox {
+  border: 1px solid var(--hios-border);
+  border-radius: var(--surface-radius, 12px);
+  background: var(--hios-bg-secondary);
+  padding: clamp(16px, 2.5vw, 24px);
+  margin: 24px 0;
+  box-shadow: var(--hios-shadow-sm);
+}
+
+.labHeader {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.kicker {
+  font-family: var(--font-stack-mono);
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent-2-text);
+}
+
+.labHeader h2,
+.labHeader h3 {
+  margin: 4px 0;
+  font-size: 1.25rem;
+  color: var(--hios-text);
+}
+
+.labHeader p {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--hios-text-secondary);
+}
+
+.presetBtn {
+  padding: 7px 13px;
+  border-radius: calc(var(--surface-radius, 12px) * 0.65);
+  border: 1px solid color-mix(in srgb, var(--accent-2-text) 45%, var(--hios-border));
+  background: color-mix(in srgb, var(--accent-2-text) 14%, var(--hios-bg-elevated));
+  color: var(--hios-text);
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.presetBtn:hover {
+  border-color: var(--accent-2-text);
+}
+
+.scenarioGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 215px), 1fr));
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.scenarioCard {
+  text-align: left;
+  padding: 11px 13px;
+  border-radius: calc(var(--surface-radius, 12px) * 0.75);
+  border: 1px solid var(--hios-border);
+  background: var(--hios-bg);
+  color: var(--hios-text);
+  cursor: pointer;
+  font-family: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: border-color var(--hios-transition-fast), background var(--hios-transition-fast);
+}
+
+.scenarioCardActive {
+  border-color: var(--accent-2-text);
+  background: color-mix(in srgb, var(--accent-2-text) 12%, var(--hios-bg-elevated));
+}
+
+.scenarioBadge {
+  font-family: var(--font-stack-mono);
+  font-size: 0.7rem;
+  color: var(--accent-2-text);
+}
+
+.scenarioCard strong {
+  font-size: 0.88rem;
+  line-height: 1.35;
+}
+
+.workbenchGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.controlsCol {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.controlGroup {
+  border: 1px solid var(--hios-border);
+  border-radius: calc(var(--surface-radius, 12px) * 0.75);
+  background: var(--hios-bg);
+  padding: 12px 14px;
+}
+
+.controlLabel {
+  display: block;
+  font-family: var(--font-stack-mono);
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--hios-text-secondary);
+  margin-bottom: 8px;
+}
+
+.dialGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.dialBtn {
+  padding: 8px 6px;
+  border-radius: calc(var(--surface-radius, 12px) * 0.55);
+  border: 1px solid var(--hios-border);
+  background: var(--hios-bg-secondary);
+  color: var(--hios-text);
+  font-family: var(--font-stack-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+}
+
+.dialBtnActive {
+  border-color: var(--accent-2-text);
+  background: color-mix(in srgb, var(--accent-2-text) 18%, var(--hios-bg-elevated));
+  color: var(--hios-text);
+}
+
+.jackRow {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.jackBtn {
+  padding: 8px 6px;
+  border-radius: calc(var(--surface-radius, 12px) * 0.55);
+  border: 1px solid var(--hios-border);
+  background: var(--hios-bg-secondary);
+  color: var(--hios-text);
+  font-family: var(--font-stack-mono);
+  font-size: 0.75rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.jackCom {
+  border-color: var(--hios-border);
+  opacity: 0.85;
+  cursor: default;
+}
+
+.jackRedActive {
+  border-color: #ef4444;
+  background: color-mix(in srgb, #ef4444 16%, var(--hios-bg-elevated));
+  font-weight: 700;
+}
+
+.jackDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  border: 2px solid currentColor;
+}
+
+.placementRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.placementBtn {
+  flex: 1 1 140px;
+  padding: 8px 10px;
+  border-radius: calc(var(--surface-radius, 12px) * 0.55);
+  border: 1px solid var(--hios-border);
+  background: var(--hios-bg-secondary);
+  color: var(--hios-text);
+  font-size: 0.84rem;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.placementBtnActive {
+  border-color: var(--accent-2-text);
+  background: color-mix(in srgb, var(--accent-2-text) 16%, var(--hios-bg-elevated));
+  font-weight: 600;
+}
+
+.meterCol {
+  border: 1px solid var(--hios-border);
+  border-radius: calc(var(--surface-radius, 12px) * 0.85);
+  background: var(--hios-bg);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.lcd {
+  border: 2px solid var(--hios-border);
+  border-radius: calc(var(--surface-radius, 12px) * 0.65);
+  padding: 14px 16px;
+  background: color-mix(in srgb, var(--accent-2-text) 7%, var(--hios-bg-secondary));
+  font-family: var(--font-stack-mono);
+}
+
+.lcdDanger {
+  border-color: #ef4444;
+  background: color-mix(in srgb, #ef4444 12%, var(--hios-bg-secondary));
+}
+
+.lcdWarning {
+  border-color: #f59e0b;
+  background: color-mix(in srgb, #f59e0b 11%, var(--hios-bg-secondary));
+}
+
+.lcdTopBar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.72rem;
+  color: var(--hios-text-secondary);
+  margin-bottom: 6px;
+}
+
+.lcdReading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.lcdDigits {
+  font-size: clamp(1.85rem, 3.5vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--hios-text);
+}
+
+.lcdUnit {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--accent-2-text);
+}
+
+.lcdSub {
+  margin-top: 6px;
+  font-size: 0.78rem;
+  color: var(--hios-text-secondary);
+}
+
+.metricsList {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  font-size: 0.84rem;
+}
+
+.metricItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: var(--hios-bg-secondary);
+  border: 1px solid var(--hios-border);
+}
+
+.metricItem dt {
+  font-family: var(--font-stack-mono);
+  font-size: 0.72rem;
+  color: var(--hios-text-secondary);
+  text-transform: uppercase;
+}
+
+.metricItem dd {
+  margin: 0;
+  font-weight: 600;
+  color: var(--hios-text);
+}
+
+.diagnosisBox {
+  margin-top: 16px;
+  padding: 14px 16px;
+  border-radius: calc(var(--surface-radius, 12px) * 0.75);
+  border-left: 4px solid var(--accent-2-text);
+  background: var(--hios-bg);
+}
+
+.diagnosisDanger {
+  border-left-color: #ef4444;
+}
+
+.diagnosisWarning {
+  border-left-color: #f59e0b;
+}
+
+.diagnosisBox h4 {
+  margin: 0 0 6px;
+  font-size: 1rem;
+  color: var(--hios-text);
+}
+
+.diagnosisBox p {
+  margin: 0 0 8px;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--hios-text-secondary);
+}
+
+.diagnosisBox p:last-child {
+  margin-bottom: 0;
+  color: var(--hios-text);
+}
+
+.guideSection {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--hios-border);
+}
+
+.guideSection h2 {
+  font-size: 1.4rem;
+  margin: 0 0 12px;
+}
+
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 14px;
+  margin: 16px 0;
+}
+
+.infoCard {
+  padding: 14px 16px;
+  border-radius: calc(var(--surface-radius, 12px) * 0.75);
+  border: 1px solid var(--hios-border);
+  background: var(--hios-bg-secondary);
+}
+
+.infoCard h3 {
+  margin: 4px 0 8px;
+  font-size: 1.02rem;
+}
+
+.infoCard p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--hios-text-secondary);
+}
+
+.tableWrap {
+  overflow-x: auto;
+  border: 1px solid var(--hios-border);
+  border-radius: calc(var(--surface-radius, 12px) * 0.75);
+  margin: 16px 0;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+.table th,
+.table td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--hios-border);
+}
+
+.table th {
+  background: var(--hios-bg-secondary);
+  font-family: var(--font-stack-mono);
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  color: var(--hios-text-secondary);
+}
+
+@media (max-width: 860px) {
+  .workbenchGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .dialGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .jackRow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
