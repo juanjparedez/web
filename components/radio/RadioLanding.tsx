@@ -35,17 +35,17 @@ export function RadioLanding({ locale }: { locale: string }) {
   return (
     <main className={courseStyles.page} lang="es">
       <RadioSubNav />
-      <PageIntro
-        eyebrow={<Link href={base}>← Índice del curso · Guía de Argentina</Link>}
-        title="Radioaficionado, de cero a la licencia"
-        description="Guía de estudio para el examen Novicio de ENACOM, ordenada según el Programa Básico de Estudios oficial: definiciones con unidades, diagramas, fórmulas con ejemplos resueltos y el banco de preguntas oficial de reglamentación."
-        area="knowledge"
-        compact
-      />
-      {locale !== 'es' ? <SpanishOnlyNotice /> : null}
       <div className={courseStyles.shell} data-wide="true">
         <RadioCourseNavigation page="programa" />
         <div className={courseStyles.reading}>
+          <PageIntro
+            eyebrow={<Link href={base}>← Índice del curso · Guía de Argentina</Link>}
+            title="Radioaficionado, de cero a la licencia"
+            description="Guía de estudio para el examen Novicio de ENACOM, ordenada según el Programa Básico de Estudios oficial: definiciones con unidades, diagramas, fórmulas con ejemplos resueltos y el banco de preguntas oficial de reglamentación."
+            area="knowledge"
+            compact
+          />
+          {locale !== 'es' ? <SpanishOnlyNotice /> : null}
           <p className={landing.lead}>
             <a href="/downloads/radio/guia-radioaficionado-novicio.pdf" download className={landing.pdf}>⬇ Descargar la guía completa en PDF</a>
             {' '}Bloques A a D con diagramas, fórmulas, ejemplos y el banco de preguntas con respuestas.

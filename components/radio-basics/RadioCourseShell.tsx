@@ -26,13 +26,22 @@ function CoursePager({ page }: { page: RadioPageId }) {
   );
 }
 
-export function RadioCourseShell({ page, children }: { page: RadioPageId; children: ReactNode }) {
+export function RadioCourseShell({
+  page,
+  trail,
+  children,
+}: {
+  page: RadioPageId;
+  trail?: ReactNode;
+  children: ReactNode;
+}) {
   const t = useTranslations('RadioCourse');
   const index = radioLessons.findIndex((lesson) => lesson.id === page);
   return (
     <div className={styles.shell} data-wide={['laboratory', 'glossary', 'bands', 'measurement'].includes(page)} data-radio-page={page}>
       <RadioCourseNavigation page={page} />
       <article className={`${styles.reading} ${lessonStyles.content}`}>
+        {trail}
         <header className={styles.pageHeader}>
           <span className={styles.position}>{index >= 0 ? t('lessonPosition', { current: index + 1, total: radioLessons.length }) : t('resource')}</span>
           <h1 id="radio-page-title">{t(`pages.${page}.title`)}</h1>

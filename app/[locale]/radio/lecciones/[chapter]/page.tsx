@@ -31,12 +31,18 @@ export default async function RadioCourseLesson({ params }: Props) {
   return (
     <main className={styles.page}>
       <RadioSubNav />
-      <PageTrail locale={locale} inContent items={[
-        { name: 'HIOS', path: '' },
-        { name: t('backToCourse'), path: radioCoursePath },
-        { name: title, path: radioPagePath(chapter) },
-      ]} />
-      <RadioCourseShell page={chapter}><RadioLessonContent page={chapter} /></RadioCourseShell>
+      <RadioCourseShell
+        page={chapter}
+        trail={
+          <PageTrail locale={locale} inContent items={[
+            { name: 'HIOS', path: '' },
+            { name: t('backToCourse'), path: radioCoursePath },
+            { name: title, path: radioPagePath(chapter) },
+          ]} />
+        }
+      >
+        <RadioLessonContent page={chapter} />
+      </RadioCourseShell>
     </main>
   );
 }

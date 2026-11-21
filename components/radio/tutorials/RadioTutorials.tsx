@@ -17,17 +17,17 @@ export function RadioTutorials() {
   return (
     <main className={courseStyles.page} lang="es">
       <RadioSubNav />
-      <PageIntro
-        eyebrow={<Link href={base}>← Radioaficionado · Taller y Equipos</Link>}
-        title="Tutoriales de Campo: Baofeng UV-5R, Escucha Segura y Walkie-Talkies"
-        description="Guía técnica paso a paso para programar un handy de banda corrida en modo solo recepción (RX-only) mientras estudiás para la licencia, entender qué hace electrónicamente cada parámetro y cómo operan los equipos canaleros de uso libre."
-        area="knowledge"
-        compact
-      />
-
       <div className={courseStyles.shell} data-wide="true">
         <RadioCourseNavigation page="tutoriales" />
         <div className={courseStyles.reading}>
+          <PageIntro
+            eyebrow={<Link href={base}>← Radioaficionado · Taller y Equipos</Link>}
+            title="Tutoriales de Campo: Baofeng UV-5R, Escucha Segura y Walkie-Talkies"
+            description="Guía técnica paso a paso para programar un handy de banda corrida en modo solo recepción (RX-only) mientras estudiás para la licencia, entender qué hace electrónicamente cada parámetro y cómo operan los equipos canaleros de uso libre."
+            area="knowledge"
+            compact
+          />
+
           <div className={styles.warningBanner} role="note" aria-label="Advertencia legal y técnica sobre transmisión">
             <h2>⚠ Regla de oro antes de encender el equipo: Escuchar (RX) es libre; Transmitir (TX) requiere habilitación</h2>
             <p>

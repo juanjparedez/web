@@ -27,10 +27,10 @@ export default async function RadioPage({ params }: PageProps) {
   return (
     <main className={styles.page}>
       <RadioSubNav />
-      <PageIntro eyebrow={course('eyebrow')} title={t('title')} description={t('description')} area="knowledge" compact />
       <div className={styles.shell} data-wide="true">
         <RadioCourseNavigation page="home" />
         <div className={styles.reading}>
+          <PageIntro eyebrow={course('eyebrow')} title={t('title')} description={t('description')} area="knowledge" compact />
           <RadioBasicsTool />
         </div>
       </div>

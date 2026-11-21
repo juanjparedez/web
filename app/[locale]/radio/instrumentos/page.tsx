@@ -40,16 +40,16 @@ export default async function RadioInstrumentsPage({
   return (
     <main className={styles.page} lang="es">
       <RadioSubNav />
-      <PageIntro
-        eyebrow={<Link href={base}>← Radioaficionado · Banco de Instrumentación</Link>}
-        title="Uso de Instrumentos: El Multímetro Digital (DMM)"
-        description="Aprendé a medir tensión, corriente, resistencia, continuidad coaxial y potencia de RF entendiendo qué pasa físicamente adentro del instrumento y cómo evitar cortocircuitos en el taller."
-        area="knowledge"
-        compact
-      />
       <div className={styles.shell} data-wide="true">
         <RadioCourseNavigation page="instrumentos" />
         <div className={styles.reading}>
+          <PageIntro
+            eyebrow={<Link href={base}>← Radioaficionado · Banco de Instrumentación</Link>}
+            title="Uso de Instrumentos: El Multímetro Digital (DMM)"
+            description="Aprendé a medir tensión, corriente, resistencia, continuidad coaxial y potencia de RF entendiendo qué pasa físicamente adentro del instrumento y cómo evitar cortocircuitos en el taller."
+            area="knowledge"
+            compact
+          />
           <MultimeterGuide />
         </div>
       </div>

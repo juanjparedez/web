@@ -19,17 +19,17 @@ export function ChapterView({ chapter, locale }: { chapter: Chapter; locale: str
   return (
     <main className={courseStyles.page} lang="es">
       <RadioSubNav />
-      <PageIntro
-        eyebrow={<Link href={index} style={{ color: 'inherit' }}>Radioaficionado · Novicio</Link>}
-        title={`${chapter.code.length === 1 ? `Bloque ${chapter.code}: ` : ''}${chapter.title}`}
-        description={chapter.summary}
-        area="knowledge"
-        compact
-      />
-      {locale !== 'es' ? <SpanishOnlyNotice /> : null}
       <div className={courseStyles.shell} data-wide="true">
         <RadioCourseNavigation page={navPage} />
         <div className={`${courseStyles.reading} ${styles.content}`}>
+          <PageIntro
+            eyebrow={<Link href={index} style={{ color: 'inherit' }}>Radioaficionado · Novicio</Link>}
+            title={`${chapter.code.length === 1 ? `Bloque ${chapter.code}: ` : ''}${chapter.title}`}
+            description={chapter.summary}
+            area="knowledge"
+            compact
+          />
+          {locale !== 'es' ? <SpanishOnlyNotice /> : null}
           <nav className={courseStyles.chapterTopicsBar} aria-label="En este capítulo">
             <span className={courseStyles.chapterTopicsLabel}>En este capítulo:</span>
             {chapter.sections.map((s) => (
