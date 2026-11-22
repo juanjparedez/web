@@ -64,7 +64,7 @@ export function MorseTrainer() {
       <div className={styles.chips}>
         <button type="button" className={styles.chip} onClick={target ? () => play(target) : next}>{target ? '↻ Repetir' : hist.length ? '▶ Siguiente' : '▶ Empezar'}</button>
         {pool.map((ch) => (
-          <button key={ch} type="button" className={styles.chip} onClick={() => answer(ch)} disabled={!target} style={{ minWidth: 44, fontFamily: 'var(--font-stack-mono)', fontSize: '1rem' }}>{ch}</button>
+          <button key={ch} type="button" className={styles.chip} onClick={() => answer(ch)} disabled={!target} style={{ minWidth: 56, minHeight: 48, fontFamily: 'var(--font-stack-mono)', fontSize: '1.2rem', fontWeight: 600 }}>{ch}</button>
         ))}
       </div>
       <Controls>

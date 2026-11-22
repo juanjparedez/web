@@ -50,7 +50,7 @@ export const RADIO_NAV_GROUPS: RadioNavGroup[] = [
     title: 'Practicar',
     hint: 'Estaciones interactivas',
     items: [
-      { id: 'morse-console', path: '/radio/morse', label: 'Consola Morse (CW)', marker: 'CW' },
+      { id: 'morse-console', path: '/radio/morse', label: 'Código Morse (CW)', marker: 'CW' },
       { id: 'instrumentos', path: '/radio/instrumentos', label: 'Banco de instrumentos', marker: 'DMM' },
       { id: 'laboratory', path: radioPagePath('laboratory'), marker: 'DC' },
     ],

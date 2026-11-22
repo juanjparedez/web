@@ -78,7 +78,7 @@ export function RadioCourseNavigation({ page = 'home' }: { page?: RadioNavPageId
             })),
           ]}
         />
-        <RadioOfflineButton />
+        {page === 'home' ? <RadioOfflineButton /> : null}
       </div>
     </aside>
   );

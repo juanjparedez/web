@@ -2,32 +2,34 @@
 .home h2 { font: 600 1.5rem/1.4 var(--font-stack-display); margin: 0 0 16px; }
 .home h3 { font-size: 1.0625rem; font-weight: 600; line-height: 1.5; margin: 0 0 4px; }
 .home p { margin: 0; color: var(--hios-text-secondary); }
-.homeIntro { margin-bottom: 36px; max-width: 68ch; }
-.homeIntro p { margin-bottom: 20px; }
-.home > section { margin-bottom: 36px; }
-.lessonList { padding-left: 26px; margin: 0; }
-.lessonList li { padding-left: 10px; border-bottom: 1px solid var(--hios-border); }
-.lessonList li::marker { color: var(--accent-2-text); font-family: var(--font-stack-mono); }
-.lessonList a { display: block; padding: 16px 0; color: var(--hios-text); text-decoration: none; }
+.home > section { margin-bottom: 44px; }
+.startCard { display: grid; gap: 10px; justify-items: start; padding: 24px 26px; border-radius: var(--surface-radius, 14px); border: 1px solid color-mix(in srgb, var(--accent-2-text) 45%, var(--hios-border)); background: linear-gradient(135deg, color-mix(in srgb, var(--accent-2-text) 12%, var(--hios-bg-secondary)), var(--hios-bg-secondary) 60%); }
+.startCard h2 { margin: 0 !important; }
+.startCard p { max-width: 62ch; }
+.startCard :global(.ant-btn) { margin-top: 6px; }
+.startEyebrow { font: 600 .72rem/1.4 var(--font-stack-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent-2-text); }
+.lessonList { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 32px; margin: 0; padding: 0; list-style: none; counter-reset: lesson; }
+.lessonList li { border-bottom: 1px solid var(--hios-border); counter-increment: lesson; }
+.lessonList a { display: grid; grid-template-columns: 2.2em minmax(0, 1fr); column-gap: 10px; padding: 14px 0; color: var(--hios-text); text-decoration: none; }
+.lessonList a::before { content: counter(lesson, decimal-leading-zero); grid-row: 1 / span 2; font: 600 .8rem/1.9 var(--font-stack-mono); color: var(--accent-2-text); }
+.lessonList p { font-size: .9rem; line-height: 1.55; }
 .lessonList a:hover h3, .resourceList a:hover h3 { color: var(--accent-2-text); }
-.lessonList p { font-size: .9375rem; }
+.stationsHeader { margin-bottom: 16px; }
+.stationsHeader h2 { margin: 0 0 6px !important; }
+.stationsHeader p { font-size: .95rem; }
+.hubCard { --tone: var(--accent-2-text); display: flex; flex-direction: column; gap: 8px; padding: 18px 20px; border-radius: var(--surface-radius, 12px); border: 1px solid var(--hios-border); border-top: 3px solid var(--tone); background: var(--hios-bg-secondary); color: var(--hios-text); text-decoration: none; transition: border-color var(--hios-transition-fast), transform var(--hios-transition-fast), background var(--hios-transition-fast); }
+.hubCard[data-tone='practice'] { --tone: var(--accent-text); }
+.hubCard[data-tone='exam'] { --tone: #a78bfa; }
+.hubCard[data-tone='reference'] { --tone: var(--hios-text-secondary); }
+.hubCard:hover { border-color: var(--tone); background: var(--hios-bg-elevated); transform: translateY(-1px); }
+.hubBadge { font: 600 .72rem/1.4 var(--font-stack-mono); color: var(--tone); text-transform: uppercase; letter-spacing: .05em; }
+.hubCard h3 { margin: 0; font-size: 1.05rem; color: var(--hios-text); }
+.hubCard p { font-size: .88rem; line-height: 1.55; color: var(--hios-text-secondary); flex: 1; }
+.hubCta { margin-top: 4px; font: 700 .78rem/1.4 var(--font-stack-mono); color: var(--tone); }
 .resourceList { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 32px; }
 .resourceList a { display: block; padding: 16px 0; border-top: 2px solid var(--hios-border); color: var(--hios-text); text-decoration: none; }
 .resourceList p { font-size: .9375rem; }
-.future { padding-top: 24px; border-top: 1px solid var(--hios-border); }
-.future h2 { font-size: 1.125rem; }
-.future p { font-size: .9375rem; }
-.stationsHeader { margin-bottom: 18px; }
-.stationsHeader h2 { margin: 4px 0 6px; }
-.stationsHeader p { font-size: .95rem; color: var(--hios-text-secondary); }
 .hubGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 16px; margin-bottom: 36px; }
-.hubCard { display: flex; flex-direction: column; gap: 8px; padding: 18px 20px; border-radius: var(--surface-radius, 12px); border: 1px solid var(--hios-border); background: var(--hios-bg-secondary); color: var(--hios-text); text-decoration: none; box-shadow: var(--hios-shadow-sm); transition: border-color var(--hios-transition-fast), transform var(--hios-transition-fast), background var(--hios-transition-fast); }
-.hubCard:hover { border-color: var(--accent-2-text); background: var(--hios-bg-elevated); transform: translateY(-1px); }
-.hubCardHighlight { border-color: color-mix(in srgb, var(--accent-2-text) 65%, var(--hios-border)); background: color-mix(in srgb, var(--accent-2-text) 9%, var(--hios-bg-secondary)); }
-.hubBadge { font-family: var(--font-stack-mono); font-size: 0.72rem; color: var(--accent-2-text); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
-.hubCard h3 { margin: 0; font-size: 1.08rem; color: var(--hios-text); }
-.hubCard p { font-size: 0.88rem; line-height: 1.55; color: var(--hios-text-secondary); flex: 1; }
-.hubCta { margin-top: 6px; font-family: var(--font-stack-mono); font-size: 0.78rem; font-weight: 700; color: var(--accent-2-text); }
 .page { width: 100%; max-width: 1460px; margin: 0 auto; padding: 32px 24px 56px; }
 .shell { --lesson-cyan: var(--accent-2-text); display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: clamp(24px, 3.5vw, 52px); margin-top: 24px; font-size: 1rem; line-height: 1.75; color: var(--hios-text); }
 .sidebar { position: sticky; top: calc(var(--layout-header-height, 64px) + 24px); align-self: start; min-width: 0; }
@@ -95,6 +97,8 @@
   .resourceList { grid-template-columns: minmax(0, 1fr); gap: 8px; }
   .page { padding: 24px 20px 40px; }
   .pager a { max-width: 48%; }
-  .homeIntro :global(.ant-btn) { height: auto; min-height: 44px; white-space: normal; max-width: 100%; }
+  .startCard :global(.ant-btn) { height: auto; min-height: 44px; white-space: normal; max-width: 100%; }
+  .startCard { padding: 20px 18px; }
+  .lessonList { grid-template-columns: minmax(0, 1fr); }
 }
 @media print { .sidebar, .pager { display: none; } .shell { display: block; } }

@@ -1,7 +1,7 @@
 import { expect, test, type Page } from '@playwright/test';
 
 async function open(page: Page) {
-  await page.goto('/es/radio/morse#transmision');
+  await page.goto('/es/radio/morse/transmitir');
   const trainer = page.locator('#transmision');
   await expect(trainer.getByRole('button', { name: 'Empezar' })).toBeEnabled();
   return trainer;
@@ -87,8 +87,9 @@ test('shared pitch and receiver noise drive the audio nodes and survive reload',
   expect(await page.locator('html').getAttribute('data-noise')).toBeNull();
   await tone.press('End');
   await noise.selectOption('3');
+  await page.goto('/es/radio/morse/traductor');
   await expect(page.locator('#traductor').getByLabel('Fondo de recepción')).toHaveValue('3');
-  await page.reload();
+  await page.goto('/es/radio/morse/transmitir');
   await expect(tone).toHaveValue('1000');
   await expect(noise).toHaveValue('3');
   await trainer.getByRole('button', { name: 'S ...', exact: true }).click();
@@ -97,13 +98,13 @@ test('shared pitch and receiver noise drive the audio nodes and survive reload',
   await expect(trainer.getByText(/Tu turno/)).toBeVisible();
   await expect(page.locator('html')).toHaveAttribute('data-last-pitch', '990');
   await expect(page.locator('html')).toHaveAttribute('data-noise', 'ended');
-  await trainer.getByRole('button', { name: 'Restablecer sonido original' }).click();
+  await trainer.getByRole('button', { name: 'Restablecer' }).click();
   await expect(tone).toHaveValue('650');
   await expect(noise).toHaveValue('0');
 });
 
 test('translator direction buttons never corrupt the input and any dash notation plays', async ({ page }) => {
-  await page.goto('/es/radio/morse');
+  await page.goto('/es/radio/morse/traductor');
   const lab = page.locator('figure').filter({ hasText: 'Traductor Morse ↔ texto' });
   const direction = lab.getByRole('group', { name: 'Dirección' });
   const text = lab.getByLabel('Texto a traducir');

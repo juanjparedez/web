@@ -1,5 +1,10 @@
 .practice { display: grid; gap: 1rem; min-width: 0; color: var(--hios-text); }
 .practice p, .practice h3 { margin: 0; }
+.practice h3 { margin-top: .5rem; font-size: 1rem; }
+.hint { color: var(--hios-text-secondary); font-size: .9rem; }
+.display { border-radius: 0 .7rem .7rem 0; }
+.pads button { min-height: 72px; border-radius: .7rem !important; }
+.pads button:not(:disabled) b { color: var(--accent-2-text); }
 .settings { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: 1rem; }
 .settings label { display: grid; align-content: start; gap: .35rem; font-size: .93rem; }
 .settings input, .settings select, .actions button, .pads button { font: inherit; color: inherit; background: var(--hios-bg-secondary); border: 1px solid var(--hios-border); border-radius: .5rem; padding: .55rem .75rem; min-width: 0; }
@@ -15,16 +20,22 @@
 .practice button:disabled { opacity: .55; }
 .pads:focus-visible, .tree button:focus-visible { outline: 2px solid var(--accent-2-text); outline-offset: 2px; }
 .treeScroll { overflow-x: auto; max-width: 100%; border: 1px solid var(--hios-border); background: var(--hios-bg-secondary); border-radius: .7rem; margin-block: .75rem; }
-.tree { position: relative; width: 100%; min-width: 700px; height: 290px; color: var(--hios-text); }
+.tree { position: relative; width: 100%; min-width: 720px; height: 300px; color: var(--hios-text); }
 .tree svg { width: 100%; height: 100%; display: block; }
 .tree line { stroke: var(--hios-text-muted); stroke-width: 1.5; }
 .tree line[data-lit=true] { stroke: var(--accent-2-text); stroke-width: 3.5; }
 .tree button, .root { position: absolute; transform: translate(-50%, -50%); }
 .root { left: 50%; top: 24px; color: var(--accent-2-text); }
-.tree button { display: grid; place-content: center; width: 36px; height: 38px; line-height: 1; border-radius: .55rem; border: 1px solid var(--hios-border); background: var(--hios-bg); color: inherit; font: 600 1rem/1 var(--font-stack-mono); }
-.tree button small { font-size: .75rem; }
+.tree button { display: grid; place-items: center; gap: 3px; width: 42px; height: 44px; padding: 0; line-height: 1; border-radius: .55rem; border: 1px solid var(--hios-border); background: var(--hios-bg); color: inherit; font: 600 1.05rem/1 var(--font-stack-mono); transition: border-color .15s, background .15s, opacity .15s; }
+.tree button:hover:not(:disabled) { border-color: var(--accent-2-text); }
+.tree button:disabled { opacity: .28; cursor: default; }
+.tree button small { font-size: .7rem; letter-spacing: .02em; color: var(--hios-text-secondary); }
+.tree button[data-lit=true] small { color: var(--accent-2-text); }
 .tree button[data-lit=true] { border-color: var(--accent-2-text); color: var(--accent-2-text); }
-.tree button[aria-pressed=true] { outline: 2px solid var(--accent-2-text); }
+.tree button[aria-pressed=true] { outline: 2px solid var(--accent-2-text); background: color-mix(in srgb, var(--accent-2-text) 18%, var(--hios-bg)); }
+.tree button[data-mark=ok] { border-color: var(--hios-success); background: color-mix(in srgb, var(--hios-success) 22%, var(--hios-bg)); color: var(--hios-text); }
+.tree button[data-mark=bad] { border-color: var(--hios-error); background: color-mix(in srgb, var(--hios-error) 22%, var(--hios-bg)); }
+.tree button[data-mark=target] { border-color: var(--accent-text); outline: 2px dashed var(--accent-text); outline-offset: 2px; }
 
 .sound { min-width: 0; margin: .5rem 0; padding: .7rem .9rem; border: 1px solid var(--hios-border); border-radius: var(--surface-radius, .6rem); color: var(--hios-text); background: var(--hios-bg); }
 .soundGlobal { min-width: 0; margin: 0; padding: 10px 0 0; border: 0; border-top: 1px solid var(--hios-border); color: var(--hios-text); }
@@ -44,11 +55,6 @@
 .stopAllBtn { padding: .3rem .7rem !important; border-radius: calc(var(--surface-radius, 8px) * 0.5) !important; border: 1px solid color-mix(in srgb, var(--hios-error) 55%, var(--hios-border)) !important; background: color-mix(in srgb, var(--hios-error) 14%, var(--hios-bg)) !important; color: var(--hios-text) !important; font-weight: 600 !important; cursor: pointer; }
 .sound button, .soundGlobal button { padding: .25rem 0; border: 0; background: transparent; color: var(--accent-2-text); font: inherit; cursor: pointer; }
 .sound button:disabled, .soundGlobal button:disabled { color: var(--hios-text-secondary); cursor: default; }
-.console { display: grid; gap: .85rem; padding: 14px 16px; border-radius: var(--surface-radius, .9rem); background: var(--hios-bg-secondary); border: 1px solid color-mix(in srgb, var(--accent-2-text) 35%, var(--hios-border)); }
-.stationBar { display: flex; flex-wrap: wrap; gap: 4px; padding: 4px; border-radius: 10px; background: var(--hios-bg); border: 1px solid var(--hios-border); }
-.stationBtn { flex: 1 1 auto; padding: .5rem .9rem; border-radius: 7px; border: 1px solid transparent; background: transparent; color: var(--hios-text-secondary); font-size: .88rem; font-weight: 500; font-family: inherit; cursor: pointer; transition: all var(--hios-transition-fast); }
-.stationBtn:hover { color: var(--hios-text); border-color: color-mix(in srgb, var(--accent-2-text) 45%, var(--hios-border)); }
-.stationBtn[data-selected='true'] { color: var(--hios-bg); background: var(--accent-2-text); font-weight: 600; }
-.stationWrap { transition: border-color var(--hios-transition-fast), box-shadow var(--hios-transition-fast); border-radius: var(--surface-radius, .85rem); }
-.stationWrap[data-hidden='true'] { display: none; }
-@media (max-width: 640px) { .soundGlobal .soundRow, .soundGlobal .settings { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 640px) {
+  .soundGlobal .soundRow, .soundGlobal .settings { grid-template-columns: minmax(0, 1fr); }
+}

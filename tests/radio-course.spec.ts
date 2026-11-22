@@ -115,11 +115,11 @@ test('reference resources do not display lesson previous or next controls', asyn
 
 test('the course keeps the official program and its chapter references accessible', async ({ page }) => {
   await page.goto(COURSE);
-  await page.locator(`a[href="${COURSE}/programa"]`).first().click();
+  await page.getByTestId('radio-hub-entities').locator(`a[href="${COURSE}/programa"]`).click();
   await expect(page).toHaveURL(`${COURSE}/programa`);
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Radioaficionado, de cero a la licencia');
   await expect(page.locator(`a[href="${COURSE}/a-electricidad"]`).first()).toBeVisible();
-  await page.locator(`a[href="${COURSE}/morse"]`).first().click();
+  await page.locator(`main a[href="${COURSE}/morse"]:visible`).first().click();
   await expect(page).toHaveURL(`${COURSE}/morse`);
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Código Morse');
 });
@@ -160,11 +160,14 @@ test('the signal lessons lead from wave size to range and Morse timing', async (
   await expect(lesson.getByRole('button', { name: 'Escuchar' })).toBeDisabled();
 });
 
-test('radio sub-navigation connects tutorials, global Morse console and free vs licensed spectrum', async ({ page }) => {
+test('radio sidebar connects tutorials, the Morse trainers and the instrument bench', async ({ page }) => {
   await page.goto(COURSE);
-  const subnav = page.getByTestId('radio-subnav');
-  await expect(subnav).toBeVisible();
-  await subnav.getByRole('link', { name: /Tutoriales y Equipos/ }).click();
+  const sidebar = page.getByTestId('radio-sidebar');
+  await expect(sidebar).toBeVisible();
+  await expect(page.getByTestId('radio-offline').first()).toBeVisible();
+  const group = (name: RegExp) => sidebar.locator('summary').filter({ hasText: name });
+  await group(/Consultar/).click();
+  await sidebar.getByRole('link', { name: /Baofeng UV-5R/ }).click();
   await expect(page).toHaveURL(`${COURSE}/tutoriales`);
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Baofeng UV-5R');
   await expect(page.getByText(/Duplex = off/).first()).toBeVisible();
@@ -180,17 +183,22 @@ test('radio sub-navigation connects tutorials, global Morse console and free vs 
     await page.setViewportSize({ width, height: 844 });
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   }
-  await page.getByTestId('radio-subnav').getByRole('link', { name: /Consola Morse/ }).click();
+  await page.setViewportSize({ width: 1280, height: 844 });
+  await group(/Practicar/).click();
+  await sidebar.getByRole('link', { name: /Código Morse/ }).click();
   await expect(page).toHaveURL(`${COURSE}/morse`);
-  const morseConsole = page.getByTestId('morse-global-console');
-  await expect(morseConsole).toBeVisible();
-  await morseConsole.getByRole('button', { name: /3 · Traductor CW/ }).click();
+  const picker = page.getByTestId('morse-trainer-picker');
+  await expect(picker.getByRole('link')).toHaveCount(6);
+  await picker.getByRole('link', { name: /Traductor/ }).click();
+  await expect(page).toHaveURL(`${COURSE}/morse/traductor`);
   await expect(page.locator('#traductor')).toBeVisible();
-  await expect(page.locator('#transmision')).toBeHidden();
-  await morseConsole.getByRole('button', { name: /Vista completa/ }).click();
-  await expect(page.locator('#transmision')).toBeVisible();
+  const switcher = page.getByTestId('morse-trainer-switcher');
+  await switcher.getByRole('link', { name: /Árbol de letras/ }).click();
+  await expect(page).toHaveURL(`${COURSE}/morse/arbol`);
+  await page.goto(`${COURSE}/morse#transmision`);
+  await expect(page).toHaveURL(`${COURSE}/morse/transmitir`);
 
-  await page.getByTestId('radio-subnav').getByRole('link', { name: /Instrumentos \(Multímetro\)/ }).click();
+  await page.getByTestId('radio-sidebar').getByRole('link', { name: /Banco de instrumentos/ }).click();
   await expect(page).toHaveURL(`${COURSE}/instrumentos`);
   await expect(page.getByTestId('radio-sidebar')).toBeVisible();
   const dmm = page.getByTestId('multimeter-lab');

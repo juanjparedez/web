@@ -12,7 +12,21 @@ for (const [letter, code] of Object.entries(MORSE).filter(([ch]) => /^[A-Z]$/.te
   nodes.push({ letter, code, x: (column + 0.5) * 800 / 2 ** code.length, y: 24 + 60 * code.length });
 }
 
-export function MorseTree({ code, choose }: { code: string; choose: (letter: string) => void }) {
+export type TreeMark = 'ok' | 'bad' | 'target';
+const pretty = (c: string) => c.replaceAll('.', '·').replaceAll('-', '−');
+
+interface Props {
+  code: string;
+  choose: (letter: string) => void;
+  /** Extra state per letter (correct answer, wrong answer, target). */
+  marks?: Record<string, TreeMark>;
+  /** Hide letters (only show the dots and dashes), used in recognition drills. */
+  hideLetters?: boolean;
+  /** Max depth shown; deeper letters are dimmed and disabled. */
+  depth?: number;
+}
+
+export function MorseTree({ code, choose, marks, hideLetters, depth = 4 }: Props) {
   const t = useTranslations('RadioCourse.pages.morse');
   const scroller = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -34,9 +48,10 @@ export function MorseTree({ code, choose }: { code: string; choose: (letter: str
         </svg>
         {nodes.map(n => n.code ? (
           <button type="button" key={n.code} style={{ left: n.x / 8 + '%', top: n.y }}
-            aria-label={n.letter + ' ' + n.code} aria-pressed={code === n.code}
-            data-lit={code.startsWith(n.code)} onClick={() => choose(n.letter)}>
-            {n.letter}<small>{n.code.endsWith('.') ? '·' : '−'}</small>
+            aria-label={hideLetters ? 'Rama ' + pretty(n.code) : n.letter + ' ' + n.code} aria-pressed={code === n.code}
+            data-lit={code.startsWith(n.code)} data-mark={marks?.[n.letter]} disabled={n.code.length > depth}
+            onClick={() => choose(n.letter)}>
+            <span>{hideLetters && !marks?.[n.letter] ? '?' : n.letter}</span><small>{pretty(n.code)}</small>
           </button>
         ) : <span className={s.root} key="root" aria-hidden="true">◆</span>)}
       </div>

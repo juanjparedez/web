@@ -23,10 +23,10 @@ const ENTRY_TOOLS: Partial<Record<GlossaryEntryId, { href: string; label: string
   fm: { href: '/radio/b-modulacion-equipos#modulacion', label: 'Osciloscopio de modulación FM →' },
   am: { href: '/radio/b-modulacion-equipos#modulacion', label: 'Osciloscopio de modulación AM →' },
   ssb: { href: '/radio/b-modulacion-equipos#modulacion', label: 'Osciloscopio de banda lateral SSB →' },
-  cw: { href: '/radio/morse', label: 'Abrir Consola Morse (CW) →' },
+  cw: { href: '/radio/morse', label: 'Abrir los entrenadores Morse (CW) →' },
   ft8: { href: '/workbench/qpsk-modulator', label: 'Simulador de modulación digital →' },
   dmr: { href: '/radio/lecciones/bands', label: 'Ver DMR, compresión y TDMA →' },
-  qrn: { href: '/radio/morse', label: 'Probar filtro de ruido QRN en CW →' },
+  qrn: { href: '/radio/morse/koch', label: 'Probar filtro de ruido QRN en CW →' },
   qrp: { href: '/radio/c-antenas-propagacion#alcance', label: 'Calcular presupuesto de enlace →' },
 };
 

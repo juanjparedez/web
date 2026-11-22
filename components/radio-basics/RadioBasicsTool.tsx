@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Button } from 'antd';
 import { useLocale, useTranslations } from 'next-intl';
-import { radioLessons, radioResources, radioPagePath, radioCoursePath, type RadioPageId } from '@/config/radio-course';
+import { radioLessons, radioResources, radioPagePath, type RadioPageId } from '@/config/radio-course';
 import { useAllInventoryEntities } from '@/lib/inventory/store';
 import styles from './radioCourse.module.css';
 
@@ -28,6 +28,12 @@ function useLegacyCourseLinks() {
   }, [locale, router]);
 }
 
+/** Colour family shared with the sidebar groups (practice, exam, reference). */
+function hubTone(id: string, kind: string) {
+  if (id === 'radio-enacom-program') return 'exam';
+  return kind === 'tool' ? 'practice' : 'reference';
+}
+
 export function RadioBasicsTool() {
   const t = useTranslations('RadioCourse');
   const locale = useLocale();
@@ -36,37 +42,12 @@ export function RadioBasicsTool() {
   useLegacyCourseLinks();
   return (
     <div className={styles.home} data-testid="radio-course-home">
-      <section aria-labelledby="radio-stations-title">
-        <div className={styles.stationsHeader}>
-          <span className={styles.hubBadge}>ACCESO DIRECTO · ESTACIONES Y TALLER</span>
-          <h2 id="radio-stations-title">Consola Morse, Equipos, Instrumentos y Programa Oficial</h2>
-          <p>Entrá directo a practicar Código Morse con audio y ruido QRN, configurar tu Baofeng UV-5R, usar el multímetro o explorar las bandas.</p>
-        </div>
-        <div className={styles.hubGrid} data-testid="radio-hub-entities">
-          {radioModules.map((entity) => {
-            const isMorse = entity.id === 'radio-morse-console';
-            return (
-              <Link
-                key={entity.id}
-                href={`/${locale}${entity.href}`}
-                className={`${styles.hubCard} ${isMorse ? styles.hubCardHighlight : ''}`}
-              >
-                <span className={styles.hubBadge}>{entity.badge}</span>
-                <h3>{entity.id === 'radio-enacom-program' ? t('programLink') : entity.title}</h3>
-                <p>{entity.summary}</p>
-                <span className={styles.hubCta}>
-                  {isMorse ? '▶ Abrir Consola Morse (CW) →' : 'Abrir sección →'}
-                </span>
-              </Link>
-            );
-          })}
-        </div>
-      </section>
-      <div className={styles.homeIntro}>
-        <h2>{t('hubTitle')}</h2>
+      <section className={styles.startCard} aria-labelledby="radio-start-title">
+        <span className={styles.startEyebrow}>Aprender · 12 lecciones</span>
+        <h2 id="radio-start-title">{t('hubTitle')}</h2>
         <p>{t('hubIntro')}</p>
         <Button type="primary" size="large" onClick={() => router.push('/' + locale + radioPagePath('voltage'))}>{t('start')}</Button>
-      </div>
+      </section>
       <section aria-labelledby="radio-lessons-title">
         <h2 id="radio-lessons-title">{t('lessonsLabel')}</h2>
         <ol className={styles.lessonList} data-testid="radio-lesson-list">
@@ -77,6 +58,22 @@ export function RadioBasicsTool() {
           ))}
         </ol>
       </section>
+      <section aria-labelledby="radio-stations-title">
+        <div className={styles.stationsHeader}>
+          <h2 id="radio-stations-title">Practicar, rendir y consultar</h2>
+          <p>Consola Morse, banco de instrumentos, programa oficial de ENACOM, bandas y equipos.</p>
+        </div>
+        <div className={styles.hubGrid} data-testid="radio-hub-entities">
+          {radioModules.map((entity) => (
+            <Link key={entity.id} href={`/${locale}${entity.href}`} className={styles.hubCard} data-tone={hubTone(entity.id, entity.kind)}>
+              <span className={styles.hubBadge}>{entity.badge}</span>
+              <h3>{entity.id === 'radio-enacom-program' ? t('programLink') : entity.title}</h3>
+              <p>{entity.summary}</p>
+              <span className={styles.hubCta}>Abrir →</span>
+            </Link>
+          ))}
+        </div>
+      </section>
       <section aria-labelledby="radio-resources-title">
         <h2 id="radio-resources-title">{t('resourcesLabel')}</h2>
         <div className={styles.resourceList} data-testid="radio-resource-list">
@@ -85,7 +82,6 @@ export function RadioBasicsTool() {
           </Link>)}
         </div>
       </section>
-      <aside className={styles.future}><h2>{t('futureLabel')}</h2><p>{t('futureIntro')}</p><Link href={`/${locale}${radioCoursePath}/programa`}>{t('programLink')}</Link></aside>
     </div>
   );
 }

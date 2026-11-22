@@ -36,8 +36,7 @@ export function SendPractice() {
   }
   return (
     <div className={s.practice}>
-      <p>Escuchá el objetivo y repetilo. Mantené ← para una serie de puntos o → para rayas. Con ↓ o tu tecla manual, la duración de cada pulsación decide el signo. Dejá tres puntos de silencio entre letras.</p>
-      <PracticeSettings settings={settings} reset={round.reset} />
+      <p className={s.hint}>Escuchá el objetivo y repetilo. Mantené ← para una serie de puntos o → para rayas. Con ↓ o tu tecla manual, la duración de cada pulsación decide el signo. Dejá tres puntos de silencio entre letras.</p>
       <div className={s.display}>
         <span>Objetivo</span><strong>{round.phase === 'idle' ? '—' : round.target}</strong>
         <p role="status">{status[round.phase]}</p>
@@ -51,9 +50,10 @@ export function SendPractice() {
       </div>
       <SendControls input={round.keyer} pad={pad}
         enabled={round.phase === 'send'} manual={manual} />
-      <h3>Árbol de transmisión</h3>
-      <p>Seguí la rama izquierda para un punto y la derecha para una raya. Tu recorrido se ilumina al transmitir. Elegí una letra del árbol para escucharla y practicarla.</p>
       <MorseTree code={round.phase === 'listen' ? round.modelPath : round.marks} choose={start} />
+      <p className={s.hint}>Tu recorrido se ilumina en el árbol mientras transmitís. Tocá una letra del árbol para practicarla.</p>
+      <h3>Ajustes del ejercicio</h3>
+      <PracticeSettings settings={settings} reset={round.reset} />
     </div>
   );
 }

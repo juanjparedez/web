@@ -91,7 +91,7 @@ function GlossaryNotes() {
   const locale = useLocale();
   const tools = [
     { href: `/${locale}/radio/instrumentos`, label: 'Banco de 4 Instrumentos (Multímetro, Osciloscopio, ROE y NanoVNA)' },
-    { href: `/${locale}/radio/morse`, label: 'Consola Unificada de Código Morse (CW)' },
+    { href: `/${locale}/radio/morse`, label: 'Código Morse: seis entrenadores (CW)' },
     { href: `/${locale}/radio/tutoriales#generador-chirp`, label: 'Tutorial Baofeng UV-5R y Armador CSV CHIRP' },
     { href: `/${locale}/radio/b-modulacion-equipos#digitales`, label: 'Simulador SDR (I/Q), SNR y Límite de Shannon' },
     { href: `/${locale}/radio/lecciones/laboratory`, label: 'Laboratorio DC (Ohm y Kirchhoff)' },

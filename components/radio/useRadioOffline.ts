@@ -9,6 +9,7 @@ const OFFLINE_PATHS = [
   '/radio/instrumentos',
   '/radio/programa',
   '/radio/morse',
+  ...['arbol', 'reconocer', 'transmitir', 'koch', 'alfabeto', 'traductor'].map((slug) => `/radio/morse/${slug}`),
   '/radio/tutoriales',
   '/radio/a-electricidad',
   '/radio/b-modulacion-equipos',

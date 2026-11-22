@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useLocale } from 'next-intl';
-import styles from '@/components/radio/radioSubNav.module.css';
+import styles from './electronicsSubNav.module.css';
 
 export function ElectronicsSubNav() {
   const locale = useLocale();

@@ -2,8 +2,8 @@ import { expect, test, type Page } from '@playwright/test';
 import es from '../messages/es.json';
 
 async function changeTopic(page: Page, title: string) {
-  const select = page.getByRole('combobox', { name: 'Cambiar de tema' });
-  const option = page.locator(`.ant-select-dropdown:visible .ant-select-item-option[title="${title}"]`);
+  const select = page.getByRole('combobox', { name: 'Ir a otra sección' });
+  const option = page.locator('.ant-select-dropdown:visible .ant-select-item-option').filter({ hasText: new RegExp(`(^|· )${title}$`) });
   await select.press('ArrowDown');
   for (let attempt = 0; attempt < 16 && !await option.isVisible(); attempt++) {
     await select.press('ArrowDown');

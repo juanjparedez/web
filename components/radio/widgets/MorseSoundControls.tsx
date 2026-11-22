@@ -18,7 +18,7 @@ export function MorseSoundControls({ globalBar = false }: { globalBar?: boolean 
   const playback = useSyncExternalStore(subscribePlayback, getPlayback, defaultPlayback);
   return (
     <fieldset className={globalBar ? styles.soundGlobal : `${styles.sound} sr-only`}>
-      <legend>{globalBar ? 'Sonido de la consola · se aplica a todas las estaciones' : 'Sonido Morse (sincronizado)'}</legend>
+      <legend>{globalBar ? 'Sonido · todas las estaciones' : 'Sonido Morse (sincronizado)'}</legend>
       <div className={styles.soundRow}>
       <div className={styles.settings}>
         <label>Tono · {tone} Hz<input type="range" min={400} max={1000} step={10} value={tone}
