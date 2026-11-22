@@ -26,7 +26,7 @@ export function Overview({ guide, onOpen }: { guide: WiringGuide; onOpen: (modul
   const card = (id: string) => ({ step: step(id), gpios: gpios(id), onOpen: () => onOpen(id) });
   const sdR = `${MAX_SD_RIGHT_RESISTOR / 1000}kΩ`;
 
-  return <svg viewBox="0 0 1000 550" className={`${styles.svg} ${styles.overview}`} role="img" aria-label={t('overviewTitle')}>
+  return <svg viewBox="0 0 1000 550" className={`${styles.svg} ${styles.overview}`} role="img" aria-label={t('overviewTitle')} data-overview>
     {/* power source */}
     <OverviewCard x={20} y={28} w={160} h={58} title={t('part.charger')} ghost />
     <Feed d="M70,86 V110" color={V5} /><Feed d="M130,86 V110" color="var(--pw-role-gnd)" />

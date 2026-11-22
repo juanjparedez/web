@@ -15,7 +15,7 @@ export function JointList({ joints, colors, done, ready, active, onPick, onToggl
   return <ol className={styles.joints} onMouseLeave={() => onPick('')}>
     {joints.map(([key, wire]) => {
       const isDone = done.includes(wire.id);
-      return <li key={key} className={`${styles.joint} ${isDone ? styles.jointDone : ''}`} aria-current={active === key || undefined}
+      return <li key={key} data-wire={wire.id} className={`${styles.joint} ${isDone ? styles.jointDone : ''}`} aria-current={active === key || undefined}
         style={{ '--wire': colors.get(key) ?? 'var(--hios-text-muted)' } as CSSProperties} onMouseEnter={() => onPick(key)}>
         <input type="checkbox" checked={isDone} disabled={!ready} onChange={() => onToggle(wire.id)}
           aria-label={t('markDone', { name: wire.name })} />
