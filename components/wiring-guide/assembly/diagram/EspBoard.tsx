@@ -1,3 +1,4 @@
+import type React from 'react';
 import type { BoardPinout } from '@/config/pinouts/modules/breakout';
 import { PIN_PITCH, pinY } from '@/lib/padWiring/diagram';
 
@@ -7,19 +8,27 @@ export const ESP_W = 172;
  * The DevKitC-1 seen from above: antenna up, USB down, J1 on the left and J3 on the
  * right, every hole numbered from the antenna. `active` maps "J1-16" → wire colour.
  */
-export function EspBoard({ board, x, active, antenna }: {
-  board: BoardPinout; x: number; active: Map<string, string>; antenna: string;
+export function EspBoard({ board, x, active, antenna, selected, onPick }: {
+  board: BoardPinout; x: number; active: Map<string, { color: string; key: string }>; antenna: string;
+  selected: string; onPick: (key: string) => void;
 }) {
   const last = Math.max(board.left.length, board.right.length);
   const bottom = pinY(last) + 26;
   const col = (side: 'left' | 'right') => board[side].map(pin => {
     const y = pinY(pin.pos);
     const id = `${board.headers[side]}-${pin.pos}`;
-    const color = active.get(id);
+    const hole = active.get(id);
+    const color = hole?.color;
     const padX = side === 'left' ? x + 9 : x + ESP_W - 9;
     const silk = pin.labels[0]?.text ?? '';
     const textX = side === 'left' ? x + 19 : x + ESP_W - 19;
-    return <g key={id} className={color ? 'dgPinOn' : 'dgPinOff'}>
+    const props = hole ? {
+      'data-header-pin': id, role: 'button', tabIndex: 0, 'aria-pressed': selected === hole.key,
+      'aria-label': `${id} · ${silk}`, style: { cursor: 'pointer' },
+      onClick: () => onPick(selected === hole.key ? '' : hole.key),
+      onKeyDown: (event: React.KeyboardEvent) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); onPick(hole.key); } },
+    } : { 'aria-hidden': true };
+    return <g key={id} className={color ? 'dgPinOn' : 'dgPinOff'} {...props}>
       {color ? <rect x={side === 'left' ? x + 2 : x + ESP_W - 66} y={y - 8} width={64} height={16} rx={8}
         style={{ fill: `color-mix(in srgb, ${color} 22%, transparent)` }} /> : null}
       <circle cx={padX} cy={y} r={4.6} className="dgPad" style={color ? { fill: color, stroke: color } : undefined} />
@@ -29,7 +38,7 @@ export function EspBoard({ board, x, active, antenna }: {
       </text>
     </g>;
   });
-  return <g aria-hidden>
+  return <g>
     <rect x={x} y={8} width={ESP_W} height={bottom - 8} rx={10} className="dgPcb" />
     <rect x={x + 62} y={14} width={48} height={22} rx={3} className="dgAntenna" />
     <path d={`M${x + 68},30 v-10 h6 v10 h6 v-10 h6 v10 h6 v-10 h6 v10`} className="dgAntennaTrace" />

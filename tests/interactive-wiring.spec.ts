@@ -10,7 +10,8 @@ for (const locale of ['es', 'en', 'de', 'it'] as GuideLocale[]) {
       await page.goto(`/${locale}/pinouts/${project}`);
       const mode = page.locator('[data-soldering-mode]');
       await expect(mode).toBeVisible();
-      await mode.getByRole('navigation', { name: copy.Assembly.modules }).getByRole('button').nth(1).click();
+      // The PAD opens on its overview; its second module (display) is the third step button.
+      await mode.getByRole('navigation', { name: copy.Assembly.modules }).getByRole('button').nth(project === 'pad' ? 2 : 1).click();
       const box = mode.locator('[data-wire] input[type=checkbox]').first();
       await box.check();
       await page.reload();
@@ -37,7 +38,7 @@ for (const locale of ['es', 'en', 'de', 'it'] as GuideLocale[]) {
 test('pad: header pin and wire list point at the same joint', async ({ page }) => {
   await page.goto('/en/pinouts/pad');
   const mode = page.locator('[data-soldering-mode]');
-  await mode.getByRole('navigation', { name: guideMessages.en.Assembly.modules }).getByRole('button').nth(1).click();
+  await mode.getByRole('navigation', { name: guideMessages.en.Assembly.modules }).getByRole('button').nth(2).click();
   const pin = mode.locator('[data-header-pin="J1-16"]');
   await expect(pin).toContainText('IO10');
   await pin.click();

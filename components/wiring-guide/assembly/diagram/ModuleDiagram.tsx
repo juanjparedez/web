@@ -28,8 +28,8 @@ export function ModuleDiagram({ spec, board, keys, active, done, onPick, title }
   const lanes = useMemo(() => assignLanes(spec.links.filter(l => l.kind === 'esp'), pins), [spec, pins]);
   const width = useMemo(() => extentX(spec, pins), [spec, pins]);
   const label = (text: string) => (TAG_KEYS.has(text) ? t(`tag.${text}`) : text);
-  const activeHoles = new Map<string, string>();
-  spec.links.forEach(link => { if (link.kind === 'esp') activeHoles.set(`${spec.header}-${link.pos}`, colors.get(link.key) ?? ''); });
+  const activeHoles = new Map<string, { color: string; key: string }>();
+  spec.links.forEach(link => { if (link.kind === 'esp') activeHoles.set(`${spec.header}-${link.pos}`, { color: colors.get(link.key) ?? '', key: link.key }); });
   const boardX = mirrored ? DIAGRAM_W - HEADER_X - 9 : HEADER_X + 9 - ESP_W;
   const state = (key: string) => [
     active && key === active ? styles.on : '', active && key !== active ? styles.dim : '',
@@ -38,7 +38,7 @@ export function ModuleDiagram({ spec, board, keys, active, done, onPick, title }
 
   return <svg viewBox={`${mirrored ? DIAGRAM_W - width : 0} 0 ${width} ${DIAGRAM_H}`} className={styles.svg} role="img" aria-label={title}
     onClick={event => { if (event.target === event.currentTarget) onPick(''); }}>
-    <EspBoard board={board} x={boardX} active={activeHoles} antenna={t('antenna')} />
+    <EspBoard board={board} x={boardX} active={activeHoles} antenna={t('antenna')} selected={active} onPick={onPick} />
     {spec.caption ? <text x={mirrored ? DIAGRAM_W - width + 24 : width - 24} y={DIAGRAM_H - 8} textAnchor={mirrored ? 'start' : 'end'} className="dgCaption">{t(spec.caption)}</text> : null}
     {spec.cards.map(card => <g key={card.id} className={card.pins.some(pin => pin.key === active) || !active ? '' : styles.dimCard}>
       <PartCard card={card} title={t(`part.${card.title}`)} pins={pins} map={map} colors={colors} mirrored={mirrored}

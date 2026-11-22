@@ -37,7 +37,7 @@ export function ModuleView({ guide, module, spec, board, index, total, done, rea
   const notes = moduleSections(guide, module.id).filter(section => section.ascii || section.tip);
   const keys = guide.keymap?.rows.map(row => row.keys) ?? [];
 
-  return <>
+  return <div data-module={module.id}>
     <div className={styles.work}>
       <figure className={styles.figure}>
         <ModuleDiagram spec={spec} board={board} keys={keys} active={active} done={doneKeys} onPick={setActive} title={module.name} />
@@ -70,5 +70,5 @@ export function ModuleView({ guide, module, spec, board, index, total, done, rea
       <summary>{t('jointTitle')}</summary>
       <SolderJointGuide />
     </details>
-  </>;
+  </div>;
 }
