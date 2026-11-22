@@ -1,3 +1,4 @@
+import { MORSE_TRAINERS } from '@/lib/radio/morseTrainers';
 import { softwareProjects, softwarePath, type SoftwareProjectSlug } from '@/config/project-software';
 import type { MetadataRoute } from 'next';
 import { workbenchTools } from '@/config/workbench';
@@ -26,6 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/radio/tutoriales',
     ...radioPages.map(({ id }) => radioPagePath(id)),
     ...CHAPTERS.map((c): PagePath => `/radio/${c.slug}`),
+    ...MORSE_TRAINERS.map((t): PagePath => `/radio/morse/${t.slug}`),
     '/radio/imprimir',
     '/pinouts',
     '/pinouts/pad',

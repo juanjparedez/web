@@ -3,7 +3,6 @@ import { setRequestLocale } from 'next-intl/server';
 import { createPageMetadata } from '@/lib/seo';
 import { PageIntro } from '@/components/ui/PageIntro';
 import { RadioCourseNavigation } from '@/components/radio-basics/RadioCourseNavigation';
-import { RadioSubNav } from '@/components/radio/RadioSubNav';
 import { MultimeterGuide } from '@/components/radio/instruments/MultimeterGuide';
 import styles from '@/components/radio-basics/radioCourse.module.css';
 
@@ -39,7 +38,6 @@ export default async function RadioInstrumentsPage({
 
   return (
     <main className={styles.page} lang="es">
-      <RadioSubNav />
       <div className={styles.shell} data-wide="true">
         <RadioCourseNavigation page="instrumentos" />
         <div className={styles.reading}>

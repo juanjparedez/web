@@ -5,7 +5,6 @@ import courseStyles from '@/components/radio-basics/radioCourse.module.css';
 import { chapterNeighbors, type Chapter } from '@/lib/radio/chapters';
 import { CHAPTER_BODIES } from './chapterBodies';
 import { SpanishOnlyNotice } from './SpanishOnlyNotice';
-import { RadioSubNav } from './RadioSubNav';
 import styles from './radio.module.css';
 
 export function ChapterView({ chapter, locale }: { chapter: Chapter; locale: string }) {
@@ -18,7 +17,6 @@ export function ChapterView({ chapter, locale }: { chapter: Chapter; locale: str
 
   return (
     <main className={courseStyles.page} lang="es">
-      <RadioSubNav />
       <div className={courseStyles.shell} data-wide="true">
         <RadioCourseNavigation page={navPage} />
         <div className={`${courseStyles.reading} ${styles.content}`}>
@@ -32,11 +30,13 @@ export function ChapterView({ chapter, locale }: { chapter: Chapter; locale: str
           {locale !== 'es' ? <SpanishOnlyNotice /> : null}
           <nav className={courseStyles.chapterTopicsBar} aria-label="En este capítulo">
             <span className={courseStyles.chapterTopicsLabel}>En este capítulo:</span>
-            {chapter.sections.map((s) => (
-              <a key={s.id} href={`#${s.id}`} className={courseStyles.chapterTopicPill}>
-                {s.title}
-              </a>
-            ))}
+            <ol className={courseStyles.chapterTopicList}>
+              {chapter.sections.map((s) => (
+                <li key={s.id}>
+                  <a href={`#${s.id}`} className={courseStyles.chapterTopicPill}>{s.title}</a>
+                </li>
+              ))}
+            </ol>
           </nav>
           {parts.map((Part, i) => <Part key={i} />)}
           <nav className={styles.pager} aria-label="Capítulos">
