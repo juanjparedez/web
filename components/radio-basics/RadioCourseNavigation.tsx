@@ -64,6 +64,7 @@ export function RadioCourseNavigation({ page = 'home' }: { page?: RadioNavPageId
         <label htmlFor="radio-course-topic">{t('jump')}</label>
         <Select
           id="radio-course-topic"
+          virtual={false}
           value={page === 'home' ? '' : page}
           aria-label={t('jump')}
           onChange={handleMobileChange}

@@ -103,3 +103,8 @@ button.mcell:focus-visible { outline: 2px solid var(--accent-2); outline-offset:
   .composerBar { gap: 4px; }
   .composerBar button { min-height: 34px; padding: 2px 10px; font-size: 0.8rem; }
 }
+@media (max-width: 640px) {
+  .planScroll { padding: 0 6px 8px; }
+  .planScroll table { font-size: 0.78rem; }
+  .planScroll th, .planScroll td { padding: 5px 4px; }
+}

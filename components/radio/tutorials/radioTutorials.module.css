@@ -323,3 +323,8 @@
 .secondaryBtn:hover {
   border-color: var(--accent-2-text);
 }
+
+/* Phones: flatter boxes and stacked tables. */
+@media (max-width: 640px) {
+  .tableWrap { overflow: visible; border: 0; background: none; }
+}
