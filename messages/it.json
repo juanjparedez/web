@@ -4739,7 +4739,57 @@
         "jointBad": "Ponte tra terminali",
         "jointHint": "Schemi di riferimento. La lucentezza dipende dalla lega e da sola non dimostra la qualità della giunzione.",
         "sources": "Riferimento per la tecnica di saldatura",
-        "saveFailed": "Impossibile salvare i progressi. Rimarranno disponibili solo finché questa vista resta aperta."
+        "saveFailed": "Impossibile salvare i progressi. Rimarranno disponibili solo finché questa vista resta aperta.",
+        "overview": "Panoramica",
+        "overviewTitle": "Panoramica del PAD: alimentazione, binari e ogni parte",
+        "overviewHint": "Tutte le parti del PAD e da dove prendono alimentazione. Tocca una parte per vedere come si salda.",
+        "matrixBack": "Matrice vista da dietro (il lato che saldi). La banda di ogni diodo verso la riga.",
+        "short": {
+            "power": "Alimentazione",
+            "display": "Display",
+            "matrix": "Matrice",
+            "nav": "ALT",
+            "encoder": "Encoder",
+            "stick": "Stick",
+            "audio": "Audio",
+            "led": "LED"
+        },
+        "tag": {
+            "rail5v": "BINARIO 5V",
+            "rail3v3": "BINARIO 3V3",
+            "tftLed": "LED display"
+        },
+        "part": {
+            "tft": "Display ILI9488 4\"",
+            "keys": "Matrice 2×5",
+            "alt1": "Pulsante ALT 1",
+            "alt2": "Pulsante ALT 2",
+            "alts": "Pulsanti ALT",
+            "ky040": "Encoder KY-040",
+            "hw504": "Stick HW-504",
+            "ampL": "Ampli sinistro",
+            "ampR": "Ampli destro",
+            "speakerL": "Altoparlante sx 4–8Ω",
+            "speakerR": "Altoparlante dx 4–8Ω",
+            "ledA": "NeoPixel scheda A",
+            "ledB": "NeoPixel scheda B",
+            "leds": "2× NeoPixel (8 px)",
+            "buck": "Buck 5.0V ≥3A",
+            "sw1": "SW1 · celle",
+            "sw2": "SW2 · display",
+            "cells": "Celle 2S",
+            "charger": "Caricatore 2S"
+        },
+        "ov": {
+            "allGpio": "GPIO → ogni parte",
+            "legend5v": "Binario 5V (buck)",
+            "legend3v3": "Binario 3V3 (regolatore del DevKit, mai alimentato da fuori)",
+            "legendGnd": "Massa comune: ogni ⏚ è la stessa massa",
+            "legendGpio": "IO … = GPIO usati da quella parte sull’ESP32",
+            "legendOpen": "Tocca una parte per aprire il suo passo di cablaggio"
+        },
+        "showMore": "Mostra di più",
+        "showLess": "Mostra meno"
     },
     "Repositories": {
         "title": "Repository e documentazione",

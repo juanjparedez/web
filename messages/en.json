@@ -4739,7 +4739,57 @@
         "jointBad": "Bridge between terminals",
         "jointHint": "Reference sketches. Shine depends on the alloy; it alone does not establish joint quality.",
         "sources": "Soldering technique reference",
-        "saveFailed": "Progress could not be saved. It will last only while this view remains open."
+        "saveFailed": "Progress could not be saved. It will last only while this view remains open.",
+        "overview": "Overview",
+        "overviewTitle": "PAD overview: power, rails and every part",
+        "overviewHint": "Every part of the PAD and where it takes power from. Tap a part to see how it is soldered.",
+        "matrixBack": "Matrix seen from the back (the side you solder). Stripe of each diode toward the row.",
+        "short": {
+            "power": "Power",
+            "display": "Display",
+            "matrix": "Matrix",
+            "nav": "ALT",
+            "encoder": "Encoder",
+            "stick": "Stick",
+            "audio": "Audio",
+            "led": "LEDs"
+        },
+        "tag": {
+            "rail5v": "5V RAIL",
+            "rail3v3": "3V3 RAIL",
+            "tftLed": "Display LED"
+        },
+        "part": {
+            "tft": "ILI9488 4\" display",
+            "keys": "2×5 key matrix",
+            "alt1": "ALT 1 button",
+            "alt2": "ALT 2 button",
+            "alts": "ALT buttons",
+            "ky040": "KY-040 encoder",
+            "hw504": "HW-504 stick",
+            "ampL": "Left amp",
+            "ampR": "Right amp",
+            "speakerL": "Left speaker 4–8Ω",
+            "speakerR": "Right speaker 4–8Ω",
+            "ledA": "NeoPixel board A",
+            "ledB": "NeoPixel board B",
+            "leds": "2× NeoPixel (8 px)",
+            "buck": "Buck 5.0V ≥3A",
+            "sw1": "SW1 · cells",
+            "sw2": "SW2 · display",
+            "cells": "2S cells",
+            "charger": "2S charger"
+        },
+        "ov": {
+            "allGpio": "GPIO → each part",
+            "legend5v": "5V rail (buck)",
+            "legend3v3": "3V3 rail (DevKit regulator, never fed from outside)",
+            "legendGnd": "Common ground: every ⏚ is the same single ground",
+            "legendGpio": "IO … = GPIOs that part uses on the ESP32",
+            "legendOpen": "Tap a part to open its wiring step"
+        },
+        "showMore": "Show more",
+        "showLess": "Show less"
     },
     "Repositories": {
         "title": "Repositories and documentation",

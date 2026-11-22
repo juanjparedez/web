@@ -4739,7 +4739,57 @@
         "jointBad": "Brücke zwischen Anschlüssen",
         "jointHint": "Referenzskizzen. Der Glanz hängt von der Legierung ab und belegt allein keine gute Lötstelle.",
         "sources": "Referenz zur Löttechnik",
-        "saveFailed": "Der Fortschritt konnte nicht gespeichert werden. Er bleibt nur erhalten, solange diese Ansicht geöffnet ist."
+        "saveFailed": "Der Fortschritt konnte nicht gespeichert werden. Er bleibt nur erhalten, solange diese Ansicht geöffnet ist.",
+        "overview": "Übersicht",
+        "overviewTitle": "PAD-Übersicht: Versorgung, Schienen und alle Teile",
+        "overviewHint": "Alle Teile des PAD und woher sie ihren Strom bekommen. Tippe auf ein Teil, um zu sehen, wie es gelötet wird.",
+        "matrixBack": "Matrix von hinten gesehen (Lötseite). Der Ring jeder Diode zeigt zur Zeile.",
+        "short": {
+            "power": "Versorgung",
+            "display": "Display",
+            "matrix": "Matrix",
+            "nav": "ALT",
+            "encoder": "Encoder",
+            "stick": "Stick",
+            "audio": "Audio",
+            "led": "LEDs"
+        },
+        "tag": {
+            "rail5v": "5V-SCHIENE",
+            "rail3v3": "3V3-SCHIENE",
+            "tftLed": "Display-LED"
+        },
+        "part": {
+            "tft": "ILI9488 4\"-Display",
+            "keys": "2×5-Tastenmatrix",
+            "alt1": "Taste ALT 1",
+            "alt2": "Taste ALT 2",
+            "alts": "ALT-Tasten",
+            "ky040": "Encoder KY-040",
+            "hw504": "Stick HW-504",
+            "ampL": "Verstärker links",
+            "ampR": "Verstärker rechts",
+            "speakerL": "Lautsprecher L 4–8Ω",
+            "speakerR": "Lautsprecher R 4–8Ω",
+            "ledA": "NeoPixel-Platine A",
+            "ledB": "NeoPixel-Platine B",
+            "leds": "2× NeoPixel (8 px)",
+            "buck": "Buck 5.0V ≥3A",
+            "sw1": "SW1 · Zellen",
+            "sw2": "SW2 · Display",
+            "cells": "2S-Zellen",
+            "charger": "2S-Ladegerät"
+        },
+        "ov": {
+            "allGpio": "GPIO → jedes Teil",
+            "legend5v": "5V-Schiene (Buck)",
+            "legend3v3": "3V3-Schiene (Regler des DevKit, nie von außen einspeisen)",
+            "legendGnd": "Gemeinsame Masse: jedes ⏚ ist dieselbe Masse",
+            "legendGpio": "IO … = GPIOs, die das Teil am ESP32 nutzt",
+            "legendOpen": "Tippe auf ein Teil, um seinen Verdrahtungsschritt zu öffnen"
+        },
+        "showMore": "Mehr",
+        "showLess": "Weniger"
     },
     "Repositories": {
         "title": "Repositories und Dokumentation",
