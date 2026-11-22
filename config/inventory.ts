@@ -136,6 +136,18 @@ export const CORE_INVENTORY_ENTITIES: readonly InventoryEntity[] = [
     builtIn: true,
   },
   {
+    id: 'knowledge:spectrum',
+    domain: 'radio',
+    kind: 'tool',
+    badge: 'EM · WEBGL',
+    title: 'El espectro electromagnético',
+    summary: 'De 1 Hz a 10²⁶ Hz en la GPU: longitud de onda, energía del fotón, ventanas de la atmósfera, la onda E/B en 3D y la ley de Planck.',
+    href: '/espectro',
+    tags: ['Física', 'Ondas', 'Espectro', 'WebGL'],
+    status: 'published',
+    builtIn: true,
+  },
+  {
     id: 'workbench:composer',
     domain: 'workbench',
     kind: 'tool',
