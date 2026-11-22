@@ -27,8 +27,16 @@
 .tree button[aria-pressed=true] { outline: 2px solid var(--accent-2-text); }
 
 .sound { min-width: 0; margin: .5rem 0; padding: .7rem .9rem; border: 1px solid var(--hios-border); border-radius: var(--surface-radius, .6rem); color: var(--hios-text); background: var(--hios-bg); }
-.soundGlobal { min-width: 0; margin: 0; padding: .9rem 1.1rem; border: 1px solid color-mix(in srgb, var(--accent-2-text) 45%, var(--hios-border)); border-radius: var(--surface-radius, .75rem); color: var(--hios-text); background: var(--hios-bg-elevated); box-shadow: var(--hios-shadow-sm); }
-.sound legend, .soundGlobal legend { padding: 0 .35rem; font-weight: 600; color: var(--accent-2-text); }
+.soundGlobal { min-width: 0; margin: 0; padding: 10px 0 0; border: 0; border-top: 1px solid var(--hios-border); color: var(--hios-text); }
+.soundRow { display: grid; grid-template-columns: minmax(0, 1fr); gap: .6rem; }
+.soundGlobal .soundRow { grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: .5rem 1.5rem; }
+.soundGlobal .settings { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: .5rem 1.25rem; }
+.soundGlobal .settings label { font-size: .82rem; color: var(--hios-text-secondary); gap: .2rem; }
+.soundGlobal .settings select { padding: .35rem .6rem; }
+.soundGlobal .soundFooter { margin: 0; gap: .25rem 1rem; padding-bottom: .4rem; }
+
+.soundGlobal legend { padding: 10px 0 .5rem; font: 600 .72rem/1.4 var(--font-stack-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--hios-text-muted); }
+.sound legend { padding: 0 .35rem; font-weight: 600; color: var(--accent-2-text); }
 .soundFooter { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .6rem 1rem; margin-top: .65rem; }
 .soundActions { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; }
 .playbackBadge { font-size: .82rem; font-family: var(--font-stack-mono); color: var(--hios-text-secondary); }
@@ -36,11 +44,11 @@
 .stopAllBtn { padding: .3rem .7rem !important; border-radius: calc(var(--surface-radius, 8px) * 0.5) !important; border: 1px solid color-mix(in srgb, var(--hios-error) 55%, var(--hios-border)) !important; background: color-mix(in srgb, var(--hios-error) 14%, var(--hios-bg)) !important; color: var(--hios-text) !important; font-weight: 600 !important; cursor: pointer; }
 .sound button, .soundGlobal button { padding: .25rem 0; border: 0; background: transparent; color: var(--accent-2-text); font: inherit; cursor: pointer; }
 .sound button:disabled, .soundGlobal button:disabled { color: var(--hios-text-secondary); cursor: default; }
-.consoleSticky { position: sticky; top: 68px; z-index: 12; display: grid; gap: .75rem; margin-bottom: 1.5rem; padding: .75rem; border-radius: var(--surface-radius, .9rem); background: color-mix(in srgb, var(--hios-bg-secondary) 92%, transparent); backdrop-filter: blur(8px); border: 1px solid var(--hios-border); box-shadow: var(--hios-shadow-md); }
-.stationBar { display: flex; flex-wrap: wrap; align-items: center; gap: .45rem; }
-.stationBtn { padding: .45rem .8rem; border-radius: calc(var(--surface-radius, 8px) * 0.6); border: 1px solid var(--hios-border); background: var(--hios-bg); color: var(--hios-text-secondary); font-size: .84rem; font-weight: 500; cursor: pointer; transition: all var(--hios-transition-fast); }
+.console { display: grid; gap: .85rem; padding: 14px 16px; border-radius: var(--surface-radius, .9rem); background: var(--hios-bg-secondary); border: 1px solid color-mix(in srgb, var(--accent-2-text) 35%, var(--hios-border)); }
+.stationBar { display: flex; flex-wrap: wrap; gap: 4px; padding: 4px; border-radius: 10px; background: var(--hios-bg); border: 1px solid var(--hios-border); }
+.stationBtn { flex: 1 1 auto; padding: .5rem .9rem; border-radius: 7px; border: 1px solid transparent; background: transparent; color: var(--hios-text-secondary); font-size: .88rem; font-weight: 500; font-family: inherit; cursor: pointer; transition: all var(--hios-transition-fast); }
 .stationBtn:hover { color: var(--hios-text); border-color: color-mix(in srgb, var(--accent-2-text) 45%, var(--hios-border)); }
-.stationBtn[data-selected='true'] { color: var(--hios-text); background: color-mix(in srgb, var(--accent-2-text) 16%, var(--hios-bg-elevated)); border-color: var(--accent-2-text); font-weight: 600; }
+.stationBtn[data-selected='true'] { color: var(--hios-bg); background: var(--accent-2-text); font-weight: 600; }
 .stationWrap { transition: border-color var(--hios-transition-fast), box-shadow var(--hios-transition-fast); border-radius: var(--surface-radius, .85rem); }
-.stationWrap[data-highlighted='true'] { outline: 2px solid color-mix(in srgb, var(--accent-2-text) 55%, transparent); outline-offset: 8px; }
 .stationWrap[data-hidden='true'] { display: none; }
+@media (max-width: 640px) { .soundGlobal .soundRow, .soundGlobal .settings { grid-template-columns: minmax(0, 1fr); } }

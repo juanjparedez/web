@@ -8,7 +8,6 @@ import { LicenseLadder } from './LicenseLadder';
 import { ProgramMap } from './ProgramMap';
 import { LicenseSteps, SOURCES_TEXT } from './LicenseSteps';
 import { Callout } from './ui/Prose';
-import { RadioSubNav } from './RadioSubNav';
 import landing from './landing.module.css';
 import styles from './radio.module.css';
 
@@ -34,7 +33,6 @@ export function RadioLanding({ locale }: { locale: string }) {
   const base = `/${locale}/radio`;
   return (
     <main className={courseStyles.page} lang="es">
-      <RadioSubNav />
       <div className={courseStyles.shell} data-wide="true">
         <RadioCourseNavigation page="programa" />
         <div className={courseStyles.reading}>

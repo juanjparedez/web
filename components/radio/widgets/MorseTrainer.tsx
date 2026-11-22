@@ -1,6 +1,5 @@
 'use client';
 
-import { MorseSoundControls } from './MorseSoundControls';
 import { useEffect, useRef, useState } from 'react';
 import { KOCH_ORDER, MORSE } from '@/lib/radio/codes';
 import { Instrument, Controls, Readouts } from '../ui/Instrument';
@@ -72,7 +71,6 @@ export function MorseTrainer() {
         <RangeField label="Velocidad" value={wpm} min={10} max={30} step={1} display={`${wpm} ppm`} onChange={setWpm} />
         <RangeField label="Letras en juego (nivel)" value={level} min={2} max={KOCH_ORDER.length} step={1} display={`${level}: ${pool.join(' ')}`} onChange={(v) => { setLevel(v); setHist([]); }} />
       </Controls>
-      <MorseSoundControls />
       <Readouts items={[
         { label: 'Aciertos (últimos 20)', value: recent.length ? `${Math.round(accuracy * 100)} % de ${recent.length}` : '—', tone: accuracy >= 0.9 ? 'good' : recent.length > 5 ? 'warn' : undefined },
         { label: 'Próxima letra', value: KOCH_ORDER[level] ?? '¡Completo!' },

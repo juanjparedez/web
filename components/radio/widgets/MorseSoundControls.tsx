@@ -18,7 +18,8 @@ export function MorseSoundControls({ globalBar = false }: { globalBar?: boolean 
   const playback = useSyncExternalStore(subscribePlayback, getPlayback, defaultPlayback);
   return (
     <fieldset className={globalBar ? styles.soundGlobal : `${styles.sound} sr-only`}>
-      <legend>{globalBar ? 'Consola Global de Audio y Ruido CW' : 'Sonido Morse (sincronizado)'}</legend>
+      <legend>{globalBar ? 'Sonido de la consola · se aplica a todas las estaciones' : 'Sonido Morse (sincronizado)'}</legend>
+      <div className={styles.soundRow}>
       <div className={styles.settings}>
         <label>Tono · {tone} Hz<input type="range" min={400} max={1000} step={10} value={tone}
           aria-valuetext={tone + ' Hz'} onChange={e => setSound({ tone: Number(e.target.value) })} /></label>
@@ -29,7 +30,7 @@ export function MorseSoundControls({ globalBar = false }: { globalBar?: boolean 
       </div>
       <div className={styles.soundFooter}>
         <span className={styles.playbackBadge} data-active={playback.active ? 'true' : 'false'}>
-          {playback.active ? `◉ Sonando: ${playback.label}` : '● Audio en espera (un solo reproductor activo a la vez)'}
+          {playback.active ? `◉ Sonando: ${playback.label}` : '● En espera'}
         </span>
         <div className={styles.soundActions}>
           {playback.active ? (
@@ -38,8 +39,9 @@ export function MorseSoundControls({ globalBar = false }: { globalBar?: boolean 
             </button>
           ) : null}
           <button type="button" disabled={tone === 650 && !noise}
-            onClick={() => setSound(defaultSound())}>Restablecer sonido original</button>
+            onClick={() => setSound(defaultSound())}>Restablecer</button>
         </div>
+      </div>
       </div>
     </fieldset>
   );

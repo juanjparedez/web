@@ -4,118 +4,61 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Select } from 'antd';
 import { useLocale, useTranslations } from 'next-intl';
-import { radioLessons, radioResources, radioPagePath, radioCoursePath, type RadioPageId } from '@/config/radio-course';
+import { radioCoursePath } from '@/config/radio-course';
+import { RadioOfflineButton } from '@/components/radio/RadioOfflineButton';
+import { RADIO_NAV_GROUPS, radioNavGroupOf, type RadioNavItem, type RadioNavPageId } from './radioNavGroups';
 import styles from './radioCourse.module.css';
 
-export type RadioNavPageId =
-  | RadioPageId
-  | 'home'
-  | 'instrumentos'
-  | 'tutoriales'
-  | 'morse-console'
-  | 'programa'
-  | 'a-electricidad'
-  | 'b-modulacion-equipos'
-  | 'c-antenas-propagacion'
-  | 'd-reglamento'
-  | 'practica';
-
-const WORKBENCH_LINKS = [
-  { id: 'morse-console', path: '/radio/morse', label: '★ Consola Código Morse (CW)' },
-  { id: 'tutoriales', path: '/radio/tutoriales', label: '★ Tutorial Baofeng UV-5R (CHIRP)' },
-  { id: 'instrumentos', path: '/radio/instrumentos', label: '★ Instrumentos: Multímetro' },
-] as const;
-
-const ENACOM_LINKS = [
-  { id: 'programa', path: '/radio/programa', label: 'Temario y 15 Simuladores RF' },
-  { id: 'a-electricidad', path: '/radio/a-electricidad', label: 'Bloque A · Electricidad y RF' },
-  { id: 'b-modulacion-equipos', path: '/radio/b-modulacion-equipos', label: 'Bloque B · Modulación y SDR' },
-  { id: 'c-antenas-propagacion', path: '/radio/c-antenas-propagacion', label: 'Bloque C · Antenas y ROE' },
-  { id: 'd-reglamento', path: '/radio/d-reglamento', label: 'Bloque D · Reglamentación' },
-  { id: 'practica', path: '/radio/practica', label: 'Simulacro de Examen Oficial' },
-] as const;
+export type { RadioNavPageId } from './radioNavGroups';
 
 export function RadioCourseNavigation({ page = 'home' }: { page?: RadioNavPageId }) {
   const t = useTranslations('RadioCourse');
   const locale = useLocale();
   const router = useRouter();
-  const mobileGroups = [
-    { label: 'lessonsLabel', pages: radioLessons },
-    { label: 'resourcesLabel', pages: radioResources },
-  ] as const;
-
-  const extraLinks = [...WORKBENCH_LINKS, ...ENACOM_LINKS];
+  const activeGroup = radioNavGroupOf(page) ?? 'learn';
+  const labelOf = (item: RadioNavItem) => item.label ?? t(`pages.${item.id}.title`);
+  const allItems = RADIO_NAV_GROUPS.flatMap((group) => group.items);
 
   const handleMobileChange = (id: string) => {
-    if (!id) {
-      router.push(`/${locale}${radioCoursePath}`);
-      return;
-    }
-    const extra = extraLinks.find((item) => item.id === id);
-    if (extra) {
-      router.push(`/${locale}${extra.path}`);
-      return;
-    }
-    router.push(`/${locale}${radioPagePath(id as RadioPageId)}`);
+    const item = allItems.find((entry) => entry.id === id);
+    router.push(`/${locale}${item ? item.path : radioCoursePath}`);
   };
 
   return (
     <aside className={styles.sidebar} data-testid="radio-sidebar">
       <div className={styles.desktopNavigation}>
-        <Link href={`/${locale}${radioCoursePath}`} aria-current={page === 'home' ? 'page' : undefined}>
-          {t('backToCourse')}
+        <Link
+          href={`/${locale}${radioCoursePath}`}
+          className={styles.navHome}
+          aria-current={page === 'home' ? 'page' : undefined}
+        >
+          <span>Radioaficionado</span>
+          <small>{t('backToCourse')}</small>
         </Link>
-        <nav aria-label={t('navigation')}>
-          <div>
-            <p className={styles.navGroup}>Estaciones y taller</p>
-            {WORKBENCH_LINKS.map((item) => (
-              <Link
-                key={item.id}
-                href={`/${locale}${item.path}`}
-                className={styles.navFeaturedLink}
-                aria-current={page === item.id ? 'page' : undefined}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </div>
-          <div>
-            <p className={styles.navGroup}>{t('resourcesLabel')}</p>
-            {radioResources.map(({ id }) => (
-              <Link
-                key={id}
-                href={`/${locale}${radioPagePath(id)}`}
-                aria-current={page === id ? 'page' : undefined}
-              >
-                {t(`pages.${id}.title`)}
-              </Link>
-            ))}
-          </div>
-          <div>
-            <p className={styles.navGroup}>Programa Oficial ENACOM</p>
-            {ENACOM_LINKS.map((item) => (
-              <Link
-                key={item.id}
-                href={`/${locale}${item.path}`}
-                aria-current={page === item.id ? 'page' : undefined}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </div>
-          <div>
-            <p className={styles.navGroup}>{t('lessonsLabel')}</p>
-            {radioLessons.map(({ id }) => (
-              <Link
-                key={id}
-                href={`/${locale}${radioPagePath(id)}`}
-                aria-current={page === id ? 'page' : undefined}
-              >
-                {t(`pages.${id}.title`)}
-              </Link>
-            ))}
-          </div>
+        <nav aria-label={t('navigation')} className={styles.navGroups}>
+          {RADIO_NAV_GROUPS.map((group) => (
+            <details key={group.id} className={styles.navSection} data-tone={group.id} open={group.id === activeGroup}>
+              <summary>
+                <span className={styles.navSectionTitle}>{group.title}</span>
+                <span className={styles.navSectionHint}>{group.hint}</span>
+              </summary>
+              <div className={styles.navItems}>
+                {group.items.map((item) => (
+                  <Link
+                    key={item.id}
+                    href={`/${locale}${item.path}`}
+                    prefetch={false}
+                    aria-current={page === item.id ? 'page' : undefined}
+                  >
+                    {item.marker ? <span className={styles.navMarker}>{item.marker}</span> : null}
+                    <span>{labelOf(item)}</span>
+                  </Link>
+                ))}
+              </div>
+            </details>
+          ))}
         </nav>
+        <RadioOfflineButton />
       </div>
       <div className={styles.mobileNavigation}>
         <label htmlFor="radio-course-topic">{t('jump')}</label>
@@ -126,16 +69,16 @@ export function RadioCourseNavigation({ page = 'home' }: { page?: RadioNavPageId
           onChange={handleMobileChange}
           options={[
             { value: '', label: t('backToCourse') },
-            ...mobileGroups.map((group) => ({
-              label: t(group.label),
-              options: group.pages.map(({ id }) => ({ value: id, label: t(`pages.${id}.title`) })),
+            ...RADIO_NAV_GROUPS.map((group) => ({
+              label: group.title,
+              options: group.items.map((item) => ({
+                value: item.id,
+                label: item.marker ? `${item.marker} · ${labelOf(item)}` : labelOf(item),
+              })),
             })),
-            {
-              label: 'Estaciones y Programa ENACOM',
-              options: extraLinks.map((item) => ({ value: item.id, label: item.label })),
-            },
           ]}
         />
+        <RadioOfflineButton />
       </div>
     </aside>
   );

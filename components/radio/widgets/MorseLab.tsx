@@ -1,6 +1,5 @@
 'use client';
 
-import { MorseSoundControls } from './MorseSoundControls';
 import { useEffect, useRef, useState } from 'react';
 import { textToMorse, morseToText } from '@/lib/radio/codes';
 import { Instrument, Controls, Chips } from '../ui/Instrument';
@@ -60,7 +59,6 @@ export function MorseLab() {
         <RangeField label="Velocidad de caracteres" value={wpm} min={5} max={35} step={1} display={`${wpm} ppm`} onChange={setWpm} />
         <RangeField label="Velocidad efectiva (Farnsworth)" value={Math.min(fw, wpm)} min={3} max={wpm} step={1} display={`${Math.min(fw, wpm)} ppm`} onChange={setFw} />
       </Controls>
-      <MorseSoundControls />
     </Instrument>
   );
 }
