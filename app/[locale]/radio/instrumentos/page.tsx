@@ -45,8 +45,8 @@ export default async function RadioInstrumentsPage({
         <div className={styles.reading}>
           <PageIntro
             eyebrow={<Link href={base}>← Radioaficionado · Banco de Instrumentación</Link>}
-            title="Uso de Instrumentos: El Multímetro Digital (DMM)"
-            description="Aprendé a medir tensión, corriente, resistencia, continuidad coaxial y potencia de RF entendiendo qué pasa físicamente adentro del instrumento y cómo evitar cortocircuitos en el taller."
+            title="Uso de Instrumentos: Multímetro, Osciloscopio, Medidor de ROE y NanoVNA"
+            description="Entrenadores interactivos y protocolo físico de los 4 instrumentos esenciales del taller: Multímetro Digital True-RMS, Osciloscopio con puntas ×1/×10, Watímetro Direccional con Carga Fantasma de 50 Ω y Analizador Vectorial NanoVNA."
             area="knowledge"
             compact
           />

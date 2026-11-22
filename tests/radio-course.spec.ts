@@ -200,6 +200,22 @@ test('radio sub-navigation connects tutorials, global Morse console and free vs 
   await expect(dmm.getByTestId('multimeter-digits')).toHaveText('FUSE');
   await dmm.getByRole('button', { name: /Divisor de Alta Impedancia/ }).click();
   await expect(dmm.getByTestId('multimeter-digits')).toHaveText('4,00');
+
+  await page.getByRole('button', { name: /2 · Osciloscopio/ }).click();
+  const scope = page.getByTestId('oscilloscope-lab');
+  await expect(scope).toBeVisible();
+  await expect(scope.getByTestId('oscilloscope-vpp')).toContainText('0,60 Vpp');
+
+  await page.getByRole('button', { name: /3 · Medidor de ROE/ }).click();
+  const swr = page.getByTestId('swr-meter-lab');
+  await expect(swr).toBeVisible();
+  await expect(swr.getByTestId('swr-reading')).toHaveText('1,19 : 1');
+
+  await page.getByRole('button', { name: /4 · NanoVNA/ }).click();
+  const vna = page.getByTestId('nanovna-lab');
+  await expect(vna).toBeVisible();
+  await vna.getByRole('button', { name: /Cortar varilla a resonancia exacta/ }).click();
+  await expect(vna.getByTestId('nanovna-resonance')).toContainText('145,00 MHz');
 });
 
 test('skins and custom inventory entities render cleanly across desktop and mobile', async ({ page }) => {

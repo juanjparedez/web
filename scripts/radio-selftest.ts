@@ -28,6 +28,7 @@ import {
   thermalNoiseFloorDbm,
 } from '../lib/radio/sdrSnr.ts';
 import { simulateMultimeter } from '../lib/radio/multimeterSim.ts';
+import { simulateNanoVna, simulateOscilloscope, simulateSwrMeter } from '../lib/radio/benchInstrumentsSim.ts';
 import { sample, spectrum } from '../components/radio/widgets/modulation.ts';
 
 const near = (a: number, b: number, tol: number, msg: string) =>
@@ -295,5 +296,43 @@ const dmmRf = simulateMultimeter({
   circuitPowered: true,
 });
 assert.equal(dmmRf.displayMain, '22,11', '5 W en 50 Ω → V_p = 22,36 V − 0,25 V Schottky = 22,11 V DC');
+
+// Simuladores de Osciloscopio (DSO), Medidor de ROE + Carga 50 Ω y NanoVNA.
+const scopeAc = simulateOscilloscope({
+  signalId: 'psu-ripple',
+  coupling: 'ac',
+  probeRatio: '10x',
+  compensation: 'calibrated',
+  groundClip: 'circuit-gnd',
+  triggerLocked: true,
+});
+assert.equal(scopeAc.status, 'ok');
+assert.ok(scopeAc.vppText.includes('0,60 Vpp'), 'acoplamiento AC muestra los 0,60 Vpp de ripple centrados');
+
+const scopeShortPe = simulateOscilloscope({
+  signalId: 'psu-ripple',
+  coupling: 'ac',
+  probeRatio: '10x',
+  compensation: 'calibrated',
+  groundClip: 'hot-node',
+  triggerLocked: true,
+});
+assert.equal(scopeShortPe.status, 'danger', 'cocodrilo BNC a nodo vivo provoca corto a tierra PE');
+
+const swrDummy = simulateSwrMeter({ termination: 'dummy-50-tx', txMode: 'fm-cw', txPowerW: 5 });
+assert.equal(swrDummy.swrText, '1,00 : 1');
+assert.equal(swrDummy.pRefW, 0);
+
+const swrDetuned = simulateSwrMeter({ termination: 'detuned-antenna', txMode: 'fm-cw', txPowerW: 5 });
+assert.equal(swrDetuned.swrText, '3,00 : 1');
+near(swrDetuned.pRefW, 1.25, 0.01, 'con ROE 3:1 (|Γ|=0,5) se refleja el 25 % de 5 W = 1,25 W');
+
+const vnaLong = simulateNanoVna({ calibratedSolt: true, elementLengthCm: 52.0 });
+assert.ok(vnaLong.resonantFreqMHz < 145.0, 'varilla más larga resuena por debajo de 145 MHz');
+assert.ok(vnaLong.impedanceAt145Text.includes('+ j'), 'antena larga presenta reactancia inductiva +jX_L en 145 MHz');
+
+const vnaResonant = simulateNanoVna({ calibratedSolt: true, elementLengthCm: 49.0 });
+assert.equal(vnaResonant.resonantFreqMHz, 145.0);
+assert.equal(vnaResonant.status, 'ok');
 
 console.log(`All radio self-tests passed (${QUIZ.length} propias, ${BANK_TECNICA.length} técnicas, ${OFFICIAL_RULES.length} reglamento oficial)`);

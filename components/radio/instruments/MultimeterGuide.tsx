@@ -1,147 +1,156 @@
 'use client';
 
+import { useState } from 'react';
 import { MathLine } from '@/components/common/MathLine';
+import type { InstrumentTabId } from '@/lib/radio/benchInstrumentsSim';
 import { MultimeterLab } from './MultimeterLab';
+import { OscilloscopeLab } from './OscilloscopeLab';
+import { SwrMeterLab } from './SwrMeterLab';
+import { NanoVnaLab } from './NanoVnaLab';
 import styles from './multimeter.module.css';
 
+type TabChoice = InstrumentTabId | 'all';
+
+const INSTRUMENT_TABS: readonly { id: TabChoice; label: string }[] = [
+  { id: 'multimeter', label: '1 · Multímetro Digital (DMM)' },
+  { id: 'oscilloscope', label: '2 · Osciloscopio (DSO y Puntas)' },
+  { id: 'swr-meter', label: '3 · Medidor de ROE y Carga 50 Ω' },
+  { id: 'nanovna', label: '4 · NanoVNA (S11 y Antenas)' },
+  { id: 'all', label: 'Ver los 4 instrumentos' },
+];
+
 export function MultimeterGuide() {
+  const [activeTab, setActiveTab] = useState<TabChoice>('multimeter');
+
+  const showDmm = activeTab === 'all' || activeTab === 'multimeter';
+  const showScope = activeTab === 'all' || activeTab === 'oscilloscope';
+  const showSwr = activeTab === 'all' || activeTab === 'swr-meter';
+  const showVna = activeTab === 'all' || activeTab === 'nanovna';
+
   return (
     <div data-testid="multimeter-guide">
-      <MultimeterLab />
+      <div className={styles.instrumentSelector} role="group" aria-label="Selector de instrumento de banco">
+        {INSTRUMENT_TABS.map((tab) => (
+          <button
+            key={tab.id}
+            type="button"
+            onClick={() => setActiveTab(tab.id)}
+            aria-pressed={activeTab === tab.id}
+            className={`${styles.instrumentTab} ${activeTab === tab.id ? styles.instrumentTabActive : ''}`}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      {showDmm ? <MultimeterLab /> : null}
+      {showScope ? <OscilloscopeLab /> : null}
+      {showSwr ? <SwrMeterLab /> : null}
+      {showVna ? <NanoVnaLab /> : null}
 
       <section className={styles.guideSection} id="anatomia-dmm">
-        <span className={styles.kicker}>01 · ARQUITECTURA INTERNA DEL INSTRUMENTO</span>
-        <h2>Qué hay adentro de un Multímetro Digital (DMM)</h2>
-        <p>
-          Un multímetro no mide tensión, corriente y resistencia con tres aparatos distintos: su corazón es un
-          único <strong>conversor analógico-digital (ADC de doble rampa o Sigma-Delta)</strong> que solo sabe
-          medir una tensión continua pequeña (típicamente ±200 mV de fondo de escala). Todas las
-          demás posiciones del selector giratorio son circuitos acondicionadores que convierten la magnitud física
-          en esos milivolts:
-        </p>
-
+        <span className={styles.kicker}>01 · ARQUITECTURA INTERNA DE LOS 4 INSTRUMENTOS</span>
+        <h2>Qué mide cada instrumento de banco y cuándo usar cada uno</h2>
         <div className={styles.cardsGrid}>
           <article className={styles.infoCard}>
-            <span className={styles.kicker}>VOLTÍMETRO (V⎓ / V∼)</span>
-            <h3>Divisor de entrada de 10 MΩ</h3>
+            <span className={styles.kicker}>01 · MULTÍMETRO (DMM TRUE-RMS)</span>
+            <h3>Magnitudes estáticas y eficaces (DC / AC baja f / Ω)</h3>
             <p>
-              Una escalera de resistores de precisión (9 MΩ + 900 kΩ + 90 kΩ + 10 kΩ)
-              presenta siempre R_in = 10 MΩ hacia las puntas. Se conecta <strong>en paralelo</strong> para
-              derivar menos de 1,4 µA al medir 13,8 V.
+              Divisor de entrada de 10 MΩ en paralelo para tensión y shunt de 0,01 Ω en serie para corriente (10A).
+              Con una punta detectora de diodo Schottky (1N5711) permite medir tensión pico de RF sobre 50 Ω.
             </p>
           </article>
 
           <article className={styles.infoCard}>
-            <span className={styles.kicker}>AMPERÍMETRO (mA / 10A)</span>
-            <h3>Resistencia Shunt y Burden Voltage</h3>
+            <span className={styles.kicker}>02 · OSCILOSCOPIO DIGITAL (DSO)</span>
+            <h3>Dominio del tiempo v(t), ripple, fase y flancos</h3>
             <p>
-              Hace pasar la corriente del circuito <strong>en serie</strong> por un resistor calibrado de manganina
-              (R_shunt = 0,01 Ω en 10 A; 1 Ω a 100 Ω en mA/µA). El ADC mide la
-              caída V_burden = I · R_shunt.
+              Muestra la forma de onda instantánea, excursión pico a pico (V_pp) y componente continua vs. alterna.
+              Se usa siempre con punta en posición ×10 (10 MΩ ∥ ~12 pF) compensada para no cargar el circuito.
             </p>
           </article>
 
           <article className={styles.infoCard}>
-            <span className={styles.kicker}>ÓHMETRO Y CONTINUIDAD (Ω / ))))</span>
-            <h3>Fuente de corriente constante</h3>
+            <span className={styles.kicker}>03 · WATÍMETRO DIRECCIONAL + CARGA 50 Ω</span>
+            <h3>Potencia Directa (FWD), Reflejada (REF) y ROE en TX</h3>
             <p>
-              El multímetro inyecta una corriente conocida (I_test ≈ 1 mA en escala baja) sobre el
-              componente <strong>desenergizado</strong> y mide la caída V = I_test · R_x. Si hay tensión
-              externa en el circuito, la lectura se invalida.
+              Se intercala en serie sobre el coaxil de 50 Ω para medir en transmisión real (modo CW/FM a baja potencia).
+              Junto con la carga fantasma de 50 Ω permite separar fallas de coaxil de fallas de antena.
+            </p>
+          </article>
+
+          <article className={styles.infoCard}>
+            <span className={styles.kicker}>04 · NANOVNA (ANALIZADOR VECTORIAL)</span>
+            <h3>Barrido S₁₁(f), curva de ROE y reactancia ±jX</h3>
+            <p>
+              Previa calibración SOLT (Short, Open, Load 50 Ω), barre toda la banda e indica la frecuencia exacta de
+              resonancia y si el irradiante quedó largo (+jX_L, resuena abajo) o corto (−jX_C, resuena arriba).
             </p>
           </article>
         </div>
-
-        <MathLine>V_medido = V_th · (R_in / (R_th + R_in))   |   V_burden = I_circuito · R_shunt   |   V_RMS = √((1/T) · ∫ v²(t) dt)</MathLine>
+        <MathLine>V_medido = V_th · (R_in / (R_th + R_in))   |   V_pp = 2 · √2 · V_RMS   |   ROE = (1 + |Γ|) / (1 − |Γ|)   |   S₁₁ [dB] = 20 · log₁₀(|Γ|)</MathLine>
       </section>
 
       <section className={styles.guideSection} id="protocolo-medicion">
-        <span className={styles.kicker}>02 · PROTOCOLO DE BANCO Y ERRORES QUE QUEMAN FUSIBLES</span>
-        <h2>Tabla de operación segura por magnitud</h2>
+        <span className={styles.kicker}>02 · PROTOCOLO DE BANCO Y SEGURIDAD DE INSTRUMENTOS</span>
+        <h2>Tabla resumen de conexión segura en el taller</h2>
         <div className={styles.tableWrap}>
           <table className={styles.table}>
             <thead>
               <tr>
-                <th>Magnitud</th>
-                <th>Selector</th>
-                <th>Borne Punta Roja</th>
-                <th>Conexión al circuito</th>
-                <th>Estado de la fuente</th>
-                <th>Impedancia del tester</th>
+                <th>Instrumento / Función</th>
+                <th>Configuración</th>
+                <th>Conexión física</th>
+                <th>Impedancia presentada</th>
+                <th>Precaución crítica de taller</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td><strong>Tensión DC (Fuente / Batería)</strong></td>
-                <td><code>V⎓ (DCV)</code></td>
-                <td><code>V / Ω / )))</code></td>
-                <td><strong>En Paralelo</strong></td>
-                <td>Encendida (ON)</td>
-                <td>10 MΩ (muy alta)</td>
+                <td><strong>DMM · Tensión DC/AC</strong></td>
+                <td><code>V⎓</code> / <code>V∼</code> · Borne <code>V/Ω</code></td>
+                <td>En Paralelo</td>
+                <td>10 MΩ (alta Z)</td>
+                <td>Verificar que la punta roja NO haya quedado en <code>10A</code> o <code>mA</code></td>
               </tr>
               <tr>
-                <td><strong>Tensión AC (Red / Audio / Ripple)</strong></td>
-                <td><code>V∼ (ACV)</code></td>
-                <td><code>V / Ω / )))</code></td>
-                <td><strong>En Paralelo</strong></td>
-                <td>Encendida (ON)</td>
-                <td>10 MΩ ∥ ~100 pF</td>
+                <td><strong>DMM · Corriente TX</strong></td>
+                <td><code>10A⎓</code> · Borne <code>10A</code></td>
+                <td>En Serie (abrir rama)</td>
+                <td>0,01 Ω (shunt directo)</td>
+                <td>Nunca apoyar en paralelo sobre una fuente; devolver punta a <code>V/Ω</code> al terminar</td>
               </tr>
               <tr>
-                <td><strong>Corriente de TX (&gt; 400 mA)</strong></td>
-                <td><code>10A⎓</code></td>
-                <td><code>10A MAX</code></td>
-                <td><strong>En Serie (abrir rama)</strong></td>
-                <td>Encendida al medir</td>
-                <td>0,01 Ω (cortocircuito virtual)</td>
+                <td><strong>DMM · Resistencia / Coaxil</strong></td>
+                <td><code>Ω</code> / <code>)))</code> · Borne <code>V/Ω</code></td>
+                <td>Circuito desenergizado</td>
+                <td>Fuente I_test ≈ 1 mA</td>
+                <td>Apagar fuente y descargar electrolíticos antes de apoyar las puntas</td>
               </tr>
               <tr>
-                <td><strong>Corriente de señal (&lt; 400 mA)</strong></td>
-                <td><code>mA⎓ / µA⎓</code></td>
-                <td><code>mA / µA</code></td>
-                <td><strong>En Serie (abrir rama)</strong></td>
-                <td>Encendida al medir</td>
-                <td>1 Ω – 100 Ω (con fusible rápido)</td>
+                <td><strong>Osciloscopio (DSO)</strong></td>
+                <td>Punta <code>×10</code> compensada</td>
+                <td>En Paralelo (BNC a masa)</td>
+                <td>10 MΩ ∥ ~12 pF</td>
+                <td>El cocodrilo negro del BNC está unido a Tierra (PE 220 V): no tocar nodos vivos</td>
               </tr>
               <tr>
-                <td><strong>Resistencia y Continuidad Coaxil</strong></td>
-                <td><code>Ω</code> / <code>)))</code></td>
-                <td><code>V / Ω / )))</code></td>
-                <td>Componente aislado</td>
-                <td><strong>Apagada (OFF) y descargada</strong></td>
-                <td>Inyecta I_test (0,5 V – 3 V)</td>
+                <td><strong>Medidor de ROE + Carga 50 Ω</strong></td>
+                <td>Modo <code>CW/FM</code> en <code>1 W (LOW)</code></td>
+                <td>En Serie coaxial 50 Ω</td>
+                <td>Pasante coaxial 50 Ω</td>
+                <td>En BLU/SSB sin audio no marca; nunca transmitir alta potencia sin carga o con ROE &gt; 3:1</td>
+              </tr>
+              <tr>
+                <td><strong>NanoVNA (Puerto S11)</strong></td>
+                <td>Calibrado <code>SOLT</code> en 50 Ω</td>
+                <td>Directo al coaxil/antena</td>
+                <td>Puerto de 50 Ω (mW)</td>
+                <td>Nunca transmitir con un equipo hacia el puerto del NanoVNA ni conectar antenas con estática sin descargar</td>
               </tr>
             </tbody>
           </table>
         </div>
-      </section>
-
-      <section className={styles.guideSection} id="multimetro-en-rf">
-        <span className={styles.kicker}>03 · DOBLE ENFOQUE: FÍSICA DE INSTRUMENTACIÓN Y RADIOFRECUENCIA</span>
-        <h2>True-RMS, Seguridad CAT y cómo medir Potencia de RF con tu Multímetro</h2>
-        <div className={styles.cardsGrid}>
-          <article className={styles.infoCard}>
-            <span className={styles.kicker}>ENFOQUE 1 · TRUE-RMS VS. VALOR MEDIO</span>
-            <h3>Por qué importa la forma de onda</h3>
-            <p>
-              Un multímetro económico rectifica la onda y multiplica el promedio por 1,11 (π / (2√2)), lo cual
-              solo es exacto para una senoidal pura. Un multímetro <strong>True-RMS</strong> calcula el valor eficaz
-              térmico real integrando v²(t), indispensable para salidas de inversores, PWM o fuentes conmutadas.
-            </p>
-          </article>
-
-          <article className={styles.infoCard}>
-            <span className={styles.kicker}>ENFOQUE 2 · PUNTA DETECTORA SCHOTTKY EN 50 Ω</span>
-            <h3>Medir un transmisor de 145 MHz en modo V⎓</h3>
-            <p>
-              El canal <code>V∼</code> del multímetro solo llega a ~1 kHz. Para medir la potencia de un
-              handy sobre una carga fantasma de 50 Ω, rectificamos la envolvente de RF con un diodo Schottky
-              (<code>1N5711</code> o <code>BAT85</code>, V_d ≈ 0,25 V) y un capacitor cerámico de 10 nF,
-              y leemos la tensión pico en <strong><code>V⎓ (DCV)</code></strong>:
-            </p>
-          </article>
-        </div>
-        <MathLine>V_pico = V_DC_leído + 0,25 V   |   V_RMS = V_pico / √2   |   P_RF[W] = V_RMS² / 50 Ω = (V_DC_leído + 0,25 V)² / 100</MathLine>
       </section>
     </div>
   );
