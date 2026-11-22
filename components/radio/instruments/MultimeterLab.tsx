@@ -11,7 +11,16 @@ import {
 } from '@/lib/radio/multimeterSim';
 import { InstrumentFigure } from './InstrumentFigure';
 import { MultimeterDevice } from './MultimeterDevice';
+import { ScenarioCircuit } from './ScenarioCircuit';
 import styles from './multimeter.module.css';
+
+/** The third reading card names the effect that applies to the selected function. */
+function effectLabel(mode: DmmMode, display: string) {
+  if (display === 'LEAD') return 'Qué corregir';
+  if (mode === 'ma' || mode === '10a') return 'Caída de inserción del amperímetro (burden voltage)';
+  if (mode === 'ohm' || mode === 'continuity') return 'Qué ve el óhmetro';
+  return 'Efecto de carga del voltímetro';
+}
 
 export function MultimeterLab() {
   const [scenarioId, setScenarioId] = useState<BenchScenarioId>('psu-transceiver');
@@ -93,6 +102,7 @@ export function MultimeterLab() {
         </div>
 
         <div className={styles.controlsCol}>
+          <ScenarioCircuit scenario={scenarioId} mode={mode} placement={placement} powered={circuitPowered} />
           <div className={styles.controlGroup}>
             <span className={styles.controlLabel}>Cómo apoyás las puntas y estado de la fuente</span>
             <div className={styles.placementRow}>
@@ -133,7 +143,7 @@ export function MultimeterLab() {
               <dd>{result.circuitCurrentText}</dd>
             </div>
             <div className={styles.metricItem}>
-              <dt>Efecto de carga / Caída de inserción (Burden Voltage)</dt>
+              <dt>{effectLabel(mode, result.displayMain)}</dt>
               <dd>{result.burdenOrLoadingText}</dd>
             </div>
           </dl>

@@ -181,3 +181,23 @@
     grid-template-columns: 1fr;
   }
 }
+
+.circuit {
+  margin: 0;
+  padding: 8px 10px 10px;
+  border: 1px solid var(--hios-border);
+  border-radius: calc(var(--surface-radius, 12px) * 0.75);
+  background: var(--hios-bg);
+}
+
+.circuit svg { width: 100%; height: auto; max-height: 240px; display: block; margin: 0 auto; }
+
+.circuit figcaption {
+  font-family: var(--font-stack-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent-2-text);
+}
+
+.node { fill: var(--accent-2-text); }

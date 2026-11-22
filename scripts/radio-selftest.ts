@@ -287,6 +287,14 @@ const dmmHighZ = simulateMultimeter({
   circuitPowered: true,
 });
 assert.equal(dmmHighZ.displayMain, '4,00', 'divisor 10 MΩ / 10 MΩ cargado con R_in = 10 MΩ cae de 6 V a 4 V');
+const highZ = (mode: 'dcv' | 'ohm' | 'ma', redJack: 'v-ohm' | 'ma', placement: 'parallel' | 'series', circuitPowered: boolean) =>
+  simulateMultimeter({ scenarioId: 'high-z-divider', mode, redJack, placement, circuitPowered });
+assert.doesNotMatch(highZ('dcv', 'v-ohm', 'series', true).physicalExplanation, /transceptor|13,8/, 'el divisor no reutiliza textos de la fuente de 13,8 V');
+assert.equal(highZ('ohm', 'v-ohm', 'parallel', false).displayMain, '5,00', 'R2 en circuito: el óhmetro ve R2 ∥ R1');
+assert.equal(highZ('ohm', 'v-ohm', 'series', false).displayMain, '10,00', 'R2 con una pata levantada: 10 MΩ');
+assert.equal(highZ('ma', 'ma', 'series', true).displayMain, '0,60', 'corriente del divisor 12 V / 20 MΩ');
+assert.equal(highZ('ma', 'ma', 'parallel', true).displayMain, '1,20', 'amperímetro sobre R2: 12 V / 10 MΩ');
+assert.equal(highZ('ma', 'ma', 'parallel', true).fuseBlown, false, 'R1 limita la corriente: no se funde el fusible');
 
 const dmmRf = simulateMultimeter({
   scenarioId: 'rf-dummy-load',
