@@ -9,7 +9,8 @@ const INSTRUMENT_IMAGES = ['multimetro-ut61d', 'osciloscopio-rigol-ds1054z', 'me
 
 const OFFLINE_PATHS = [
   '/radio',
-  '/radio/instrumentos',
+  '/medicion',
+  '/medicion/instrumentos',
   '/radio/programa',
   '/radio/morse',
   ...['arbol', 'reconocer', 'transmitir', 'koch', 'alfabeto', 'traductor'].map((slug) => `/radio/morse/${slug}`),
@@ -20,7 +21,7 @@ const OFFLINE_PATHS = [
   '/radio/d-reglamento',
   '/radio/practica',
   '/radio/imprimir',
-  ...['voltage', 'current', 'resistance', 'ohm', 'series', 'parallel', 'power', 'measurement', 'practice',
+  ...['voltage', 'current', 'resistance', 'ohm', 'series', 'parallel', 'power', 'practice',
     'waves', 'propagation', 'morse', 'bands', 'laboratory', 'glossary', 'sources'].map((id) => `/radio/lecciones/${id}`),
 ];
 

@@ -3,7 +3,7 @@ import { radioLessons, radioPagePath, type RadioPageId } from '@/config/radio-co
 /** Pages outside the 12-lesson course that also live in the radio sidebar. */
 export type RadioExtraPageId =
   | 'home'
-  | 'instrumentos'
+  | 'medicion'
   | 'tutoriales'
   | 'morse-console'
   | 'programa'
@@ -51,7 +51,6 @@ export const RADIO_NAV_GROUPS: RadioNavGroup[] = [
     hint: 'Estaciones interactivas',
     items: [
       { id: 'morse-console', path: '/radio/morse', label: 'Código Morse (CW)', marker: 'CW' },
-      { id: 'instrumentos', path: '/radio/instrumentos', label: 'Banco de instrumentos', marker: 'DMM' },
       { id: 'laboratory', path: radioPagePath('laboratory'), marker: 'DC' },
     ],
   },
@@ -77,6 +76,7 @@ export const RADIO_NAV_GROUPS: RadioNavGroup[] = [
       { id: 'glossary', path: radioPagePath('glossary'), marker: 'Aa' },
       { id: 'tutoriales', path: '/radio/tutoriales', label: 'Baofeng UV-5R (CHIRP)', marker: 'UV' },
       { id: 'sources', path: radioPagePath('sources'), marker: 'PDF' },
+      { id: 'medicion', path: '/medicion', label: 'Medición e instrumentos ↗', marker: 'DMM' },
     ],
   },
 ];

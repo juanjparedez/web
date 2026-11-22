@@ -1565,7 +1565,8 @@
             "guestbook": "Guestbook",
             "about": "About HIOS",
             "composer": "Chiptune Composer",
-            "radio": "Ham radio"
+            "radio": "Ham radio",
+            "measurement": "Measurement & instruments"
         }
     },
     "Auth": {
