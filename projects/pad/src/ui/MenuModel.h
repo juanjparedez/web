@@ -5,7 +5,7 @@
 
 namespace menumodel {
 
-enum SettingId : int8_t { S_BRIGHT, S_THEME, S_ACCENT, S_DIM, S_CLOCK, S_WIFI, S_CAL, S_PREC };
+enum SettingId : int8_t { S_BRIGHT, S_THEME, S_ACCENT, S_DIM, S_CLOCK, S_WIFI, S_CAL, S_PREC, S_BT };
 
 struct Item {
   const char* layer;

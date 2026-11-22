@@ -147,6 +147,7 @@ const char PAGE[] PROGMEM = R"HTML(<!doctype html>
     <button id=edSave class=primary>Guardar y reiniciar</button>
     <button id=edCancel>Cancelar</button>
   </div>
+  <button id=btRelease style="width:100%;margin-top:8px;color:var(--cy);border-color:var(--cy)">Liberar Bluetooth (Re-emparejar)</button>
   <button id=edReset class=danger>Reset de f&aacute;brica</button>
 </div>
 
@@ -322,6 +323,8 @@ $('#edit').onclick=openEditor;
 $('#edLayer').onchange=e=>{applyEditor(edIdx); edIdx=+e.target.value; fillEditor(edIdx);};
 $('#edSave').onclick=saveConfig;
 $('#edCancel').onclick=()=>closeEditor(true);
+$('#btRelease').onclick=()=>send({btRelease:true},()=>msg('Bluetooth liberado ✓ re-anunciando HIOS PAD'));
+$('#cBLE').onclick=()=>send({btRelease:true},()=>msg('Bluetooth liberado ✓ re-anunciando HIOS PAD'));
 $('#edReset').onclick=resetConfig;
 
 renderPad();

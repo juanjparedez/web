@@ -16,7 +16,7 @@ static const TemplateItem T_TRABAJO[]    = { {"Edicion", -1}, {"Dev", -1}, {"App
 static const TemplateItem T_MULTIMEDIA[] = { {"Multimedia", -1}, {"YouTube", -1}, {"Netflix", -1}, {"Spotify", -1}, {"Disney+", -1}, {"Paramount", -1} };
 static const TemplateItem T_LLAMADAS[]   = { {"Meet", -1}, {"Slack", -1}, {"Zoom", -1}, {"Teams", -1} };
 static const TemplateItem T_APARIENCIA[] = { {nullptr, S_BRIGHT}, {nullptr, S_THEME}, {nullptr, S_ACCENT} };
-static const TemplateItem T_SISTEMA[]    = { {nullptr, S_CLOCK}, {nullptr, S_WIFI}, {nullptr, S_CAL}, {nullptr, S_PREC}, {nullptr, S_DIM} };
+static const TemplateItem T_SISTEMA[]    = { {nullptr, S_CLOCK}, {nullptr, S_WIFI}, {nullptr, S_CAL}, {nullptr, S_PREC}, {nullptr, S_DIM}, {nullptr, S_BT} };
 static const TemplateItem T_LUCES[]      = { {"RGB", -1}, {"WiZ", -1} };
 static const TemplateItem T_MONITOR[]    = { {"General", -1}, {"Red", -1}, {"Nucleos", -1}, {"Disco", -1} };
 
@@ -25,7 +25,7 @@ static const TemplateSection TEMPLATE[] = {
   { "Multimedia", theme::MAGENTA, T_MULTIMEDIA, 6 },
   { "Llamadas",   theme::ROSE,    T_LLAMADAS,   4 },
   { "Apariencia", theme::VIOLET,  T_APARIENCIA, 3 },
-  { "Sistema",    theme::GREEN,   T_SISTEMA,    5 },
+  { "Sistema",    theme::GREEN,   T_SISTEMA,    6 },
   { "Luces",      theme::YELLOW,  T_LUCES,      2 },
   { "Monitor",    theme::CYAN,    T_MONITOR,    4 },
 };

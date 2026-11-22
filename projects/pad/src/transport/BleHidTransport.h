@@ -15,6 +15,7 @@ public:
   bool begin() override;
   void tick() override;                  // lee comandos de advertising por serial (l/e/d/s)
   bool isConnected() override { return m_connected; }
+  void releaseAndRePair();               // desconecta host actual, borra bonds y re-anuncia
 
   void sendKey(const KeyAction& k) override;
   void sendMedia(const MediaAction& m) override;

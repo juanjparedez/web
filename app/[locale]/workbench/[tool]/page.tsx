@@ -6,6 +6,7 @@ import { ToolRenderer } from '@/components/workbench/ToolRenderer';
 import { ToolPager } from '@/components/workbench/ToolPager';
 import { ToolUsageTracker } from '@/components/workbench/ToolUsageTracker';
 import { ToolPageIntro } from '@/components/workbench/ToolPageIntro';
+import { ElectronicsSubNav } from '@/components/tools/ElectronicsSubNav';
 import { getWorkbenchTool, workbenchTools, type WorkbenchToolId } from '@/config/workbench';
 
 const dynamicToolIds = workbenchTools
@@ -40,6 +41,7 @@ export default async function DynamicWorkbenchToolPage({ params }: PageProps) {
   return (
     <main style={{ maxWidth: 'min(100%, 1720px)', width: '100%', margin: '0 auto', padding: '32px 24px 56px', display: 'flex', flexDirection: 'column', gap: 20 }}>
       <ToolUsageTracker toolId={workbenchTool.id} />
+      {workbenchTool.sectionId === 'electronics' ? <ElectronicsSubNav /> : null}
       <ToolPageIntro locale={locale} tool={workbenchTool} />
       <ToolRenderer toolId={workbenchTool.id} headerRendered />
       <ToolPager currentId={workbenchTool.id} />

@@ -30,6 +30,11 @@
 .notes { border-top: 1px solid var(--hios-border); padding: 24px 0 0; }
 .notes p { font-size: .9375rem; color: var(--hios-text-secondary); }
 .notes .sourcesNote { margin-top: 18px; font-size: .875rem; }
+.benchGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 14px; margin: 16px 0 24px; }
+.benchCard { padding: 14px 16px; border-radius: var(--surface-radius, 12px); border: 1px solid var(--hios-border); background: var(--hios-bg-secondary); display: flex; flex-direction: column; gap: 6px; }
+.benchBadge { font-family: var(--font-stack-mono); font-size: 0.72rem; color: var(--accent-2-text); text-transform: uppercase; letter-spacing: 0.04em; }
+.benchCard h4 { margin: 0; font-size: 1rem; color: var(--hios-text); }
+.benchCard p { margin: 0; font-size: 0.87rem; line-height: 1.55; flex: 1; }
 
 @media (max-width: 580px) {
   .category { flex: 1 1 100%; }

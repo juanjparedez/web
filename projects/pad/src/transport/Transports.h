@@ -10,3 +10,4 @@
 
 ITransport* usbHidInstance();   // definido en UsbHidTransport.cpp
 ITransport* bleHidInstance();   // definido en BleHidTransport.cpp
+void        bleReleaseAndRePair(); // desconecta central activo, limpia bonds y re-anuncia BLE

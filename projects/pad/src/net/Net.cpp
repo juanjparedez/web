@@ -306,6 +306,8 @@ static void handlePostCmd() {
   } else if (doc["enc"].is<int>()) {
     int d = doc["enc"].as<int>();
     if (d != 0) { enqueueWebInput(WebInput{WebInput::ENC, (int16_t)(d > 0 ? 1 : -1)}); ok = true; }
+  } else if (doc["btRelease"].is<bool>() && doc["btRelease"].as<bool>()) {
+    enqueueWebInput(WebInput{WebInput::BT_RELEASE, 0}); ok = true;
   }
   s_web.send(ok ? 200 : 400, "application/json", ok ? "{\"ok\":true}" : "{\"ok\":false}");
 }

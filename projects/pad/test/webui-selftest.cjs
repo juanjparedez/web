@@ -147,6 +147,8 @@ const PORT = 8791;
   ok(saved.alt && saved.alt.alt1 === 'Launcher' && Array.isArray(saved.texts) && saved.texts.length === 2 && Array.isArray(saved.macros) && saved.macros.length === 1, 'PRESERVA alt/textos/macros verbatim');
   page.once('dialog', d => d.accept());
   await page.click('#edit');
+  const [rBt] = await Promise.all([waitPost('/api/cmd'), page.click('#btRelease')]);
+  ok(JSON.parse(rBt.postData() || '{}').btRelease === true, 'Liberar Bluetooth -> POST /api/cmd {btRelease:true}');
   const [, ] = await Promise.all([waitPost('/api/config/reset'), page.click('#edReset')]);
   ok(st.reset === true, 'Reset de fábrica -> POST /api/config/reset');
 

@@ -10,6 +10,57 @@ import { GlossaryEntry } from './GlossaryEntry';
 import lessonStyles from './radioBasics.module.css';
 import styles from './radioGlossary.module.css';
 
+const BENCH_CONCEPTS = [
+  {
+    id: 'true-rms',
+    badge: 'DMM · VALOR EFICAZ',
+    title: 'True-RMS vs. Valor Medio y Punta Detectora RF',
+    body: 'Un multímetro True-RMS integra v²(t) en vez de asumir forma senoidal (factor 1,11). Con un diodo Schottky (1N5711) rectifica picos de 145 MHz sobre 50 Ω para medir potencia en modo V⎓.',
+    href: '/radio/instrumentos',
+    cta: 'Abrir Multímetro Digital →',
+  },
+  {
+    id: 'probe-10x',
+    badge: 'DSO · 10 MΩ ∥ 12 pF',
+    title: 'Punta de Osciloscopio ×10, Compensación RC y Masa PE',
+    body: 'La posición ×10 baja la capacidad parásita de ~100 pF a ~12 pF para no ahogar circuitos de RF. Recordá que el cocodrilo negro del BNC está conectado a Tierra (PE 220 V).',
+    href: '/radio/instrumentos',
+    cta: 'Abrir Osciloscopio DSO →',
+  },
+  {
+    id: 'dummy-load',
+    badge: 'RF · PATRÓN 50 Ω',
+    title: 'Carga Fantasma (Dummy Load 50 Ω) y ROE',
+    body: 'Resistor no inductivo de 50 Ω que absorbe el 100 % de la onda directa (|Γ| = 0, ROE 1,0:1) sin irradiar. Colocada al final del coaxil permite distinguir fallas de cable de fallas de antena.',
+    href: '/radio/instrumentos',
+    cta: 'Abrir Medidor de ROE →',
+  },
+  {
+    id: 'nanovna-s11',
+    badge: 'VNA · S₁₁ Y CARTA DE SMITH',
+    title: 'NanoVNA, Calibración SOLT y Reactancia ±jX',
+    body: 'Tras calibrar Short-Open-Load (50 Ω), barre la banda e indica si la antena quedó larga (resuena abajo, +jX_L → acortar) o corta (resuena arriba, −jX_C → alargar).',
+    href: '/radio/instrumentos',
+    cta: 'Abrir Simulador NanoVNA →',
+  },
+  {
+    id: 'ctcss-dcs',
+    badge: 'WALKIE-TALKIE · 67–254 Hz',
+    title: 'Subtonos CTCSS / DCS ("Subcanales") y FM Narrow',
+    body: 'Los códigos 1 a 38 de los walkie-talkies son tonos subaudibles que abren el squelch (no dan privacidad ni encriptan). En UHF canalero se opera en NFM (12,5 kHz).',
+    href: '/radio/tutoriales#generador-chirp',
+    cta: 'Traductor CTCSS y CHIRP →',
+  },
+  {
+    id: 'duplex-off',
+    badge: 'CHIRP · RX-ONLY',
+    title: 'Duplex = off (Inhibición de PTT por Firmware)',
+    body: 'Configuración de memoria en CHIRP que bloquea la etapa de potencia de RF del Baofeng UV-5R ante pulsaciones accidentales del PTT mientras escuchás sin licencia.',
+    href: '/radio/tutoriales#bloqueo-tx-chirp',
+    cta: 'Guía RX-Only y CSV →',
+  },
+] as const;
+
 function revealGlossary() {
   document.getElementById('glossary')?.scrollIntoView({ block: 'start' });
 }
@@ -39,19 +90,32 @@ function GlossaryNotes() {
   const t = useTranslations('RadioGlossary');
   const locale = useLocale();
   const tools = [
+    { href: `/${locale}/radio/instrumentos`, label: 'Banco de 4 Instrumentos (Multímetro, Osciloscopio, ROE y NanoVNA)' },
+    { href: `/${locale}/radio/morse`, label: 'Consola Unificada de Código Morse (CW)' },
+    { href: `/${locale}/radio/tutoriales#generador-chirp`, label: 'Tutorial Baofeng UV-5R y Armador CSV CHIRP' },
+    { href: `/${locale}/radio/b-modulacion-equipos#digitales`, label: 'Simulador SDR (I/Q), SNR y Límite de Shannon' },
     { href: `/${locale}/radio/lecciones/laboratory`, label: 'Laboratorio DC (Ohm y Kirchhoff)' },
-    { href: `/${locale}/calculators`, label: 'Calculadoras RCL, Filtros y Decibeles' },
+    { href: `/${locale}/calculators`, label: 'Calculadoras Electrónicas RCL, Filtros y Ohm' },
     { href: `/${locale}/radio/a-electricidad#resonancia`, label: 'Simulador de Resonancia LC y Factor Q' },
     { href: `/${locale}/radio/a-electricidad#filtros`, label: 'Simulador de Filtros Pasabajo y Armónicas (dBc)' },
     { href: `/${locale}/radio/b-modulacion-equipos#modulacion`, label: 'Osciloscopio de Modulación (CW, AM, FM, USB)' },
-    { href: `/${locale}/workbench/qpsk-modulator`, label: 'Modulador Digital en Cuadratura (QPSK / I-Q)' },
-    { href: `/${locale}/radio/c-antenas-propagacion#roe`, label: 'Simulador de Ondas Estacionarias (ROE / Γ)' },
-    { href: `/${locale}/radio/c-antenas-propagacion#antenas`, label: 'Calculadora Física de Antenas' },
-    { href: `/${locale}/radio/morse`, label: 'Consola Unificada de Código Morse (CW)' },
-    { href: `/${locale}/radio/tutoriales`, label: 'Tutoriales: Baofeng UV-5R (RX-Only / CHIRP)' },
+    { href: `/${locale}/radio/c-antenas-propagacion#antenas`, label: 'Calculadora Física de Antenas y ROE' },
   ];
   return (
-    <aside className={styles.notes}>
+    <aside className={styles.notes} data-testid="glossary-bench-concepts">
+      <h3>Conceptos de Instrumentación de Banco, CHIRP y SDR</h3>
+      <div className={styles.benchGrid}>
+        {BENCH_CONCEPTS.map((item) => (
+          <article key={item.id} className={styles.benchCard}>
+            <span className={styles.benchBadge}>{item.badge}</span>
+            <h4>{item.title}</h4>
+            <p>{item.body}</p>
+            <Link href={`/${locale}${item.href}`} className={styles.toolLink}>
+              {item.cta}
+            </Link>
+          </article>
+        ))}
+      </div>
       <h3>Instrumentos y Simuladores Vinculados al Glosario</h3>
       <div className={styles.related}>
         {tools.map((item) => (

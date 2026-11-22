@@ -199,6 +199,24 @@ bool BleHidTransport::begin() {
   return true;
 }
 
+void BleHidTransport::releaseAndRePair() {
+  NimBLEServer* srv = NimBLEDevice::getServer();
+  if (srv) {
+    std::vector<uint16_t> peers = srv->getPeerDevices();
+    for (uint16_t connHandle : peers) {
+      srv->disconnect(connHandle);
+    }
+  }
+  m_connected = false;
+  NimBLEDevice::deleteAllBonds();
+  Serial.println("[ble] release & clear-bonds desde UI -> re-anunciando 'HIOS PAD'");
+#if CONFIG_BT_NIMBLE_EXT_ADV
+  startAdvMode(s_advMode);
+#else
+  NimBLEDevice::startAdvertising();
+#endif
+}
+
 void BleHidTransport::tick() {
 #if CONFIG_BT_NIMBLE_EXT_ADV
   while (Serial.available()) {
@@ -207,11 +225,7 @@ void BleHidTransport::tick() {
     else if (c == 'e') startAdvMode(1);
     else if (c == 'd') startAdvMode(2);
     else if (c == 's') Serial.printf("[ble] mode=%u conn=%d  stick accel=%d\n", s_advMode, (int)m_connected, appstate::mouseAccel);
-    else if (c == 'c') {  // borra los bonds del ESP: ante desync de claves con un host, limpiar aca + 'bluetoothctl remove' del lado del host y re-emparejar
-      NimBLEDevice::deleteAllBonds();
-      Serial.println("[ble] bonds borrados -> re-emparejar host (remove + pair)");
-      startAdvMode(s_advMode);
-    }
+    else if (c == 'c') releaseAndRePair();
     else if (c == '+') { appstate::mouseAccel++; Serial.printf("[stick] accel=%d\n", appstate::mouseAccel); }
     else if (c == '-') { if (appstate::mouseAccel > 0) appstate::mouseAccel--; Serial.printf("[stick] accel=%d\n", appstate::mouseAccel); }
   }
@@ -296,4 +310,6 @@ void BleHidTransport::sendMedia(const MediaAction& m) {
 
 // Fabrica (ver Transports.h): aisla el transporte BLE del USB.
 #include "Transports.h"
-ITransport* bleHidInstance() { static BleHidTransport t; return &t; }
+static BleHidTransport s_bleHid;
+ITransport* bleHidInstance() { return &s_bleHid; }
+void bleReleaseAndRePair() { s_bleHid.releaseAndRePair(); }

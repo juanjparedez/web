@@ -15,6 +15,7 @@ static const Desc TABLE[] = {
   { CAL,    SYSTEM,     "Calibrar",  "target"  },
   { PREC,   SYSTEM,     "Precision", "gauge"   },
   { DIM,    SYSTEM,     "Dimmer",    "timer"   },
+  { BT,     SYSTEM,     "BT Reset",  "bt"      },
 };
 
 int         count()      { return (int)(sizeof(TABLE) / sizeof(TABLE[0])); }

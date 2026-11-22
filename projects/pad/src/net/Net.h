@@ -55,9 +55,9 @@ void queueLaunch(uint16_t appId);
 // drena inputTask (core1, dueno del Dispatcher). Ring buffer cross-core; mismo
 // patron que la cola de comandos pad->companion.
 struct WebInput {
-  enum Kind : uint8_t { LAYER = 0, BTN = 1, ENC = 2 };
+  enum Kind : uint8_t { LAYER = 0, BTN = 1, ENC = 2, BT_RELEASE = 3 };
   uint8_t kind;
-  int16_t a;   // LAYER -> indice de capa · BTN -> boton 0..9 · ENC -> direccion (>0 cw)
+  int16_t a;   // LAYER -> indice de capa · BTN -> boton 0..9 · ENC -> direccion (>0 cw) · BT_RELEASE -> liberar BLE
 };
 bool popWebInput(WebInput& out);       // true si habia uno; lo consume
 

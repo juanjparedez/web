@@ -101,6 +101,7 @@ private:
     if (r == MenuResult::SWITCH_LAYER) { dispatcher.setLayer(menu::selectedLayer()); menu::close(); appstate::mode = AppMode::NORMAL; uiForceRedraw(); }
     else if (r == MenuResult::CALIBRATE) { menu::close(); appstate::mode = AppMode::CALIBRATING; }
     else if (r == MenuResult::WIFI_SETUP) { menu::close(); net::openWifi(); appstate::mode = AppMode::WIFI; }
+    else if (r == MenuResult::BT_RELEASE) { bleReleaseAndRePair(); menu::close(); appstate::mode = AppMode::NORMAL; uiForceRedraw(); }
   }
 };
 
@@ -295,6 +296,10 @@ static void inputTask(void*) {
           dispatcher.dispatch(ve);
           break;
         }
+        case net::WebInput::BT_RELEASE:
+          bleReleaseAndRePair();
+          uiForceRedraw();
+          break;
       }
     }
 

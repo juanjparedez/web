@@ -12,7 +12,7 @@
 #include <TFT_eSPI.h>
 #include "../mapping/KeyMap.h"
 
-enum class MenuResult : uint8_t { NONE, SWITCH_LAYER, CALIBRATE, WIFI_SETUP };
+enum class MenuResult : uint8_t { NONE, SWITCH_LAYER, CALIBRATE, WIFI_SETUP, BT_RELEASE };
 
 namespace menu {
 void init(KeyMap* km);

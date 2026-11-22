@@ -71,6 +71,7 @@ static int idxClock()  { return idxBright() + 4; }
 static int idxWifi()   { return idxBright() + 5; }
 static int idxCal()    { return idxBright() + 6; }
 static int idxPrec()   { return idxBright() + 7; }
+static int idxBt()     { return idxBright() + 8; }
 
 // Indice de una capa por nombre (-1 si no esta). Robusto a reordenar DefaultConfig.
 static int layerIndexByName(const char* name) {
@@ -129,6 +130,7 @@ MenuResult pickButton(uint8_t i) {
   int item = idxBright() + it.setting;             // setting
   if (item == idxCal())  { s_editItem = false; return MenuResult::CALIBRATE; }
   if (item == idxWifi()) { s_editItem = false; return MenuResult::WIFI_SETUP; }
+  if (item == idxBt())   { s_editItem = false; return MenuResult::BT_RELEASE; }
   if (s_editItem && s_sel == item) s_editItem = false;   // 2do toque del mismo item: listo
   else { s_sel = item; s_editItem = true; }              // entra en ajuste
   s_dirty = true;
@@ -202,6 +204,7 @@ static uint16_t itemAccent(int i) {
   if (i == idxClock()) return theme::ORANGE;
   if (i == idxWifi()) return theme::CYAN;
   if (i == idxPrec()) return theme::ROSE;
+  if (i == idxBt())   return theme::BLUE;
   return theme::GREEN;
 }
 static uint16_t uiAccent() {
@@ -217,6 +220,7 @@ static const char* itemTitle(int i) {
   if (i == idxClock()) return "Hora";
   if (i == idxWifi()) return "WiFi";
   if (i == idxPrec()) return "Precision";
+  if (i == idxBt())   return "BT Reset";
   return "Calibrar";
 }
 
@@ -243,6 +247,8 @@ static const char* itemMeta(int i, char* buf, size_t len) {
     snprintf(buf, len, "setup");
   } else if (i == idxPrec()) {
     snprintf(buf, len, "%u/7", appstate::prefs.stickPrecision);
+  } else if (i == idxBt()) {
+    snprintf(buf, len, "liberar");
   } else {
     snprintf(buf, len, "stick");
   }
@@ -293,6 +299,14 @@ static void drawMenuIcon(TFT_eSPI& g, int cx, int cy, int i, uint16_t col, uint1
   }
   if (i == idxPrec()) {                           // precision: barras crecientes
     for (int b = 0; b < 4; b++) { int bh = 5 + b * 5; g.fillRect(cx - 15 + b * 9, cy + 9 - bh, 6, bh, col); }
+    return;
+  }
+  if (i == idxBt()) {                             // Bluetooth runa 'B'
+    g.drawFastVLine(cx, cy - 11, 22, col);
+    g.drawLine(cx, cy - 11, cx + 7, cy - 5, col);
+    g.drawLine(cx + 7, cy - 5, cx - 6, cy + 5, col);
+    g.drawLine(cx - 6, cy - 5, cx + 7, cy + 5, col);
+    g.drawLine(cx + 7, cy + 5, cx, cy + 11, col);
     return;
   }
   g.drawCircle(cx, cy, 13, col);                  // calibrar: target

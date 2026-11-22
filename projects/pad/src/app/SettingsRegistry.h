@@ -14,7 +14,7 @@
 namespace settings {
 
 // MISMO orden/valor que menumodel::SettingId (S_BRIGHT..S_PREC).
-enum Id : int8_t { BRIGHT, THEME, ACCENT, DIM, CLOCK, WIFI, CAL, PREC };
+enum Id : int8_t { BRIGHT, THEME, ACCENT, DIM, CLOCK, WIFI, CAL, PREC, BT };
 
 enum Group : uint8_t { APPEARANCE, SYSTEM };
 

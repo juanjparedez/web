@@ -5,6 +5,7 @@ import { Button, Select, Space, Tabs, Tooltip } from 'antd';
 import { ToolHeader } from '@/components/workbench/ToolHeader';
 import { ToolGuide } from '@/components/workbench/ToolGuide';
 import { UrlPresets } from '@/components/common/UrlPresets';
+import { ElectronicsSubNav } from './ElectronicsSubNav';
 import styles from './embeddedCalculators.module.css';
 import { PresetId, useCalculatorState } from './calculators/useCalculatorState';
 import { CALCULATORS_BY_CATEGORY, type CalcDef } from './calculators/registry';
@@ -83,6 +84,7 @@ export function EmbeddedCalculators() {
   return (
     <Space direction="vertical" size={24} style={{ width: '100%' }}>
       {c.contextHolder}
+      <ElectronicsSubNav />
       <ToolHeader
         eyebrow={t('tags.embedded')}
         title={t('title')}
