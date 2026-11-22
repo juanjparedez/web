@@ -1566,7 +1566,8 @@
             "about": "Acerca de HIOS",
             "composer": "Compositor Chiptune",
             "radio": "Radioaficionado",
-            "measurement": "Medición e instrumentos"
+            "measurement": "Medición e instrumentos",
+            "spectrum": "Espectro EM"
         }
     },
     "Auth": {
@@ -5552,5 +5553,9 @@
                 "notes": "El cuadro argentino identifica al servicio de radioaficionados como primario y al de aficionados por satélite como secundario; reserva 435–438 MHz para satélites. Esto no equivale a afirmar que UHF atraviesa mejor los edificios que VHF."
             }
         }
+    },
+    "Spectrum": {
+        "title": "El espectro electromagnético",
+        "description": "Explorá de 1 Hz a 10²⁶ Hz con gráficos en la GPU: longitud de onda, energía del fotón, atmósfera, la onda E/B en 3D y la ley de Planck."
     }
 }

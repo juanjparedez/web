@@ -1566,7 +1566,8 @@
             "about": "Informazioni su HIOS",
             "composer": "Compositore Chiptune",
             "radio": "Radioamatore",
-            "measurement": "Misure e strumenti"
+            "measurement": "Misure e strumenti",
+            "spectrum": "Spettro EM"
         }
     },
     "Auth": {
@@ -5552,5 +5553,9 @@
                 "notes": "La tabella argentina identifica il servizio di radioamatore come primario e quello di radioamatore via satellite come secondario; riserva 435–438 MHz ai satelliti. Questo non equivale ad affermare che UHF attraversi gli edifici meglio di VHF."
             }
         }
+    },
+    "Spectrum": {
+        "title": "Lo spettro elettromagnetico",
+        "description": "Da 1 Hz a 10²⁶ Hz con grafica su GPU: lunghezza d'onda, energia del fotone, atmosfera, l'onda E/B in 3D e la legge di Planck (in spagnolo)."
     }
 }
