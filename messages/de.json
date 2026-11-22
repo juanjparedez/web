@@ -1566,7 +1566,8 @@
             "about": "Über HIOS",
             "composer": "Chiptune Composer",
             "radio": "Amateurfunk",
-            "measurement": "Messen & Messgeräte"
+            "measurement": "Messen & Messgeräte",
+            "spectrum": "EM-Spektrum"
         }
     },
     "Auth": {
@@ -5552,5 +5553,9 @@
                 "notes": "Die argentinische Bandtabelle weist dem Amateurfunkdienst primären und dem Amateurfunkdienst über Satelliten sekundären Status zu; sie reserviert 435–438 MHz für Satelliten. Daraus folgt nicht, dass UHF Gebäude besser durchdringt als VHF."
             }
         }
+    },
+    "Spectrum": {
+        "title": "Das elektromagnetische Spektrum",
+        "description": "Von 1 Hz bis 10²⁶ Hz mit GPU-Grafik: Wellenlänge, Photonenenergie, Atmosphäre, die E/B-Welle in 3D und das Plancksche Gesetz (auf Spanisch)."
     }
 }

@@ -56,6 +56,7 @@ export function useNavGroups(): NavGroupConfig[] {
       label: sec('radio'),
       items: [
         { href: `/${locale}/radio`, label: sec('radio'), badge: 'HAM', desktopDirect: true },
+        { href: `/${locale}/espectro`, label: sec('spectrum'), badge: 'EM' },
       ],
     },
     {

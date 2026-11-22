@@ -1566,7 +1566,8 @@
             "about": "About HIOS",
             "composer": "Chiptune Composer",
             "radio": "Ham radio",
-            "measurement": "Measurement & instruments"
+            "measurement": "Measurement & instruments",
+            "spectrum": "EM spectrum"
         }
     },
     "Auth": {
@@ -5552,5 +5553,9 @@
                 "notes": "The Argentine chart lists the amateur service as primary and the amateur-satellite service as secondary; it reserves 435–438 MHz for satellites. This does not mean that UHF penetrates buildings better than VHF."
             }
         }
+    },
+    "Spectrum": {
+        "title": "The electromagnetic spectrum",
+        "description": "Explore from 1 Hz to 10²⁶ Hz with GPU graphics: wavelength, photon energy, the atmosphere, the E/B wave in 3D and Planck's law (in Spanish)."
     }
 }

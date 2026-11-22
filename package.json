@@ -85,6 +85,7 @@
     "test:google-local": "node scripts/google-local-selftest.mjs",
     "test:discovery": "node --experimental-strip-types scripts/discovery-selftest.ts",
     "test:radio": "node --experimental-strip-types scripts/radio-selftest.ts",
+    "test:spectrum": "node --experimental-strip-types scripts/spectrum-selftest.ts",
     "radio:pdf": "node scripts/radio-pdf.cjs"
   },
   "dependencies": {

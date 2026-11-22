@@ -15,6 +15,7 @@ export const destinations = [
   'pinouts',
   'calculators',
   'composer',
+  'espectro',
   'tools',
   'stats',
   'guestbook',
