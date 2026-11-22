@@ -43,7 +43,7 @@ export function RadioBasicsTool() {
   return (
     <div className={styles.home} data-testid="radio-course-home">
       <section className={styles.startCard} aria-labelledby="radio-start-title">
-        <span className={styles.startEyebrow}>Aprender · 12 lecciones</span>
+        <span className={styles.startEyebrow}>Aprender · {radioLessons.length} lecciones</span>
         <h2 id="radio-start-title">{t('hubTitle')}</h2>
         <p>{t('hubIntro')}</p>
         <Button type="primary" size="large" onClick={() => router.push('/' + locale + radioPagePath('voltage'))}>{t('start')}</Button>
@@ -61,7 +61,7 @@ export function RadioBasicsTool() {
       <section aria-labelledby="radio-stations-title">
         <div className={styles.stationsHeader}>
           <h2 id="radio-stations-title">Practicar, rendir y consultar</h2>
-          <p>Consola Morse, banco de instrumentos, programa oficial de ENACOM, bandas y equipos.</p>
+          <p>Consola Morse, programa oficial de ENACOM, bandas y equipos. Los instrumentos de medición tienen su propia sección.</p>
         </div>
         <div className={styles.hubGrid} data-testid="radio-hub-entities">
           {radioModules.map((entity) => (

@@ -6,7 +6,6 @@ export const radioLessons = [
   { id: 'series' },
   { id: 'parallel' },
   { id: 'power' },
-  { id: 'measurement' },
   { id: 'practice' },
   { id: 'waves' },
   { id: 'propagation' },

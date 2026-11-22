@@ -90,6 +90,17 @@ const nextConfig = {
 				destination: '/en/pinouts',
 				permanent: false,
 			},
+			// Medición e instrumentos salió del curso de radio (2026-11-22).
+			{
+				source: '/:locale(en|es|de|it)/radio/instrumentos',
+				destination: '/:locale/medicion/instrumentos',
+				permanent: true,
+			},
+			{
+				source: '/:locale(en|es|de|it)/radio/lecciones/measurement',
+				destination: '/:locale/medicion',
+				permanent: true,
+			},
 		];
 	},
 

@@ -463,3 +463,34 @@
   .metricItem { padding: 6px 8px; }
   .tableWrap { overflow: visible; border: 0; }
 }
+
+/* Drawn handheld multimeter column (MultimeterDevice). */
+.deviceCol {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid var(--hios-border);
+  border-radius: calc(var(--surface-radius, 12px) * 0.85);
+  background: var(--hios-bg);
+}
+
+.deviceHint {
+  margin: 0;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--hios-border);
+  font-family: var(--font-stack-mono);
+  font-size: 0.8rem;
+  color: var(--hios-text);
+}
+
+.deviceHelp {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--hios-text-secondary);
+}
+
+@media (max-width: 640px) {
+  .deviceCol { padding: 10px 6px; }
+}

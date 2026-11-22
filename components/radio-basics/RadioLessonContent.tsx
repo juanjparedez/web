@@ -4,7 +4,7 @@ import type { RadioPageId } from '@/config/radio-course';
 import { ConceptLesson } from './ConceptLesson';
 import { OhmSection } from './TheorySections';
 import { ConnectionLesson } from './ConnectionsSection';
-import { PowerSection, MeasurementSection } from './PowerSection';
+import { PowerSection } from './PowerSection';
 import { LaboratorySection } from './LaboratorySection';
 import { PracticeSection } from './PracticeSection';
 import { RadioGlossary } from './RadioGlossary';
@@ -25,8 +25,6 @@ export function RadioLessonContent({ page }: { page: RadioPageId }) {
       return <ConnectionLesson mode={page} />;
     case 'power':
       return <><ConceptLesson concept="power" /><PowerSection showTitle={false} /></>;
-    case 'measurement':
-      return <MeasurementSection />;
     case 'laboratory':
       return <LaboratorySection />;
     case 'bands':

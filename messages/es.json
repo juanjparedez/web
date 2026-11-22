@@ -1565,7 +1565,8 @@
             "guestbook": "Libro de visitas",
             "about": "Acerca de HIOS",
             "composer": "Compositor Chiptune",
-            "radio": "Radioaficionado"
+            "radio": "Radioaficionado",
+            "measurement": "Medición e instrumentos"
         }
     },
     "Auth": {

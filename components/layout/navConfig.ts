@@ -65,6 +65,7 @@ export function useNavGroups(): NavGroupConfig[] {
       items: [
         { href: `/${locale}/workbench`, label: t('workbench'), badge: 'LAB', desktopDirect: true },
         { href: `/${locale}/calculators`, label: sec('calculators'), badge: 'RCL', desktopDirect: true },
+        { href: `/${locale}/medicion`, label: sec('measurement'), badge: 'DMM' },
         { href: `/${locale}/composer`, label: sec('composer'), badge: '8-BIT' },
         { href: `/${locale}/explore`, label: ws('explore'), badge: 'CAT' },
       ],

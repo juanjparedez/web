@@ -3,7 +3,7 @@ import es from '../messages/es.json';
 
 const COURSE = '/es/radio';
 const LESSON_BASE = `${COURSE}/lecciones`;
-const LESSONS = ['voltage', 'current', 'resistance', 'ohm', 'series', 'parallel', 'power', 'measurement', 'practice', 'waves', 'propagation', 'morse'] as const;
+const LESSONS = ['voltage', 'current', 'resistance', 'ohm', 'series', 'parallel', 'power', 'practice', 'waves', 'propagation', 'morse'] as const;
 const RESOURCES = ['bands', 'laboratory', 'glossary', 'sources'] as const;
 
 test.beforeEach(async ({ page }) => {
@@ -18,7 +18,7 @@ test('course home is an index and lessons have their own content, URLs and navig
   const home = page.getByTestId('radio-course-home');
   await expect(home).toBeVisible();
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Electricidad para radioaficionados');
-  await expect(page.getByTestId('radio-lesson-list').getByRole('link')).toHaveCount(12);
+  await expect(page.getByTestId('radio-lesson-list').getByRole('link')).toHaveCount(11);
   await expect(page.getByTestId('radio-resource-list').getByRole('link')).toHaveCount(4);
   await expect(home.locator('[data-concept]')).toHaveCount(0);
   await expect(page.getByTestId('dc-circuit-lab')).toHaveCount(0);
@@ -75,7 +75,7 @@ test('series and parallel are separate lessons with scoped worked examples', asy
   await expect(content.locator('#series')).toHaveCount(0);
 });
 
-for (const lesson of ['resistance', 'ohm', 'power', 'measurement'] as const) {
+for (const lesson of ['resistance', 'ohm', 'power'] as const) {
   test(`${lesson} is directly addressable as a standalone lesson`, async ({ page }) => {
     await page.goto(`${LESSON_BASE}/${lesson}`);
     await expect(page.locator('#radio-page-title')).toHaveText(es.RadioCourse.pages[lesson].title);
@@ -198,9 +198,11 @@ test('radio sidebar connects tutorials, the Morse trainers and the instrument be
   await page.goto(`${COURSE}/morse#transmision`);
   await expect(page).toHaveURL(`${COURSE}/morse/transmitir`);
 
-  await page.getByTestId('radio-sidebar').getByRole('link', { name: /Banco de instrumentos/ }).click();
-  await expect(page).toHaveURL(`${COURSE}/instrumentos`);
-  await expect(page.getByTestId('radio-sidebar')).toBeVisible();
+  await page.getByTestId('radio-sidebar').getByText('Consultar', { exact: true }).click();
+  await page.getByTestId('radio-sidebar').getByRole('link', { name: /Medición e instrumentos/ }).click();
+  await expect(page).toHaveURL('/es/medicion');
+  await page.getByRole('navigation', { name: 'Secciones de medición' }).getByRole('link', { name: /Banco de instrumentos/ }).click();
+  await expect(page).toHaveURL('/es/medicion/instrumentos');
   const dmm = page.getByTestId('multimeter-lab');
   await expect(dmm).toBeVisible();
   await expect(dmm.getByTestId('multimeter-digits')).toHaveText('13,80');
