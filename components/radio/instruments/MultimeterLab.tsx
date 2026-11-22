@@ -9,6 +9,7 @@ import {
   type DmmMode,
   type ProbePlacement,
 } from '@/lib/radio/multimeterSim';
+import { InstrumentFigure } from './InstrumentFigure';
 import styles from './multimeter.module.css';
 
 const DIAL_OPTIONS: readonly { id: DmmMode; label: string; sub: string }[] = [
@@ -76,6 +77,8 @@ export function MultimeterLab() {
           ✓ Aplicar conexión segura recomendada
         </button>
       </div>
+
+      <InstrumentFigure id="multimeter" />
 
       <div className={styles.scenarioGrid} role="group" aria-label="Escenarios de medición en taller">
         {BENCH_SCENARIOS.map((item) => (

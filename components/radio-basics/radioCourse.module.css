@@ -95,7 +95,7 @@
 }
 @media (max-width: 580px) {
   .resourceList { grid-template-columns: minmax(0, 1fr); gap: 8px; }
-  .page { padding: 24px 20px 40px; }
+  .page { padding: 20px 16px 40px; }
   .pager a { max-width: 48%; }
   .startCard :global(.ant-btn) { height: auto; min-height: 44px; white-space: normal; max-width: 100%; }
   .startCard { padding: 20px 18px; }

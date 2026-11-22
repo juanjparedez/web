@@ -4,6 +4,9 @@ import { useEffect, useState } from 'react';
 
 const CACHE_NAME = 'hios-radio-offline-v1';
 
+const INSTRUMENT_IMAGES = ['multimetro-ut61d', 'osciloscopio-rigol-ds1054z', 'medidor-roe-potencia', 'nanovna']
+  .map((name) => `/images/radio/instruments/${name}.webp`);
+
 const OFFLINE_PATHS = [
   '/radio',
   '/radio/instrumentos',
@@ -25,7 +28,8 @@ export type OfflineState = 'idle' | 'saving' | 'saved' | 'error';
 
 async function cacheAll(locale: string): Promise<number> {
   const cache = await window.caches.open(CACHE_NAME);
-  const urls = [...OFFLINE_PATHS.map((p) => `/${locale}${p}`), '/downloads/radio/guia-radioaficionado-novicio.pdf'];
+  const urls = [...OFFLINE_PATHS.map((p) => `/${locale}${p}`), '/downloads/radio/guia-radioaficionado-novicio.pdf',
+    ...INSTRUMENT_IMAGES];
   let okCount = 0;
   for (const url of urls) {
     try {

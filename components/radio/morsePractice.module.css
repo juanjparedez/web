@@ -25,7 +25,7 @@
 .tree line { stroke: var(--hios-text-muted); stroke-width: 1.5; }
 .tree line[data-lit=true] { stroke: var(--accent-2-text); stroke-width: 3.5; }
 .tree button, .root { position: absolute; transform: translate(-50%, -50%); }
-.root { left: 50%; top: 24px; color: var(--accent-2-text); }
+.root { color: var(--accent-2-text); }
 .tree button { display: grid; place-items: center; gap: 3px; width: 42px; height: 44px; padding: 0; line-height: 1; border-radius: .55rem; border: 1px solid var(--hios-border); background: var(--hios-bg); color: inherit; font: 600 1.05rem/1 var(--font-stack-mono); transition: border-color .15s, background .15s, opacity .15s; }
 .tree button:hover:not(:disabled) { border-color: var(--accent-2-text); }
 .tree button:disabled { opacity: .28; cursor: default; }
@@ -58,3 +58,7 @@
 @media (max-width: 640px) {
   .soundGlobal .soundRow, .soundGlobal .settings { grid-template-columns: minmax(0, 1fr); }
 }
+
+.treeScroll[data-vertical=true] { overflow: visible; }
+.treeScroll[data-vertical=true] .tree { min-width: 0; }
+.treeScroll[data-vertical=true]::before { content: '◆ inicio  ·  arriba = punto (·)  ·  abajo = raya (−)'; display: block; padding: 8px 10px 0; font: .72rem/1.4 var(--font-stack-mono); color: var(--hios-text-muted); }

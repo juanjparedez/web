@@ -31,17 +31,17 @@ export function KeypadMenusSection() {
       <span className={styles.kicker}>03 / CONFIGURACIÓN EN EL EQUIPO</span>
       <h2>Menús del UV-5R que tenés que conocer</h2>
       <div className={styles.tableWrap}>
-        <table className={styles.table}>
+        <table className={styles.table} data-stack>
           <thead>
             <tr><th>Menú</th><th>Parámetro</th><th>Valor recomendado</th><th>Qué hace física y electrónicamente</th></tr>
           </thead>
           <tbody>
             {MENU_ROWS.map(([menu, param, rec, desc]) => (
               <tr key={menu}>
-                <td className={styles.mono}>{menu}</td>
-                <td>{param}</td>
-                <td><span className={styles.tagSafe}>{rec}</span></td>
-                <td>{desc}</td>
+                <td className={styles.mono} data-label="Menú">{menu}</td>
+                <td data-label="Parámetro">{param}</td>
+                <td data-label="Recomendado"><span className={styles.tagSafe}>{rec}</span></td>
+                <td data-label="Qué hace">{desc}</td>
               </tr>
             ))}
           </tbody>
@@ -81,22 +81,22 @@ export function RxTemplateSection() {
       <span className={styles.kicker}>05 / PLANTILLA CHIRP · ARGENTINA</span>
       <h2>Frecuencias útiles para programar en modo Solo Escucha (Duplex = off)</h2>
       <div className={styles.tableWrap}>
-        <table className={styles.table}>
+        <table className={styles.table} data-stack>
           <thead>
             <tr><th>Nombre sugerido</th><th>Frecuencia (MHz)</th><th>Modo / Ancho</th><th>Duplex (CHIRP)</th><th>Qué vas a escuchar y condición legal</th></tr>
           </thead>
           <tbody>
             {RX_CHANNELS.map(([name, freq, mode, duplex, tone, desc]) => (
               <tr key={name}>
-                <td className={styles.mono}>{name}</td>
-                <td className={styles.mono}>{freq}</td>
-                <td>{mode}</td>
-                <td>
+                <td className={styles.mono} data-label="Nombre">{name}</td>
+                <td className={styles.mono} data-label="Frecuencia">{freq}</td>
+                <td data-label="Modo">{mode}</td>
+                <td data-label="Duplex">
                   <span className={tone === 'safe' ? styles.tagSafe : tone === 'warn' ? styles.tagWarn : styles.tagDanger}>
                     {duplex}
                   </span>
                 </td>
-                <td>{desc}</td>
+                <td data-label="Qué escuchás">{desc}</td>
               </tr>
             ))}
           </tbody>

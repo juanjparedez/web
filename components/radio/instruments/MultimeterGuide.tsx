@@ -95,7 +95,7 @@ export function MultimeterGuide() {
         <span className={styles.kicker}>02 · PROTOCOLO DE BANCO Y SEGURIDAD DE INSTRUMENTOS</span>
         <h2>Tabla resumen de conexión segura en el taller</h2>
         <div className={styles.tableWrap}>
-          <table className={styles.table}>
+          <table className={styles.table} data-stack>
             <thead>
               <tr>
                 <th>Instrumento / Función</th>
@@ -107,46 +107,46 @@ export function MultimeterGuide() {
             </thead>
             <tbody>
               <tr>
-                <td><strong>DMM · Tensión DC/AC</strong></td>
-                <td><code>V⎓</code> / <code>V∼</code> · Borne <code>V/Ω</code></td>
-                <td>En Paralelo</td>
-                <td>10 MΩ (alta Z)</td>
-                <td>Verificar que la punta roja NO haya quedado en <code>10A</code> o <code>mA</code></td>
+                <td data-label="Instrumento"><strong>DMM · Tensión DC/AC</strong></td>
+                <td data-label="Configuración"><code>V⎓</code> / <code>V∼</code> · Borne <code>V/Ω</code></td>
+                <td data-label="Conexión">En Paralelo</td>
+                <td data-label="Impedancia">10 MΩ (alta Z)</td>
+                <td data-label="Precaución">Verificar que la punta roja NO haya quedado en <code>10A</code> o <code>mA</code></td>
               </tr>
               <tr>
-                <td><strong>DMM · Corriente TX</strong></td>
-                <td><code>10A⎓</code> · Borne <code>10A</code></td>
-                <td>En Serie (abrir rama)</td>
-                <td>0,01 Ω (shunt directo)</td>
-                <td>Nunca apoyar en paralelo sobre una fuente; devolver punta a <code>V/Ω</code> al terminar</td>
+                <td data-label="Instrumento"><strong>DMM · Corriente TX</strong></td>
+                <td data-label="Configuración"><code>10A⎓</code> · Borne <code>10A</code></td>
+                <td data-label="Conexión">En Serie (abrir rama)</td>
+                <td data-label="Impedancia">0,01 Ω (shunt directo)</td>
+                <td data-label="Precaución">Nunca apoyar en paralelo sobre una fuente; devolver punta a <code>V/Ω</code> al terminar</td>
               </tr>
               <tr>
-                <td><strong>DMM · Resistencia / Coaxil</strong></td>
-                <td><code>Ω</code> / <code>)))</code> · Borne <code>V/Ω</code></td>
-                <td>Circuito desenergizado</td>
-                <td>Fuente I_test ≈ 1 mA</td>
-                <td>Apagar fuente y descargar electrolíticos antes de apoyar las puntas</td>
+                <td data-label="Instrumento"><strong>DMM · Resistencia / Coaxil</strong></td>
+                <td data-label="Configuración"><code>Ω</code> / <code>)))</code> · Borne <code>V/Ω</code></td>
+                <td data-label="Conexión">Circuito desenergizado</td>
+                <td data-label="Impedancia">Fuente I_test ≈ 1 mA</td>
+                <td data-label="Precaución">Apagar fuente y descargar electrolíticos antes de apoyar las puntas</td>
               </tr>
               <tr>
-                <td><strong>Osciloscopio (DSO)</strong></td>
-                <td>Punta <code>×10</code> compensada</td>
-                <td>En Paralelo (BNC a masa)</td>
-                <td>10 MΩ ∥ ~12 pF</td>
-                <td>El cocodrilo negro del BNC está unido a Tierra (PE 220 V): no tocar nodos vivos</td>
+                <td data-label="Instrumento"><strong>Osciloscopio (DSO)</strong></td>
+                <td data-label="Configuración">Punta <code>×10</code> compensada</td>
+                <td data-label="Conexión">En Paralelo (BNC a masa)</td>
+                <td data-label="Impedancia">10 MΩ ∥ ~12 pF</td>
+                <td data-label="Precaución">El cocodrilo negro del BNC está unido a Tierra (PE 220 V): no tocar nodos vivos</td>
               </tr>
               <tr>
-                <td><strong>Medidor de ROE + Carga 50 Ω</strong></td>
-                <td>Modo <code>CW/FM</code> en <code>1 W (LOW)</code></td>
-                <td>En Serie coaxial 50 Ω</td>
-                <td>Pasante coaxial 50 Ω</td>
-                <td>En BLU/SSB sin audio no marca; nunca transmitir alta potencia sin carga o con ROE &gt; 3:1</td>
+                <td data-label="Instrumento"><strong>Medidor de ROE + Carga 50 Ω</strong></td>
+                <td data-label="Configuración">Modo <code>CW/FM</code> en <code>1 W (LOW)</code></td>
+                <td data-label="Conexión">En Serie coaxial 50 Ω</td>
+                <td data-label="Impedancia">Pasante coaxial 50 Ω</td>
+                <td data-label="Precaución">En BLU/SSB sin audio no marca; nunca transmitir alta potencia sin carga o con ROE &gt; 3:1</td>
               </tr>
               <tr>
-                <td><strong>NanoVNA (Puerto S11)</strong></td>
-                <td>Calibrado <code>SOLT</code> en 50 Ω</td>
-                <td>Directo al coaxil/antena</td>
-                <td>Puerto de 50 Ω (mW)</td>
-                <td>Nunca transmitir con un equipo hacia el puerto del NanoVNA ni conectar antenas con estática sin descargar</td>
+                <td data-label="Instrumento"><strong>NanoVNA (Puerto S11)</strong></td>
+                <td data-label="Configuración">Calibrado <code>SOLT</code> en 50 Ω</td>
+                <td data-label="Conexión">Directo al coaxil/antena</td>
+                <td data-label="Impedancia">Puerto de 50 Ω (mW)</td>
+                <td data-label="Precaución">Nunca transmitir con un equipo hacia el puerto del NanoVNA ni conectar antenas con estática sin descargar</td>
               </tr>
             </tbody>
           </table>

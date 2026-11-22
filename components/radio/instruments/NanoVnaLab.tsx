@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { MathLine } from '@/components/common/MathLine';
 import { simulateNanoVna } from '@/lib/radio/benchInstrumentsSim';
+import { InstrumentFigure } from './InstrumentFigure';
 import styles from './multimeter.module.css';
 
 export function NanoVnaLab() {
@@ -47,6 +48,8 @@ export function NanoVnaLab() {
           ✓ Cortar varilla a resonancia exacta (49,0 cm → 145,0 MHz)
         </button>
       </div>
+
+      <InstrumentFigure id="nanovna" />
 
       <div className={styles.workbenchGrid}>
         <div className={styles.controlsCol}>
