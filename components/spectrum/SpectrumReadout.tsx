@@ -2,7 +2,7 @@ import { transmittance, transmittanceLabel } from '@/lib/spectrum/atmosphere';
 import { bandAt, subBandAt } from '@/lib/spectrum/bands';
 import { cssColor, spectralLinear, toSrgb, type Rgb } from '@/lib/spectrum/color';
 import { duration, length, sci, si } from '@/lib/spectrum/format';
-import { closestScale, LANDMARKS } from '@/lib/spectrum/landmarks';
+import { closestScale, LANDMARKS, orderOf } from '@/lib/spectrum/landmarks';
 import { ionizingThresholdEv, photonEnergyEv, photonEnergyJ, wavelength, wienTemperature } from '@/lib/spectrum/physics';
 import styles from './spectrum.module.css';
 
@@ -56,7 +56,7 @@ export function SpectrumReadout({ logF }: { logF: number }) {
       </header>
       <dl className={styles.cells}>
         <Cell label="Frecuencia" value={si(f, 'Hz')} />
-        <Cell label="Longitud de onda" value={length(lambda)} hint={`del orden de ${scale.name}`} />
+        <Cell label="Longitud de onda" value={length(lambda)} hint={orderOf(scale.name)} />
         <Cell label="Energía del fotón" value={energyText(ev)} hint={`${sci(photonEnergyJ(f))} J`} />
         <Cell label="Período" value={duration(1 / f)} />
         <Cell label="Fotones por segundo en 1 W" value={sci(1 / photonEnergyJ(f))} />

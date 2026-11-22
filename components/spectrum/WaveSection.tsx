@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { bandAt } from '@/lib/spectrum/bands';
 import { spectralLinear, toSrgb } from '@/lib/spectrum/color';
 import { duration, length, sci } from '@/lib/spectrum/format';
-import { closestScale } from '@/lib/spectrum/landmarks';
+import { closestScale, orderOf } from '@/lib/spectrum/landmarks';
 import { wavelength } from '@/lib/spectrum/physics';
 import type { Polarization, WaveHandle, WaveView } from '@/lib/spectrum/waveScene';
 import { prefersReducedMotion, useOnScreen } from './useRenderer';
@@ -73,7 +73,7 @@ export function WaveSection({ logF }: { logF: number }) {
           onClick={() => { handle.current?.setRunning(!running); setRunning(!running); }}>{running ? 'Pausar' : 'Reanudar'}</button>
       </div>
       <p className={styles.waveFacts}>
-        <span>Se ven 3 longitudes de onda: <strong>{length(3 * lambda)}</strong>, del orden de {closestScale(3 * lambda).name}.</span>
+        <span>Se ven 3 longitudes de onda: <strong>{length(3 * lambda)}</strong>, {orderOf(closestScale(3 * lambda).name)}.</span>
         <span>Cámara lenta ×{sci(2 * f, 2)}: en la realidad cada ciclo dura <strong>{duration(1 / f)}</strong>.</span>
       </p>
     </div>

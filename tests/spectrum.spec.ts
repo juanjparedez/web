@@ -59,7 +59,35 @@ test('without WebGL every instrument falls back and keeps working', async ({ pag
   await expect(page.getByTestId('spectrum-strip')).toHaveAttribute('data-renderer', 'canvas');
   await expect(page.getByTestId('blackbody-lab')).toHaveAttribute('data-renderer', 'canvas');
   await expect(page.getByTestId('spectrum-wave')).toHaveAttribute('data-renderer', 'svg');
-  await expect(page.getByText('Tu navegador no ofrece WebGL')).toBeVisible();
+  await expect(page.getByText('Tu navegador no ofrece WebGL:', { exact: false }).first()).toBeVisible();
+  await expect(page.getByTestId('ripple-tank')).toHaveAttribute('data-renderer', 'canvas');
+  await expect(page.getByTestId('fiber-lab')).toHaveAttribute('data-renderer', 'canvas');
   await page.getByRole('group', { name: 'Fuentes reales' }).getByRole('button', { name: 'Radio FM' }).click();
   await expect(page.getByTestId('spectrum-readout')).toContainText('100 MHz');
+});
+
+test('ripple tank and fibre follow the theory they display', async ({ page }) => {
+  await page.goto('/es/espectro');
+  const tank = page.getByTestId('ripple-tank');
+  await tank.scrollIntoViewIfNeeded();
+  await expect(tank).toHaveAttribute('data-renderer', /webgl|canvas/);
+  await expect(page.getByTestId('ripple-theory')).toContainText('θ₁ = 19,5°');
+  await tank.getByRole('button', { name: 'Doble rendija' }).click();
+  await expect(tank).toHaveAttribute('data-mode', 'double');
+  await tank.getByRole('button', { name: 'Una rendija' }).click();
+  await expect(page.getByTestId('ripple-theory')).toContainText('Primer mínimo');
+  await tank.getByRole('button', { name: 'Intensidad media' }).click();
+  await expect(tank.getByRole('button', { name: 'Intensidad media' })).toHaveAttribute('aria-pressed', 'true');
+  const box = (await tank.locator('canvas').boundingBox())!;
+  await page.mouse.click(box.x + box.width * 0.7, box.y + box.height * 0.5);
+
+  const fiber = page.getByTestId('fiber-lab');
+  await fiber.getByRole('button', { name: 'Vidrio multimodo' }).click();
+  const angle = fiber.getByRole('slider');
+  await angle.fill('10');
+  await expect(fiber).toHaveAttribute('data-guided', 'true');
+  await expect(fiber).toContainText('0,242');
+  await angle.fill('25');
+  await expect(fiber).toHaveAttribute('data-guided', 'false');
+  await expect(fiber).toContainText('la luz se fuga');
 });
