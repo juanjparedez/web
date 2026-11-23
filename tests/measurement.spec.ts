@@ -21,6 +21,18 @@ test('measurement is its own section with a drawn multimeter driven by its selec
   await expect(dmm.getByRole('button', { name: /Selector en 10A/ })).toHaveAttribute('aria-pressed', 'true');
   await expect(digits).not.toHaveText('13,80');
 
+  await dmm.getByRole('button', { name: /Selector en V⎓/ }).click();
+  await dmm.getByRole('button', { name: /Divisor de Alta Impedancia/ }).click();
+  await expect(digits).toHaveText('4,00');
+  await expect(dmm).toContainText('Efecto de carga del voltímetro');
+  await expect(dmm).not.toContainText('Burden');
+  await dmm.getByRole('button', { name: /En Serie/ }).click();
+  await expect(dmm.getByTestId('multimeter-circuit')).toContainText('rama de R2 abierta');
+  await expect(dmm.getByTestId('multimeter-diagnosis')).not.toContainText(/transceptor|13,8/);
+  await dmm.getByRole('button', { name: /Circuito Energizado/ }).click();
+  await dmm.getByRole('button', { name: /Selector en Ω/ }).click();
+  await expect(digits).toHaveText('10,00');
+
   await page.getByRole('navigation', { name: 'Secciones de medición' }).getByRole('link', { name: /Banco de instrumentos/ }).click();
   await expect(page).toHaveURL('/es/medicion/instrumentos');
   await expect(page.getByTestId('instrument-figure-multimeter')).toBeVisible();
