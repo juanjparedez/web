@@ -1,4 +1,4 @@
-import { evaluateHighZDivider } from './multimeterDivider';
+import { evaluateHighZDivider } from './multimeterDivider.ts';
 export type DmmMode = 'dcv' | 'acv' | 'ohm' | 'continuity' | 'ma' | '10a';
 export type DmmJack = 'v-ohm' | 'ma' | '10a';
 export type ProbePlacement = 'parallel' | 'series';
