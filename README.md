@@ -67,9 +67,9 @@ Suite de más de 50 herramientas cliente para el flujo de trabajo diario de soft
 ### Capturas
 | Hardware y Firmware C++ | Simulador QPSK y Diagramas de Bode |
 |:---:|:---:|
-| ![Hardware ESP32](docs/screenshots/hardware-firmware.png) | ![Simulador QPSK](docs/screenshots/simulador-qpsk-bode.png) |
+| [![Hardware ESP32](docs/screenshots/hardware-firmware.png)](https://openhios.dev/es/projects/pad) | [![Simulador QPSK](docs/screenshots/simulador-qpsk-bode.png)](https://openhios.dev/es/workbench/qpsk-modulator) |
 | **Sintetizador Chiptune y Audio DSP** | **Workbench de Desarrollo** |
-| ![Audio DSP](docs/screenshots/audio-dsp-synth.png) | ![Dev Workbench](docs/screenshots/dev-workbench.png) |
+| [![Audio DSP](docs/screenshots/audio-dsp-synth.png)](https://openhios.dev/es/workbench/chiptune) | [![Dev Workbench](docs/screenshots/dev-workbench.png)](https://openhios.dev/es/workbench) |
 
 ---
 
