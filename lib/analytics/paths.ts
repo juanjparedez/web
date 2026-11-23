@@ -1,3 +1,4 @@
+import { LABS } from '../spectrum/labs.ts';
 import { workbenchTools } from '../../config/workbench.ts';
 import { ANALYTICS_LOCALES, type AnalyticsLocale } from './model.ts';
 
@@ -5,7 +6,11 @@ const toolsByPath = new Map<string, string>(workbenchTools.filter(tool => !tool.
 for (const instrument of ['multimetro', 'osciloscopio', 'roe', 'nanovna']) {
   toolsByPath.set(`/medicion/instrumentos/${instrument}`, `medicion-${instrument}`);
 }
-export const SPECTRUM_LABS = ['onda', 'cubeta', 'chladni', 'fibra', 'cuerpo-negro'] as const;
+for (const { slug } of LABS) {
+  toolsByPath.set(`/espectro/${slug}`, `espectro-${slug}`);
+}
+// Older open tabs can still report inline lab opens against the index.
+const SPECTRUM_LABS = ['onda', 'cubeta', 'chladni', 'fibra', 'cuerpo-negro'] as const;
 export const SPECTRUM_TOOL_IDS = new Set(SPECTRUM_LABS.map(id => `espectro-${id}`));
 export const ANALYTICS_TOOL_IDS = new Set([...toolsByPath.values(), ...SPECTRUM_TOOL_IDS]);
 const pages = new Set(['/espectro', '/medicion', '/medicion/multimetro', '/medicion/instrumentos', '/', '/workbench', '/workbench/spaces', '/workbench/sections', '/projects', '/blog', '/tools',

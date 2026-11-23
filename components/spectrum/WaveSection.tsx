@@ -15,7 +15,11 @@ const POLS: readonly [Polarization, string][] = [['linear', 'Lineal'], ['circula
 const VIEWS: readonly [WaveView, string][] = [['oblique', 'Perspectiva'], ['side', 'De costado'], ['front', 'De frente']];
 
 function hasWebGL() {
-  try { return !!document.createElement('canvas').getContext('webgl'); } catch { return false; }
+  try {
+    const gl = document.createElement('canvas').getContext('webgl');
+    gl?.getExtension('WEBGL_lose_context')?.loseContext(); // a probe must not keep a GPU context alive
+    return !!gl;
+  } catch { return false; }
 }
 
 function useWave(canvasRef: React.RefObject<HTMLCanvasElement | null>) {

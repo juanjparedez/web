@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { BANDS } from '@/lib/spectrum/bands';
 import { LANDMARKS } from '@/lib/spectrum/landmarks';
@@ -7,8 +9,6 @@ import { SpectrumAxes } from './SpectrumAxes';
 import { SpectrumReadout } from './SpectrumReadout';
 import { SpectrumStrip } from './SpectrumStrip';
 import { prefersReducedMotion } from './useRenderer';
-import { LabGate } from './LabGate';
-import { WaveSection } from './labs';
 import { useSpectrumView } from './useSpectrumView';
 import styles from './spectrum.module.css';
 
@@ -34,9 +34,9 @@ export function SpectrumExplorer() {
   const [mode, setMode] = useState<'webgl' | 'canvas' | null>(null);
   const [running, setRunning] = useState(true);
   useEffect(() => { if (prefersReducedMotion()) setRunning(false); }, []);
+  const { locale } = useParams<{ locale: string }>();
   const zoomed = (view.range[1] - view.range[0]).toFixed(1);
   return (
-    <>
     <div className={styles.explorer} data-testid="spectrum-explorer">
       <div className={styles.panel}>
         <div className={styles.toolbar}>
@@ -73,13 +73,12 @@ export function SpectrumExplorer() {
           ))}
         </div>
       </div>
-      <SpectrumReadout logF={view.selected} />
+      <div className={styles.readoutCol}>
+        <SpectrumReadout logF={view.selected} />
+        <Link className={styles.nextLink} href={`/${locale}/espectro/onda?f=${view.selected.toFixed(3)}`} prefetch={false}>
+          Ver esta onda en 3D →
+        </Link>
+      </div>
     </div>
-    <LabGate id="onda" title="La onda por dentro" preview="wave"
-      summary="El campo eléctrico y el magnético de la frecuencia elegida, en 3D. Polarización lineal o circular."
-      lead="Es la misma frecuencia que elegiste arriba. Un campo eléctrico (E) y uno magnético (B) oscilan en fase, perpendiculares entre sí y a la dirección de avance. Ninguno necesita un medio: uno sostiene al otro y viajan juntos a 299 792 458 m/s en el vacío. Cambiá la polarización y girá la vista.">
-      <WaveSection logF={view.selected} />
-    </LabGate>
-    </>
   );
 }

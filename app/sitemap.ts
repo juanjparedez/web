@@ -8,6 +8,7 @@ import type { PagePath } from '@/lib/seo';
 import { CHAPTERS } from '@/lib/radio/chapters';
 import { radioPages, radioPagePath } from '@/config/radio-course';
 import { createLocalizedSitemap } from '@/lib/seo-sitemap';
+import { LABS } from '@/lib/spectrum/labs';
 
 // Filesystem-backed catalogs are read at build time, including on Workers.
 export const dynamic = 'force-static';
@@ -27,6 +28,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/medicion/instrumentos',
     ...['multimetro', 'osciloscopio', 'roe', 'nanovna'].map((slug): PagePath => `/medicion/instrumentos/${slug}`),
     '/espectro',
+    ...LABS.map(({ slug }): PagePath => `/espectro/${slug}`),
     '/radio/programa',
     '/radio/tutoriales',
     ...radioPages.map(({ id }) => radioPagePath(id)),

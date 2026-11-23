@@ -123,10 +123,12 @@ test('section visits and lab openings are distinct opt-in events', async ({ page
   });
   await page.goto('/es/espectro');
   await expect.poll(() => events.slice()).toEqual(['page_view|/espectro|']);
-  await page.locator('#cubeta button').click();
-  await expect.poll(() => events.slice(1)).toEqual(['tool_open|/espectro|espectro-cubeta']);
+  await page.locator('main a[href="/es/espectro/cubeta"]').last().click();
+  await expect.poll(() => events.slice(1).sort()).toEqual([
+    'page_view|/espectro/cubeta|espectro-cubeta', 'tool_open|/espectro/cubeta|espectro-cubeta',
+  ]);
   await page.goto('/es/medicion/instrumentos/nanovna');
-  await expect.poll(() => events.slice(2).sort()).toEqual([
+  await expect.poll(() => events.slice(3).sort()).toEqual([
     'page_view|/medicion/instrumentos/nanovna|medicion-nanovna',
     'tool_open|/medicion/instrumentos/nanovna|medicion-nanovna',
   ]);
