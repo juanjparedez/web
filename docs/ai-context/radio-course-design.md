@@ -50,3 +50,14 @@ A pedido del usuario, en la rama `feat/global-nav-and-radio-refactor`:
 ## Medición e instrumentos (sección propia)
 
 El 22 de noviembre el usuario pidió que la medición y los instrumentos salieran del curso de radioaficionado. Viven en `/medicion` (lección «Medir con un multímetro», con el entrenador del multímetro dibujado e interactivo) y `/medicion/instrumentos` (banco de 4 instrumentos). El curso tiene 11 lecciones y enlaza a la sección desde «Consultar» y desde el capítulo B.5. Las URLs viejas (`/radio/instrumentos`, `/radio/lecciones/measurement`) redirigen en `next.config`. Los instrumentos muestran un dibujo del formato real del aparato (perilla, display y bornes) que funciona como control del entrenador, no solo grillas de botones.
+
+## Navegación unificada Radio y Medición (2026-11-23)
+
+Juanjo aprobó un solo modelo de navegación para Radioaficionado y Medición:
+
+- Datos en `components/learning/learningNav.ts`: cada sección tiene los mismos cuatro tipos, siempre en este orden y con el mismo color e ícono: Aprender (celeste), Practicar (ámbar), Examen ENACOM (violeta, solo radio) y Consultar (verde).
+- `SectionNav` es el único menú: lateral en escritorio con selector Radioaficionado / Medición arriba; en celular, barra fija "sección › tipo" y un botón Menú que abre el mismo menú como hoja.
+- El inicio de cada sección (`SectionHub`) sigue el modelo del hub de Morse: banner "seguís acá", chips por tipo y un bloque de tarjetas por tipo.
+- Cada simulador figura en Practicar aunque viva dentro de un capítulo (link a su ancla).
+- Medición: `/medicion` es el hub, `/medicion/multimetro` es la lección, `/medicion/instrumentos/<multimetro|osciloscopio|roe|nanovna>` es un entrenador por instrumento y `/medicion/instrumentos` es la tabla de referencia.
+- En el header aparece una sola entrada, "Radio y medición".

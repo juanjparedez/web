@@ -10,7 +10,9 @@ const INSTRUMENT_IMAGES = ['multimetro-ut61d', 'osciloscopio-rigol-ds1054z', 'me
 const OFFLINE_PATHS = [
   '/radio',
   '/medicion',
+  '/medicion/multimetro',
   '/medicion/instrumentos',
+  ...['multimetro', 'osciloscopio', 'roe', 'nanovna'].map((slug) => `/medicion/instrumentos/${slug}`),
   '/radio/programa',
   '/radio/morse',
   ...['arbol', 'reconocer', 'transmitir', 'koch', 'alfabeto', 'traductor'].map((slug) => `/radio/morse/${slug}`),

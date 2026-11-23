@@ -98,7 +98,7 @@ const nextConfig = {
 			},
 			{
 				source: '/:locale(en|es|de|it)/radio/lecciones/measurement',
-				destination: '/:locale/medicion',
+				destination: '/:locale/medicion/multimetro',
 				permanent: true,
 			},
 		];

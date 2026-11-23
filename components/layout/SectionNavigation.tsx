@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { DownOutlined } from '@ant-design/icons';
-import { isRouteActive, sectionLinks, useNavGroups } from './navConfig';
+import { isEntryActive, isRouteActive, sectionLinks, useNavGroups } from './navConfig';
 import styles from './sectionNavigation.module.css';
 
 export { sectionLinks };
@@ -53,7 +53,7 @@ export function DesktopHeaderNav() {
   return (
     <nav ref={navRef} className={styles.desktopNav} aria-label={t('primaryNavigation')}>
       {directLinks.map((item) => {
-        const active = isRouteActive(pathname, item.href, locale);
+        const active = isEntryActive(pathname, item, locale);
         return (
           <Link
             key={item.href}
@@ -149,7 +149,7 @@ export function SectionNavigation({
         <div key={group.id} className={styles.drawerGroup}>
           <div className={styles.drawerGroupKicker}>{group.kicker}</div>
           {group.items.map((item) => {
-            const active = isRouteActive(pathname, item.href, locale);
+            const active = isEntryActive(pathname, item, locale);
             return (
               <Link
                 key={item.href}
