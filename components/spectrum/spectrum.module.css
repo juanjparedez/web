@@ -185,3 +185,50 @@
   .landmarks { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 6px; scrollbar-width: thin; }
   .landmarks button { flex: none; }
 }
+
+/* ── Click-to-open labs ─────────────────────────────── */
+.labHead { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 14px; }
+.labClose {
+  min-height: 34px; padding: 4px 12px; border-radius: 999px; border: 1px solid var(--hios-border);
+  background: transparent; color: var(--hios-text-secondary); font: 600 0.82rem var(--font-stack-sans); cursor: pointer;
+}
+.labClose:hover { color: var(--hios-text); border-color: var(--accent-2-text); }
+.labCard {
+  position: relative; display: block; width: 100%; padding: 0; overflow: hidden; cursor: pointer; text-align: left;
+  aspect-ratio: 16 / 7; border-radius: var(--surface-radius); border: 1px solid var(--sp-line); background: var(--sp-panel);
+}
+.labCard img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.72; transition: opacity 0.2s, transform 0.4s; }
+.labCard:hover img, .labCard:focus-visible img { opacity: 0.95; transform: scale(1.015); }
+.labCard:focus-visible { outline: 2px solid var(--sp-accent); outline-offset: 3px; }
+.labCardText {
+  position: absolute; left: 0; right: 0; bottom: 0; display: grid; gap: 4px; padding: 28px 16px 14px;
+  background: linear-gradient(transparent, rgba(5, 7, 13, 0.92) 55%); color: #c9d3e3; font-size: 0.9rem; line-height: 1.45;
+}
+.labCardText strong {
+  justify-self: start; padding: 6px 14px; border-radius: 999px; background: var(--sp-accent); color: #04121f;
+  font: 700 0.9rem var(--font-stack-sans);
+}
+.labLoading {
+  display: grid; place-items: center; aspect-ratio: 16 / 7; border-radius: var(--surface-radius);
+  background: var(--sp-panel); color: var(--sp-dim); border: 1px solid var(--sp-line); font-size: 0.9rem;
+}
+
+/* ── Chladni plate ─────────────────────────────────── */
+.chladni { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 16px; align-items: start; }
+.chladniStage { position: relative; aspect-ratio: 1; width: min(100%, 620px); margin: 0 auto; border-radius: 6px; overflow: hidden; background: #0c0d0f;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 18px 40px -18px #000; }
+.chladniCanvas { display: block; width: 100%; height: 100%; }
+.chladniSide { display: grid; gap: 14px; align-content: start; min-width: 0; }
+.chladniNote { margin: 0; font-size: 0.88rem; line-height: 1.55; color: #c9d3e3; }
+.modeTag { position: absolute; left: 10px; top: 8px; padding: 3px 9px; border-radius: 999px; pointer-events: none;
+  font: 700 0.75rem var(--font-stack-mono); background: rgba(5, 7, 13, 0.72); color: #f2e6c9; border: 1px solid rgba(242, 230, 201, 0.25); }
+.modeTag[data-resonant='true'] { color: #04121f; background: #f2d58a; }
+@media (max-width: 980px) { .chladni { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 580px) { .labCard { aspect-ratio: 4 / 3; } .labLoading { aspect-ratio: 4 / 3; } }
+.labIndex { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 18px; font-size: 0.88rem; color: var(--hios-text-secondary); }
+.labIndex a {
+  padding: 4px 11px; border-radius: 999px; border: 1px solid var(--hios-border); color: var(--hios-text);
+  text-decoration: none; background: var(--hios-bg-secondary);
+}
+.labIndex a:hover { border-color: var(--accent-2-text); color: var(--accent-2-text); }
+.section[data-lab] { scroll-margin-top: calc(var(--layout-header-height) + 12px); }

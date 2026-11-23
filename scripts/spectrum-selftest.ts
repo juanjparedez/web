@@ -124,3 +124,33 @@ assert.equal(fresnel(1.5, 1, Math.PI / 3), 1, 'TIR beyond critical');
 }
 console.log('ripple + fibre selftest ok');
 assert.equal((await import('../lib/spectrum/landmarks.ts')).orderOf('el diámetro de la Tierra'), 'del orden del diámetro de la Tierra');
+{
+  const { beam, MODES, DRIVES, coefficients, amplitude, dominantMode, excitable, modeShape } = await import('../lib/spectrum/chladni/plate.ts');
+  const { ritzLambda } = await import('../lib/spectrum/chladni/ritz.ts');
+  const { cpuField, stepGrains } = await import('../lib/spectrum/chladni/cpu.ts');
+  const integral = (f: (x: number) => number, n = 2000) => { let s = 0; for (let i = 0; i <= n; i++) s += (i === 0 || i === n ? 1 : i % 2 ? 4 : 2) * f(i / n); return s / (3 * n); };
+  for (const m of [0, 2, 5, 8]) near(integral((x) => beam(m, x) ** 2), 1, 1e-6, `beam ${m} normalised`);
+  assert.ok(Math.abs(integral((x) => beam(3, x) * beam(5, x))) < 1e-6, 'beams orthogonal');
+  near(Math.abs(beam(8, 0)), 2, 1e-6, 'free end of a beam moves twice the RMS');
+  // Ritz values are upper bounds within ~6 % of Leissa (1969), FFFF square, ν = 0.3.
+  for (const [m, n, s, exact] of [[1, 1, 1, 13.468], [0, 2, -1, 19.596], [0, 2, 1, 24.270], [1, 2, 1, 34.801], [0, 3, 1, 61.093]] as const) {
+    const l = ritzLambda(m, n, s, 0.3);
+    assert.ok(l >= exact * 0.999 && l < exact * 1.06, `Ritz (${m},${n})${s > 0 ? '+' : '−'} = ${l} vs ${exact}`);
+  }
+  assert.ok(ritzLambda(0, 2, -1, 0.3) < ritzLambda(0, 2, 1, 0.3), 'the X pattern rings below the ring pattern');
+  assert.equal(MODES.length, 78);
+  const ring = MODES.find((m) => m.m === 2 && m.n === 2)!;
+  assert.equal(dominantMode(ring.f, DRIVES.center), ring, 'centre drive at (2,2) excites (2,2)');
+  assert.ok(excitable(DRIVES.center).every((m) => m.sign === 1), 'a centre drive cannot excite antisymmetric modes');
+  assert.ok(Math.abs(modeShape(ring, 0.224, 0.5)) < 0.05, '(2,2) nodal line near x = 0.224');
+  const coef = coefficients(ring.f, DRIVES.center);
+  assert.ok(amplitude(coef, 0.224, 0.3) < 0.1 * amplitude(coef, 0.5, 0.5), 'node is still vs antinode');
+  // CPU sand: after a few hundred hops most grains sit where the plate hardly moves.
+  const grid = 64, field = cpuField({ frequency: ring.f, drive: DRIVES.center, strength: 1 }, grid);
+  const pos = new Float32Array(4000).map(() => Math.random());
+  const quietShare = () => { let c = 0; for (let g = 0; g < pos.length; g += 2) c += field[Math.floor(pos[g + 1] * grid) * grid + Math.floor(pos[g] * grid)] < 0.1 ? 1 : 0; return c / (pos.length / 2); };
+  const before = quietShare();
+  for (let i = 0; i < 800; i++) stepGrains(pos, field, 0.03, grid);
+  assert.ok(quietShare() > 0.8 && before < 0.4, `sand gathers on nodal lines (${before} → ${quietShare()})`);
+}
+console.log('chladni selftest ok');

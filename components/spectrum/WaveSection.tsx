@@ -7,7 +7,7 @@ import { duration, length, sci } from '@/lib/spectrum/format';
 import { closestScale, orderOf } from '@/lib/spectrum/landmarks';
 import { wavelength } from '@/lib/spectrum/physics';
 import type { Polarization, WaveHandle, WaveView } from '@/lib/spectrum/waveScene';
-import { prefersReducedMotion, useOnScreen } from './useRenderer';
+import { prefersReducedMotion, useActive } from './useRenderer';
 import { WaveFallback } from './WaveFallback';
 import styles from './spectrum.module.css';
 
@@ -39,7 +39,7 @@ function useWave(canvasRef: React.RefObject<HTMLCanvasElement | null>) {
 export function WaveSection({ logF }: { logF: number }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const boxRef = useRef<HTMLDivElement>(null);
-  const onScreen = useOnScreen(boxRef);
+  const onScreen = useActive(boxRef);
   const { handle, mode } = useWave(canvasRef);
   const [pol, setPol] = useState<Polarization>('linear');
   const [running, setRunning] = useState(true);

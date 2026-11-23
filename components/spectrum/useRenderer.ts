@@ -50,3 +50,22 @@ export function useFrameLoop(active: boolean, draw: (seconds: number) => void) {
     return () => cancelAnimationFrame(raf);
   }, [active]);
 }
+
+/** False while the browser tab is hidden (other tab, minimised window). */
+export function usePageVisible() {
+  const [visible, setVisible] = useState(true);
+  useEffect(() => {
+    const update = () => setVisible(document.visibilityState !== 'hidden');
+    update();
+    document.addEventListener('visibilitychange', update);
+    return () => document.removeEventListener('visibilitychange', update);
+  }, []);
+  return visible;
+}
+
+/** True only while the element is on screen and the tab is visible: the condition for animating. */
+export function useActive(ref: RefObject<Element | null>) {
+  const onScreen = useOnScreen(ref);
+  const pageVisible = usePageVisible();
+  return onScreen && pageVisible;
+}
