@@ -40,6 +40,13 @@ export function spectralLinear(nmLambda: number): Rgb {
   return rgb.map((c) => c + lift) as Rgb;
 }
 
+/** Saturated display colour of a laser line: clip out-of-gamut channels instead of adding white. */
+export function laserColor(nmLambda: number): Rgb {
+  const rgb = xyzToLinear(cie1931(nmLambda)).map((c) => Math.max(0, c));
+  const max = Math.max(...rgb) || 1;
+  return toSrgb(rgb.map((c) => c / max) as Rgb);
+}
+
 export function toSrgb(linear: Rgb, scale = 1): Rgb {
   return linear.map((c) => Math.min(1, Math.max(0, encode(c * scale)))) as Rgb;
 }

@@ -69,3 +69,6 @@ export function closestScale(meters: number): ScaleObject {
   return SCALE_OBJECTS.reduce((best, o) =>
     Math.abs(Math.log10(o.meters) - lm) < Math.abs(Math.log10(best.meters) - lm) ? o : best);
 }
+
+/** 'del orden de' + name, contracting 'de el' into 'del' as Spanish requires. */
+export const orderOf = (name: string) => `del orden de ${name}`.replace(/\bde el\b/g, 'del');

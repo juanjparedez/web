@@ -5,6 +5,8 @@ import { PageIntro } from '@/components/ui/PageIntro';
 import { BlackbodyLab } from '@/components/spectrum/BlackbodyLab';
 import { SpectrumExplorer } from '@/components/spectrum/SpectrumExplorer';
 import { SpectrumFacts } from '@/components/spectrum/SpectrumFacts';
+import { RippleTank } from '@/components/spectrum/RippleTank';
+import { FiberLab } from '@/components/spectrum/FiberLab';
 import styles from '@/components/spectrum/spectrum.module.css';
 
 export const dynamic = 'force-static';
@@ -35,6 +37,29 @@ export default async function SpectrumPage({ params }: { params: Promise<{ local
         </p>
         <SpectrumExplorer />
       </div>
+      <section className={styles.section} aria-labelledby="spectrum-ripple-title">
+        <h2 id="spectrum-ripple-title">Interferencia: dos ondas en el agua</h2>
+        <p className={styles.lead}>
+          Toda onda se suma a otra punto por punto. Donde llegan dos crestas juntas el agua sube el doble;
+          donde una cresta se encuentra con un valle, se queda quieta. Esta cubeta resuelve la ecuación de onda
+          en la GPU, en tiempo real, y es la misma física que el experimento de la doble rendija de Young (1801),
+          que demostró que la luz es una onda. Tocá el agua para tirar una gota.
+        </p>
+        <RippleTank />
+        <p className={styles.footnote}>
+          Modelo: ecuación de onda lineal en 2D (diferencias finitas, 1 celda = 1 mm) con bordes absorbentes.
+          En el agua real la velocidad depende de la longitud de onda; el patrón de interferencia es el mismo.
+        </p>
+      </section>
+      <section className={styles.section} aria-labelledby="spectrum-fiber-title">
+        <h2 id="spectrum-fiber-title">Fibra óptica: luz atrapada en vidrio</h2>
+        <p className={styles.lead}>
+          Cuando la luz va de un medio más denso a uno menos denso y pega con un ángulo mayor al crítico,
+          no sale: se refleja entera. Una fibra es un núcleo de índice n₁ rodeado de un revestimiento de índice
+          n₂ un poco menor. Inclinate más que el cono de aceptación y la luz empieza a escaparse en cada rebote.
+        </p>
+        <FiberLab />
+      </section>
       <section className={styles.section} aria-labelledby="spectrum-bb-title">
         <h2 id="spectrum-bb-title">Todo lo que tiene temperatura brilla</h2>
         <p className={styles.lead}>

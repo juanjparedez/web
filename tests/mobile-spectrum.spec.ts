@@ -22,6 +22,15 @@ test('spectrum section fits the screen and the strip responds to touch', async (
   await page.touchscreen.tap(box.x + box.width * 0.9, box.y + box.height * 0.3);
   await expect(page.getByTestId('spectrum-readout')).toHaveAttribute('data-band', 'gamma');
 
+  const tank = page.getByTestId('ripple-tank');
+  await tank.scrollIntoViewIfNeeded();
+  await expect(tank).not.toHaveAttribute('data-renderer', 'pending');
+  await tank.getByRole('button', { name: 'Doble rendija' }).click();
+  await expect(tank).toHaveAttribute('data-mode', 'double');
+  const fiber = page.getByTestId('fiber-lab');
+  await fiber.getByRole('slider').fill('70');
+  await expect(fiber).toHaveAttribute('data-guided', 'false');
+
   await page.getByTestId('blackbody-lab').getByRole('button', { name: 'Brasa' }).click();
   await expect(page.getByTestId('blackbody-temperature')).toHaveText('1.000 K');
   expect(await page.evaluate(inspectMobileLayout)).toEqual([]);
