@@ -22,6 +22,8 @@ export interface ThemePreset {
     accent: string;
 }
 
+export const DECORATIONS_KEY = 'hios-decorations';
+
 export const DEFAULT_ACCENT = '#f59e0b';
 
 export const THEME_PRESETS: ThemePreset[] = [
@@ -29,6 +31,8 @@ export const THEME_PRESETS: ThemePreset[] = [
     { id: 'cyan', label: 'Cyan', accent: '#0ea5e9' },
     { id: 'violet', label: 'Violet', accent: '#8b5cf6' },
     { id: 'lime', label: 'Lime', accent: '#84cc16' },
+    { id: 'mint', label: 'Mint', accent: '#59dabc' },
+    { id: 'magenta', label: 'Magenta', accent: '#e95bd0' },
     { id: 'rose', label: 'Rose', accent: '#f43f5e' },
 ];
 

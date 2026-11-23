@@ -31,7 +31,7 @@ async function seedTheme(page: Page, mode: string, skin: string) {
 }
 
 for (const mode of ['light', 'dark']) {
-  for (const skin of ['datasheet', 'terminal', 'blueprint']) {
+  for (const skin of ['datasheet', 'terminal', 'blueprint', 'neon', 'pastel', 'win98']) {
     test(`controls keep their appearance across hydration: ${mode}/${skin}`, async ({ page }, testInfo) => {
       const errors: string[] = [];
       page.on('pageerror', (error) => errors.push(error.message));
@@ -47,7 +47,7 @@ for (const mode of ['light', 'dark']) {
         await page.goto('/es/explore', { waitUntil: 'commit' });
         await expect(input).toBeVisible();
         before = await Promise.all(controls.map(appearance));
-        expect(before[0].radius).toBe(skin === 'terminal' ? '6px' : '18px');
+        expect(before[0].radius).toBe(skin === 'win98' ? '0px' : skin === 'terminal' ? '6px' : '18px');
         const expectedBg = await input.evaluate(() => getComputedStyle(document.documentElement)
           .getPropertyValue(document.documentElement.dataset.theme === 'dark' ? '--hios-bg-secondary' : '--hios-bg-elevated').trim());
         await expect(field).toHaveCSS('background-color', hexToRgb(expectedBg));
@@ -83,4 +83,25 @@ test('portaled options and live theme changes follow the same control tokens', a
   await page.locator('[data-skin-id="blueprint"]').click();
   await page.locator('header .ant-select').first().click();
   await expect(popup).toHaveCSS('background-color', 'rgb(22, 48, 90)');
+});
+
+test('saved appearance follows the reader from settings to the DAC and radio', async ({ page }) => {
+  await page.goto('/es/workbench/settings');
+  await page.locator('[data-skin-id="neon"]').click();
+  const effects = page.getByRole('checkbox', { name: es.Settings.decorations });
+  await effects.uncheck();
+
+  for (const path of ['/es/projects/btdac', '/es/radio']) {
+    await page.goto(path);
+    await expect(page.locator('html')).toHaveAttribute('data-skin', 'neon');
+    const intro = page.locator('[data-page-intro]').first();
+    await expect(intro).toBeVisible();
+    await expect.poll(() => intro.evaluate((el) => getComputedStyle(el, '::before').content)).toBe('none');
+    await expect(intro).toHaveCSS('background-color', 'rgb(35, 19, 47)');
+  }
+
+  await page.goto('/es/workbench/settings');
+  await expect(effects).not.toBeChecked();
+  await effects.check();
+  await expect(page.locator('[data-page-intro]')).toHaveCSS('background-image', /linear-gradient/);
 });

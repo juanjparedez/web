@@ -22,7 +22,7 @@
   position: relative;
   aspect-ratio: 16/9;
   overflow: hidden;
-  background: #142420;
+  background: var(--hios-bg-secondary);
 }
 .projectImage img {
   transition: transform 0.65s;
@@ -36,9 +36,9 @@
   top: 16px;
   z-index: 1;
   padding: 6px 10px;
-  border: 1px solid #ffffff30;
-  background: #0b0e14d9;
-  color: #f1f3ed;
+  border: 1px solid var(--hios-border);
+  background: var(--hios-bg-elevated);
+  color: var(--hios-text);
   font: 9px var(--font-stack-mono);
   border-radius: 4px;
 }

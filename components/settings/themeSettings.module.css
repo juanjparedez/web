@@ -26,15 +26,8 @@
   border: 1px solid var(--hios-border);
   background:
     radial-gradient(circle at top right, color-mix(in srgb, var(--accent) 14%, transparent), transparent 46%),
-    #ffffff;
-  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.05);
-}
-
-:global([data-theme="dark"]) .summaryCard {
-  background:
-    radial-gradient(circle at top right, color-mix(in srgb, var(--accent) 18%, transparent), transparent 46%),
-    rgba(15, 23, 42, 0.7);
-  box-shadow: 0 18px 36px rgba(2, 6, 23, 0.28);
+    var(--hios-bg-elevated);
+  box-shadow: var(--hios-shadow-sm);
 }
 
 .summaryLabel {
@@ -78,11 +71,7 @@
   padding: 18px;
   border-radius: 14px;
   border: 1px solid var(--hios-border);
-  background: #ffffff;
-}
-
-:global([data-theme="dark"]) .section {
-  background: rgba(15, 23, 42, 0.6);
+  background: var(--hios-bg-elevated);
 }
 
 .sectionHeader {
@@ -138,7 +127,7 @@
   border-radius: 8px;
   border: none;
   background: var(--accent);
-  color: #0f172a;
+  color: var(--on-accent);
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
@@ -162,6 +151,18 @@
 }
 
 /* ---- Selector de skins ---- */
+.decorationControl {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: var(--touch-target);
+  color: var(--hios-text);
+  cursor: pointer;
+}
+.decorationControl input {
+  accent-color: var(--accent);
+}
+
 .skinRow {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -221,6 +222,23 @@
     linear-gradient(to right, rgba(255, 255, 255, 0.10) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.10) 1px, transparent 1px);
   background-size: 10px 10px;
+}
+
+.skinSwatch[data-skin-preview='neon'] {
+  background: linear-gradient(125deg, #23132f, #672d74);
+  border-color: #52f4e0;
+}
+.skinSwatch[data-skin-preview='pastel'] {
+  background: linear-gradient(125deg, #dec6e4, #a6e2c9);
+  border-color: #ad94ad;
+  border-radius: 12px;
+}
+.skinSwatch[data-skin-preview='win98'] {
+  background: linear-gradient(#004478 0 9px, #d4d0c8 9px);
+  border: 2px outset #d4d0c8;
+}
+.skinSwatch:is([data-skin-preview='pastel'], [data-skin-preview='win98']) .skinSwatchLine {
+  background: #63586a;
 }
 
 .skinSwatchLine {
@@ -287,10 +305,6 @@
   transition: border-color 0.18s ease, box-shadow 0.18s ease;
 }
 
-:global([data-theme="dark"]) .presetChip {
-  background: rgba(255, 255, 255, 0.03);
-}
-
 .presetChip:hover {
   border-color: var(--accent);
 }
@@ -307,7 +321,7 @@
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  color: #ffffff;
+  color: var(--on-accent);
   font-size: 11px;
   flex-shrink: 0;
 }
@@ -326,10 +340,6 @@
   border-radius: 10px;
   border: 1px solid var(--hios-border);
   background: var(--hios-bg-secondary);
-}
-
-:global([data-theme="dark"]) .savedChip {
-  background: rgba(255, 255, 255, 0.03);
 }
 
 .savedApply {
@@ -384,8 +394,8 @@
 }
 
 .savedDelete:hover {
-  border-color: #ef4444;
-  color: #ef4444;
+  border-color: var(--status-bad-ink);
+  color: var(--status-bad-ink);
 }
 
 .presetLabel {
@@ -425,11 +435,7 @@
   padding: 6px 8px;
   border-radius: 8px;
   border: 1px solid var(--hios-border);
-  background: #ffffff;
-}
-
-:global([data-theme="dark"]) .hexInputWrap {
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--hios-bg-elevated);
 }
 
 .hexSwatch {
@@ -443,7 +449,7 @@
   border: none;
   background: transparent;
   outline: none;
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-family: var(--font-stack-mono);
   font-size: 13px;
   color: var(--hios-text);
   width: 100%;
@@ -454,7 +460,7 @@
   padding: 0 12px;
   border-radius: 8px;
   border: 1px solid var(--hios-border);
-  background: #ffffff;
+  background: var(--hios-bg-elevated);
   color: var(--hios-text);
   font-size: 13px;
   font-weight: 500;
@@ -462,21 +468,13 @@
   transition: background-color 0.18s ease;
 }
 
-:global([data-theme="dark"]) .resetButton {
-  background: rgba(255, 255, 255, 0.04);
-}
-
 .resetButton:hover {
-  background: rgba(15, 23, 42, 0.04);
-}
-
-:global([data-theme="dark"]) .resetButton:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--hios-bg-secondary);
 }
 
 .errorText {
   font-size: 12px;
-  color: #ef4444;
+  color: var(--status-bad-ink);
 }
 
 /* Preview ----------------------------------------------------------- */
@@ -510,7 +508,7 @@
   padding: 4px 10px;
   border-radius: 999px;
   background: var(--accent);
-  color: #0f172a;
+  color: var(--on-accent);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -522,7 +520,7 @@
   border-radius: 8px;
   border: none;
   background: var(--accent);
-  color: #0f172a;
+  color: var(--on-accent);
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;

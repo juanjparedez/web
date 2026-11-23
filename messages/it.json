@@ -1709,11 +1709,15 @@
         "localFootnote": "Accedi per salvare il colore di accento nel tuo account.",
         "accountFootnote": "Le modifiche vengono applicate in questo browser. Controlla lo stato di sincronizzazione per confermare il salvataggio nell’account.",
         "skinTitle": "Stile visivo",
+        "decorations": "Mostra decorazioni nelle intestazioni e linee di scansione in Terminal",
         "skinHint": "Scegli caratteri, bordi e texture dell’interfaccia.",
         "skins": {
             "datasheet": "Griglia tecnica, bordi sottili e caratteri monospaziati.",
             "terminal": "Caratteri monospaziati, angoli retti e colori ispirati al terminale.",
-            "blueprint": "Linee sottili su fondo blu, ispirate ai disegni tecnici."
+            "blueprint": "Linee sottili su fondo blu, ispirate ai disegni tecnici.",
+            "neon": "Ciano elettrico e magenta su superfici viola.",
+            "pastel": "Lavanda e menta con pannelli arrotondati.",
+            "win98": "Pannelli in rilievo, angoli squadrati e caratteri da desktop."
         },
         "defaultColor": "Colore predefinito",
         "defaultColorHint": "Non è ancora stato salvato un colore in questo browser.",

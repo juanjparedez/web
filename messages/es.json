@@ -1709,11 +1709,15 @@
         "localFootnote": "Podés iniciar sesión para guardar el color de acento en tu cuenta.",
         "accountFootnote": "Los cambios se aplican en este navegador. Revisá el estado de sincronización para confirmar el guardado en tu cuenta.",
         "skinTitle": "Estilo visual",
+        "decorations": "Mostrar adornos en las cabeceras y líneas de barrido en Terminal",
         "skinHint": "Elegí la tipografía, los bordes y las texturas de la interfaz.",
         "skins": {
             "datasheet": "Grilla técnica, bordes finos y tipografía monoespaciada.",
             "terminal": "Tipografía monoespaciada, esquinas rectas y colores inspirados en una terminal.",
-            "blueprint": "Líneas finas sobre azul, inspiradas en planos técnicos."
+            "blueprint": "Líneas finas sobre azul, inspiradas en planos técnicos.",
+            "neon": "Cian eléctrico y fucsia sobre superficies violetas.",
+            "pastel": "Lavanda y menta, con superficies suaves y redondeadas.",
+            "win98": "Paneles biselados, esquinas rectas y tipografía de escritorio."
         },
         "defaultColor": "Color predeterminado",
         "defaultColorHint": "Todavía no hay un color guardado en este navegador.",

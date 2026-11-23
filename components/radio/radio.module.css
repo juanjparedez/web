@@ -29,37 +29,37 @@
 .instrument {
   --scope-bg: #070b0e; --scope-grid: rgba(0, 255, 170, 0.1); --scope-axis: rgba(0, 255, 170, 0.28);
   --trace-1: #22d3ee; --trace-2: #facc15; --trace-3: #f472b6; --trace-4: #4ade80;
-  --ink: #e2e8f0; --ink-muted: #94a3b8;
-  background: #12151a; border: 1px solid #2d3748; border-radius: 14px; padding: clamp(12px, 2.5vw, 18px);
-  color: var(--ink); display: grid; gap: 14px; box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+  --ink: var(--hios-text); --ink-muted: var(--hios-text-secondary);
+  background: var(--hios-bg-secondary); border: 1px solid var(--hios-border); border-radius: 14px; padding: clamp(12px, 2.5vw, 18px);
+  color: var(--ink); display: grid; gap: 14px; box-shadow: var(--hios-shadow-md);
 }
 .instrumentHead { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-.badge { background: #0284c7; color: #fff; font-family: var(--font-stack-mono); font-weight: 700; font-size: 0.72rem; padding: 3px 8px; border-radius: 4px; letter-spacing: 0.08em; }
+.badge { background: var(--hios-text); color: var(--hios-bg); font-family: var(--font-stack-mono); font-weight: 700; font-size: 0.72rem; padding: 3px 8px; border-radius: 4px; letter-spacing: 0.08em; }
 .instrumentTitle { font-weight: 600; font-size: 0.98rem; }
 .instrumentHint { color: var(--ink-muted); font-size: 0.86rem; margin: 0; }
-.screen { background: var(--scope-bg); border: 1px solid #1f2937; border-radius: 10px; overflow: hidden; }
+.screen { --ink: #e2e8f0; --ink-muted: #94a3b8; background: var(--scope-bg); border: 1px solid var(--hios-border); border-radius: 10px; overflow: hidden; }
 .screen svg { display: block; width: 100%; height: auto; }
 
 .controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 12px 18px; }
 .range { display: grid; gap: 4px; font-size: 0.84rem; }
 .range label { display: flex; justify-content: space-between; gap: 8px; color: var(--ink-muted); }
 .range output { color: var(--ink); font-family: var(--font-stack-mono); }
-.range input[type='range'] { width: 100%; accent-color: #22d3ee; min-height: 28px; }
+.range input[type='range'] { width: 100%; accent-color: var(--accent-2); min-height: 28px; }
 
 .readouts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 130px), 1fr)); gap: 8px; }
-.readout { background: #0b1016; border: 1px solid #1f2937; border-radius: 8px; padding: 8px 10px; }
+.readout { background: var(--hios-bg-elevated); border: 1px solid var(--hios-border); border-radius: 8px; padding: 8px 10px; }
 .readout span { display: block; color: var(--ink-muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; }
 .readout strong { font-family: var(--font-stack-mono); font-size: 1.05rem; color: var(--ink); }
-.readout[data-tone='good'] strong { color: #4ade80; }
-.readout[data-tone='warn'] strong { color: #facc15; }
-.readout[data-tone='bad'] strong { color: #f87171; }
+.readout[data-tone='good'] strong { color: var(--status-good-ink); }
+.readout[data-tone='warn'] strong { color: var(--status-warn-ink); }
+.readout[data-tone='bad'] strong { color: var(--status-bad-ink); }
 
 .chips { display: flex; flex-wrap: wrap; gap: 6px; }
-.chip { border: 1px solid #334155; background: #0b1016; color: var(--ink); border-radius: 999px; padding: 5px 12px; font-size: 0.82rem; cursor: pointer; min-height: 32px; }
-.chip[aria-pressed='true'] { background: #0284c7; border-color: #0284c7; color: #fff; }
-.chip:focus-visible, .range input:focus-visible { outline: 2px solid #22d3ee; outline-offset: 2px; }
+.chip { border: 1px solid var(--hios-border); background: var(--hios-bg-elevated); color: var(--ink); border-radius: 999px; padding: 5px 12px; font-size: 0.82rem; cursor: pointer; min-height: 32px; }
+.chip[aria-pressed='true'] { background: var(--hios-text); border-color: var(--hios-text); color: var(--hios-bg); }
+.chip:focus-visible, .range input:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 2px; }
 
-.textInput { width: 100%; background: #0b1016; color: var(--ink); border: 1px solid #334155; border-radius: 8px; padding: 10px 12px; font-family: var(--font-stack-mono); font-size: 0.95rem; resize: vertical; }
+.textInput { width: 100%; background: var(--hios-bg-elevated); color: var(--ink); border: 1px solid var(--hios-border); border-radius: 8px; padding: 10px 12px; font-family: var(--font-stack-mono); font-size: 0.95rem; resize: vertical; }
 
 .svgLabel { fill: var(--ink-muted); font-family: var(--font-stack-mono); font-size: 11px; }
 .svgStrong { fill: var(--ink); font-family: var(--font-stack-mono); font-size: 12px; font-weight: 600; }

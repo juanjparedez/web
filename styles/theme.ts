@@ -80,6 +80,66 @@ const SKIN_PALETTES: Record<SkinId, { light: SkinPalette; dark: SkinPalette }> =
             borderSecondary: 'rgba(140, 200, 140, 0.10)',
         },
     },
+    neon: {
+        light: {
+            bg: '#fbf5ff',
+            bgSecondary: '#f1e5fa',
+            bgElevated: '#fffaff',
+            text: '#281338',
+            textSecondary: '#593566',
+            border: '#bca0ce',
+            borderSecondary: '#bca0ce',
+        },
+        dark: {
+            bg: '#110c20',
+            bgSecondary: '#23132f',
+            bgElevated: '#312044',
+            text: '#fcf2ff',
+            textSecondary: '#e1c4ef',
+            border: '#624678',
+            borderSecondary: '#624678',
+        },
+    },
+    pastel: {
+        light: {
+            bg: '#fff8f5',
+            bgSecondary: '#f1e5ee',
+            bgElevated: '#fffbfe',
+            text: '#382c42',
+            textSecondary: '#624961',
+            border: '#c5adbf',
+            borderSecondary: '#c5adbf',
+        },
+        dark: {
+            bg: '#211d2c',
+            bgSecondary: '#342a40',
+            bgElevated: '#40384b',
+            text: '#fbf1f7',
+            textSecondary: '#dfccdd',
+            border: '#64526b',
+            borderSecondary: '#64526b',
+        },
+    },
+    win98: {
+        light: {
+            bg: '#ced9d8',
+            bgSecondary: '#d4d0c8',
+            bgElevated: '#eae8e2',
+            text: '#121b24',
+            textSecondary: '#364550',
+            border: '#747b80',
+            borderSecondary: '#747b80',
+        },
+        dark: {
+            bg: '#172729',
+            bgSecondary: '#2d383b',
+            bgElevated: '#394447',
+            text: '#f2f5f1',
+            textSecondary: '#c5d5d2',
+            border: '#758681',
+            borderSecondary: '#758681',
+        },
+    },
     blueprint: {
         light: {
             bg: '#f4f8fd',
@@ -120,6 +180,9 @@ export function getAntdTheme(
             ...(terminal
                 ? { fontFamily: FONT_MONO, borderRadius: 4, borderRadiusSM: 2, borderRadiusLG: 6 }
                 : {}),
+            ...(skin === 'win98'
+                ? { fontFamily: 'Tahoma, Verdana, sans-serif', borderRadius: 0, borderRadiusSM: 0, borderRadiusLG: 0 }
+                : {}),
             colorPrimary: accent,
             colorInfo: accent,
             colorLink: accent,
@@ -137,7 +200,7 @@ export function getAntdTheme(
         components: {
             Layout: {
                 bodyBg: palette.bg,
-                headerBg: dark ? 'rgba(11, 14, 20, 0.72)' : 'rgba(255, 255, 255, 0.8)',
+                headerBg: palette.bg,
             },
             Card: {
                 colorBgContainer: dark ? palette.bgSecondary : palette.bgElevated,

@@ -1709,11 +1709,15 @@
         "localFootnote": "Sign in to save the accent color to your account.",
         "accountFootnote": "Changes apply in this browser. Check the sync status to confirm they were saved to your account.",
         "skinTitle": "Visual style",
+        "decorations": "Show header decorations and terminal scanlines",
         "skinHint": "Choose the interface typography, borders and textures.",
         "skins": {
             "datasheet": "Technical grid, fine borders and monospaced type.",
             "terminal": "Monospaced type, square corners and terminal-inspired colors.",
-            "blueprint": "Fine lines on blue, inspired by technical drawings."
+            "blueprint": "Fine lines on blue, inspired by technical drawings.",
+            "neon": "Electric cyan and magenta on violet surfaces.",
+            "pastel": "Lavender and mint with softly rounded panels.",
+            "win98": "Beveled panels, square corners and desktop typography."
         },
         "defaultColor": "Default color",
         "defaultColorHint": "No color has been saved in this browser yet.",

@@ -14,13 +14,11 @@
 
 import { readRaw, writeRaw } from '../storage/safeLocalStorage.ts';
 
-export type SkinId = 'datasheet' | 'terminal' | 'blueprint';
+export type SkinId = 'datasheet' | 'terminal' | 'blueprint' | 'neon' | 'pastel' | 'win98';
 
 export interface Skin {
     id: SkinId;
     label: string;
-    /** Descripción corta por locale (fallback: en). */
-    description: Record<string, string>;
 }
 
 export const DEFAULT_SKIN: SkinId = 'datasheet';
@@ -29,27 +27,18 @@ export const SKINS: Skin[] = [
     {
         id: 'datasheet',
         label: 'Datasheet',
-        description: {
-            es: 'Hoja de datos: grilla milimetrada, bordes finos, mono técnica.',
-            en: 'Datasheet: graph-paper grid, hairline borders, technical mono.',
-        },
     },
     {
         id: 'terminal',
         label: 'Terminal',
-        description: {
-            es: 'Todo mono, esquinas rectas, fósforo. Para vivir en la consola.',
-            en: 'All-mono, square corners, phosphor. For console dwellers.',
-        },
     },
     {
         id: 'blueprint',
         label: 'Blueprint',
-        description: {
-            es: 'Cianotipo: plano técnico, líneas finas sobre azul.',
-            en: 'Cyanotype: technical drawing, fine lines on blue.',
-        },
     },
+    { id: 'neon', label: 'Neon' },
+    { id: 'pastel', label: 'Pastel' },
+    { id: 'win98', label: 'Windows 98' },
 ];
 
 export const SKIN_STORAGE_KEY = 'hios-skin';

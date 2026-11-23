@@ -10,6 +10,7 @@ import React, {
 } from 'react';
 import { readRaw, writeRaw } from '@/lib/storage/safeLocalStorage';
 import {
+    DECORATIONS_KEY,
     findPresetByAccent,
     THEME_PRESETS,
 } from '@/lib/themes/config';
@@ -32,6 +33,8 @@ interface ThemeContextType {
     mode: ThemeMode;
     accent: string;
     skin: SkinId;
+    decorations: boolean;
+    setDecorations: (enabled: boolean) => void;
     toggleTheme: () => void;
     setAccent: (hex: string) => void;
     setSkin: (skin: SkinId) => void;
@@ -97,9 +100,21 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
         writeStoredSkin(next);
     }, []);
 
+    const [decorations, updateDecorations] = useState(true);
+    const setDecorations = useCallback((enabled: boolean) => {
+        updateDecorations(enabled);
+        document.documentElement.dataset.decorations = enabled ? 'on' : 'off';
+        writeRaw(DECORATIONS_KEY, enabled ? 'on' : 'off');
+    }, []);
+
     const readSharedAppearance = useCallback((key: string | null) => {
         if (key === null || key === 'theme') {
             setMode(readRaw('theme') === 'light' ? 'light' : 'dark');
+        }
+        if (key === null || key === DECORATIONS_KEY) {
+            const enabled = readRaw(DECORATIONS_KEY) !== 'off';
+            updateDecorations(enabled);
+            document.documentElement.dataset.decorations = enabled ? 'on' : 'off';
         }
         if (key === null || key === SKIN_STORAGE_KEY) setSkinState(readStoredSkin());
     }, []);
@@ -123,6 +138,8 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
             value={{
                 mode,
                 skin,
+                decorations,
+                setDecorations,
                 toggleTheme,
                 setSkin,
                 applyPreset,

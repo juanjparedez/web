@@ -209,8 +209,8 @@
 }
 
 .jackRedActive {
-  border-color: #ef4444;
-  background: color-mix(in srgb, #ef4444 16%, var(--hios-bg-elevated));
+  border-color: var(--hios-error);
+  background: color-mix(in srgb, var(--hios-error) 16%, var(--hios-bg-elevated));
   font-weight: 700;
 }
 
@@ -265,13 +265,13 @@
 }
 
 .lcdDanger {
-  border-color: #ef4444;
-  background: color-mix(in srgb, #ef4444 12%, var(--hios-bg-secondary));
+  border-color: var(--hios-error);
+  background: color-mix(in srgb, var(--hios-error) 12%, var(--hios-bg-secondary));
 }
 
 .lcdWarning {
-  border-color: #f59e0b;
-  background: color-mix(in srgb, #f59e0b 11%, var(--hios-bg-secondary));
+  border-color: var(--hios-warning);
+  background: color-mix(in srgb, var(--hios-warning) 11%, var(--hios-bg-secondary));
 }
 
 .lcdTopBar {
@@ -349,11 +349,11 @@
 }
 
 .diagnosisDanger {
-  border-left-color: #ef4444;
+  border-left-color: var(--hios-error);
 }
 
 .diagnosisWarning {
-  border-left-color: #f59e0b;
+  border-left-color: var(--hios-warning);
 }
 
 .diagnosisBox h4 {

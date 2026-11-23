@@ -84,6 +84,7 @@ html[data-theme][data-skin] :is([class*='hios-dark-'], [class*='hios-light-']) {
   --ant-button-default-active-color: var(--ant-color-primary-active);
   --ant-button-default-active-border-color: var(--ant-color-primary-active);
   --ant-button-default-shadow: var(--control-shadow);
+  --ant-button-primary-color: var(--on-accent);
   --ant-button-primary-shadow: 0 2px 0 var(--ant-control-outline);
   --ant-button-text-text-color: var(--ant-color-text);
   --ant-button-text-text-hover-color: var(--ant-color-text);
@@ -115,6 +116,10 @@ html[data-theme][data-skin] :is([class*='hios-dark-'], [class*='hios-light-']) {
   --ant-menu-item-selected-bg: var(--ant-control-item-bg-active);
   --ant-menu-item-selected-color: var(--ant-color-primary-text);
   --ant-menu-item-active-bg: var(--ant-control-item-bg-active);
+}
+
+html[data-theme][data-skin='win98'] :is([class*='hios-dark-'], [class*='hios-light-']) {
+  --ant-font-family: var(--font-stack-sans);
 }
 
 /* Resolve next/font variables on the control, below the body's font classes. */

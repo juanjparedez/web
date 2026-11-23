@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { THEME_STORAGE_KEY } from './config';
+import { DECORATIONS_KEY, THEME_STORAGE_KEY } from './config';
 import { SKIN_STORAGE_KEY } from './skins';
 
 /** Storage events only reach other documents. Read current storage in the
@@ -14,7 +14,7 @@ export function useThemeStorage(onChange: (key: string | null) => void) {
       } catch {
         return;
       }
-      if (event.key === null || ['theme', SKIN_STORAGE_KEY, THEME_STORAGE_KEY].includes(event.key)) {
+      if (event.key === null || ['theme', DECORATIONS_KEY, SKIN_STORAGE_KEY, THEME_STORAGE_KEY].includes(event.key)) {
         onChange(event.key);
       }
     };

@@ -11,7 +11,6 @@ import {
   LinkOutlined,
   FileOutlined,
 } from '@ant-design/icons';
-import { useTheme } from '@/lib/ThemeContext';
 import { ProjectMeta } from '@/lib/projects';
 import { getPrintsByProject } from '@/config/prints';
 import Link from 'next/link';
@@ -54,7 +53,6 @@ export function ProjectDetailClient({
   softwareBanner,
   gettingStarted,
 }: ProjectDetailClientProps) {
-  const { mode } = useTheme();
   const locale = useLocale();
   const t = useTranslations('ProjectDetail');
   const tProjects = useTranslations('Projects');
@@ -122,7 +120,7 @@ export function ProjectDetailClient({
         flexWrap: 'wrap',
         gap: '10px',
         padding: '8px 6px',
-        borderBottom: mode === 'dark' ? '1px solid #1f1f1f' : '1px solid #f0f0f0',
+        borderBottom: '1px solid var(--hios-border)',
       }}
     >
       <Space size={8} wrap style={{ minWidth: 0, flex: '1 1 240px' }}>
@@ -240,7 +238,7 @@ export function ProjectDetailClient({
                     flexDirection: 'column',
                     gap: '4px',
                     padding: '12px 16px',
-                    background: mode === 'dark' ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.02)',
+                    background: 'var(--hios-bg-secondary)',
                     border: cardBorder,
                     borderRadius: '10px',
                     height: '100%',
@@ -278,8 +276,8 @@ export function ProjectDetailClient({
               <Col xs={24} md={14}>
                 <Card
                   style={{
-                    background: mode === 'dark' ? 'rgba(16,185,129,0.06)' : 'rgba(16,185,129,0.04)',
-                    border: `1px solid ${mode === 'dark' ? 'rgba(16,185,129,0.22)' : 'rgba(16,185,129,0.18)'}`,
+                    background: 'color-mix(in srgb, var(--hios-success) 9%, var(--hios-bg-secondary))',
+                    border: '1px solid color-mix(in srgb, var(--hios-success) 40%, var(--hios-border))',
                     borderRadius: '12px',
                     height: '100%',
                   }}
@@ -287,7 +285,7 @@ export function ProjectDetailClient({
                 >
                   <Text
                     style={{
-                      color: '#10b981',
+                      color: 'var(--status-good-ink)',
                       fontWeight: 600,
                       fontSize: '12px',
                       fontFamily: 'var(--font-stack-mono)',
@@ -304,7 +302,7 @@ export function ProjectDetailClient({
                       <li
                         key={idx}
                         style={{
-                          color: mode === 'dark' ? '#d1fae5' : '#065f46',
+                          color: 'var(--hios-text)',
                           marginBottom: '8px',
                           fontSize: '14px',
                           lineHeight: 1.55,
@@ -321,8 +319,8 @@ export function ProjectDetailClient({
               <Col xs={24} md={10}>
                 <Card
                   style={{
-                    background: mode === 'dark' ? 'rgba(249,115,22,0.06)' : 'rgba(249,115,22,0.04)',
-                    border: `1px solid ${mode === 'dark' ? 'rgba(249,115,22,0.22)' : 'rgba(249,115,22,0.18)'}`,
+                    background: 'color-mix(in srgb, var(--hios-warning) 9%, var(--hios-bg-secondary))',
+                    border: '1px solid color-mix(in srgb, var(--hios-warning) 40%, var(--hios-border))',
                     borderRadius: '12px',
                     height: '100%',
                   }}
@@ -330,7 +328,7 @@ export function ProjectDetailClient({
                 >
                   <Text
                     style={{
-                      color: '#f97316',
+                      color: 'var(--status-warn-ink)',
                       fontWeight: 600,
                       fontSize: '12px',
                       fontFamily: 'var(--font-stack-mono)',
@@ -347,7 +345,7 @@ export function ProjectDetailClient({
                       <li
                         key={idx}
                         style={{
-                          color: mode === 'dark' ? '#fed7aa' : '#9a3412',
+                          color: 'var(--hios-text)',
                           marginBottom: '8px',
                           fontSize: '14px',
                           lineHeight: 1.55,
@@ -441,7 +439,7 @@ export function ProjectDetailClient({
                     fontSize: '12px',
                     textTransform: 'uppercase',
                     letterSpacing: '0.04em',
-                    background: mode === 'dark' ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.03)',
+                    background: 'var(--hios-bg-secondary)',
                   }}
                 >
                   {children}
@@ -451,7 +449,7 @@ export function ProjectDetailClient({
                 <td
                   style={{
                     padding: '10px 14px',
-                    borderBottom: mode === 'dark' ? '1px solid rgba(255,255,255,0.06)' : '1px solid rgba(0,0,0,0.06)',
+                    borderBottom: '1px solid var(--hios-border)',
                     color: secondaryColor,
                     verticalAlign: 'top',
                     lineHeight: 1.6,
@@ -463,7 +461,7 @@ export function ProjectDetailClient({
               pre: ({ children }) => (
                 <pre
                   style={{
-                    background: mode === 'dark' ? '#11161d' : '#f1f5f9',
+                    background: 'var(--hios-bg-secondary)',
                     border: cardBorder,
                     borderRadius: '10px',
                     padding: '14px 16px',
@@ -484,7 +482,7 @@ export function ProjectDetailClient({
                 return (
                   <code
                     style={{
-                      background: mode === 'dark' ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.06)',
+                      background: 'var(--hios-bg-secondary)',
                       color: accentColor,
                       padding: '2px 6px',
                       borderRadius: '4px',
@@ -537,8 +535,8 @@ export function ProjectDetailClient({
         <section style={{ ...sectionContainer, margin: '0 auto 24px', padding: '0 24px' }}>
           <Card
             style={{
-              background: mode === 'dark' ? 'rgba(14,165,233,0.06)' : 'rgba(14,165,233,0.04)',
-              border: `1px solid ${mode === 'dark' ? 'rgba(14,165,233,0.2)' : 'rgba(14,165,233,0.15)'}`,
+              background: 'color-mix(in srgb, var(--accent-2) 9%, var(--hios-bg-secondary))',
+              border: '1px solid color-mix(in srgb, var(--accent-2) 40%, var(--hios-border))',
               borderRadius: '12px',
             }}
             styles={{ body: { padding: '20px' } }}
@@ -555,7 +553,7 @@ export function ProjectDetailClient({
             >
               <Text
                 style={{
-                  color: '#0ea5e9',
+                  color: 'var(--accent-2-text)',
                   fontWeight: 600,
                   fontSize: '12px',
                   fontFamily: 'var(--font-stack-mono)',
@@ -589,12 +587,12 @@ export function ProjectDetailClient({
                       alignItems: 'center',
                       justifyContent: 'space-between',
                       padding: '8px 12px',
-                      background: mode === 'dark' ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)',
+                      background: 'var(--hios-bg-secondary)',
                       borderRadius: '8px',
                       textDecoration: 'none',
                     }}
                   >
-                    <Text style={{ color: mode === 'dark' ? '#7dd3fc' : '#0284c7', fontWeight: 500 }}>
+                    <Text style={{ color: 'var(--accent-2-text)', fontWeight: 500 }}>
                       {resource.name}
                     </Text>
                     <DoubleRightOutlined style={{ fontSize: '10px', color: mutedColor }} />

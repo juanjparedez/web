@@ -1709,11 +1709,15 @@
         "localFootnote": "Melde dich an, um die Akzentfarbe in deinem Konto zu speichern.",
         "accountFootnote": "Änderungen werden in diesem Browser angewendet. Prüfe den Synchronisierungsstatus, um das Speichern im Konto zu bestätigen.",
         "skinTitle": "Darstellung",
+        "decorations": "Kopfzeilen verzieren und Scanlinien im Terminal anzeigen",
         "skinHint": "Wähle Schrift, Rahmen und Texturen der Oberfläche.",
         "skins": {
             "datasheet": "Technisches Raster, feine Rahmen und Monospace-Schrift.",
             "terminal": "Monospace-Schrift, eckige Konturen und Farben im Terminal-Stil.",
-            "blueprint": "Feine Linien auf Blau, inspiriert von technischen Zeichnungen."
+            "blueprint": "Feine Linien auf Blau, inspiriert von technischen Zeichnungen.",
+            "neon": "Elektrisches Cyan und Magenta auf violetten Flächen.",
+            "pastel": "Lavendel und Mint mit weich gerundeten Flächen.",
+            "win98": "Abgeschrägte Rahmen, eckige Fenster und Desktop-Schrift."
         },
         "defaultColor": "Standardfarbe",
         "defaultColorHint": "In diesem Browser wurde noch keine Farbe gespeichert.",

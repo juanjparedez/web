@@ -1,4 +1,4 @@
-import { THEME_STORAGE_KEY } from './config';
+import { DECORATIONS_KEY, THEME_STORAGE_KEY } from './config';
 import { SKINS, SKIN_STORAGE_KEY } from './skins';
 
 // Runs in <head> before the first paint, independently of React and auth.
@@ -7,6 +7,9 @@ import { SKINS, SKIN_STORAGE_KEY } from './skins';
 export const THEME_BOOTSTRAP_SCRIPT = `
 (function () {
   var root = document.documentElement;
+  try {
+    if (localStorage.getItem(${JSON.stringify(DECORATIONS_KEY)}) === 'off') root.dataset.decorations = 'off';
+  } catch (e) {}
   try {
     var mode = localStorage.getItem('theme');
     if (mode === 'light' || mode === 'dark') root.setAttribute('data-theme', mode);

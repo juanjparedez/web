@@ -27,6 +27,8 @@ export function ThemeSettings() {
     accent,
     mode,
     skin,
+    decorations,
+    setDecorations,
     toggleTheme,
     setAccent,
     setSkin,
@@ -159,6 +161,11 @@ export function ThemeSettings() {
           })}
         </div>
       </section>
+
+      <label className={styles.decorationControl}>
+        <input type="checkbox" checked={decorations} onChange={(event) => setDecorations(event.target.checked)} />
+        {t('decorations')}
+      </label>
 
       <section className={styles.section} aria-labelledby="theme-presets">
         <div className={styles.sectionHeader}>

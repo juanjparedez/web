@@ -20,6 +20,7 @@
      sobre blanco; en dark es el accent puro. Usar en eyebrows/kickers/links. */
   --accent-text: color-mix(in srgb, var(--accent) 65%, #000);
   --hios-accent: var(--accent);
+  --on-accent: #111;
   --hios-accent-light: #fbbf24;
   /* Segundo acento, fijo (no lo pisa el accent del usuario): frío, complementa al
      amber. Marca secciones y el modo soldadura. -text cumple AA sobre el fondo. */
@@ -29,6 +30,9 @@
   --hios-success-light: #34d399;
   --hios-warning: #f97316;
   --hios-error: #ef4444;
+  --status-good-ink: #19663d;
+  --status-warn-ink: #824600;
+  --status-bad-ink: #a52b36;
 
   /* Typography (definidas por next/font en el layout raíz) */
   --font-stack-sans: var(--font-sans, 'Inter'), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -91,6 +95,10 @@
   --pw-func-nc: #94a3b8;
 }
 
+@supports (color: contrast-color(red)) {
+  :root { --on-accent: contrast-color(var(--accent)); }
+}
+
 /* Dark mode overrides */
 .dark,
 [data-theme='dark'] {
@@ -101,6 +109,9 @@
   --hios-text-secondary: #9aa4b2;
   /* AA sobre #0b0e14 y #11151d (≥4.5:1) */
   --hios-text-muted: #78849a;
+  --status-good-ink: #88e6ad;
+  --status-warn-ink: #ffce86;
+  --status-bad-ink: #ffa8a8;
   --accent-text: var(--accent);
   --accent-2: #22d3ee;
   --accent-2-text: #67e8f9;
@@ -187,7 +198,7 @@
 
 /* Scanlines sutiles, solo terminal oscura y solo si no molesta al usuario */
 @media (prefers-reduced-motion: no-preference) {
-  [data-theme='dark'][data-skin='terminal'] body::after {
+  [data-theme='dark'][data-skin='terminal']:not([data-decorations='off']) body::after {
     content: '';
     position: fixed;
     inset: 0;
@@ -224,6 +235,102 @@
   --hios-text-muted: #8ba3c7;
   --hios-border: rgba(255, 255, 255, 0.14);
   --hios-grid-line: rgba(255, 255, 255, 0.07);
+}
+
+[data-theme='light'][data-skin='neon'] {
+  --hios-bg: #fbf5ff;
+  --hios-bg-secondary: #f1e5fa;
+  --hios-bg-elevated: #fffaff;
+  --hios-text: #281338;
+  --hios-text-secondary: #593566;
+  --hios-text-muted: #695176;
+  --hios-border: #bca0ce;
+  --accent-2: #006b71;
+  --accent-2-text: #006b71;
+  --hios-grid-line: color-mix(in srgb, var(--accent-2) 12%, transparent);
+}
+
+[data-theme='dark'][data-skin='neon'] {
+  --hios-bg: #110c20;
+  --hios-bg-secondary: #23132f;
+  --hios-bg-elevated: #312044;
+  --hios-text: #fcf2ff;
+  --hios-text-secondary: #e1c4ef;
+  --hios-text-muted: #bfa4ce;
+  --hios-border: #624678;
+  --accent-2: #52f4e0;
+  --accent-2-text: #52f4e0;
+  --hios-grid-line: color-mix(in srgb, var(--accent-2) 12%, transparent);
+}
+
+[data-theme='light'][data-skin='pastel'] {
+  --hios-bg: #fff8f5;
+  --hios-bg-secondary: #f1e5ee;
+  --hios-bg-elevated: #fffbfe;
+  --hios-text: #382c42;
+  --hios-text-secondary: #624961;
+  --hios-text-muted: #715d70;
+  --hios-border: #c5adbf;
+  --accent-2: #326e60;
+  --accent-2-text: #326e60;
+  --hios-grid-line: color-mix(in srgb, var(--accent-2) 12%, transparent);
+}
+
+[data-theme='dark'][data-skin='pastel'] {
+  --hios-bg: #211d2c;
+  --hios-bg-secondary: #342a40;
+  --hios-bg-elevated: #40384b;
+  --hios-text: #fbf1f7;
+  --hios-text-secondary: #dfccdd;
+  --hios-text-muted: #bfaec4;
+  --hios-border: #64526b;
+  --accent-2: #a6e2c9;
+  --accent-2-text: #a6e2c9;
+  --hios-grid-line: color-mix(in srgb, var(--accent-2) 12%, transparent);
+}
+
+[data-theme='light'][data-skin='win98'] {
+  --hios-bg: #ced9d8;
+  --hios-bg-secondary: #d4d0c8;
+  --hios-bg-elevated: #eae8e2;
+  --hios-text: #121b24;
+  --hios-text-secondary: #364550;
+  --hios-text-muted: #4d5962;
+  --hios-border: #747b80;
+  --accent-2: #004478;
+  --accent-2-text: #004478;
+  --hios-grid-line: color-mix(in srgb, var(--accent-2) 12%, transparent);
+}
+
+[data-theme='dark'][data-skin='win98'] {
+  --hios-bg: #172729;
+  --hios-bg-secondary: #2d383b;
+  --hios-bg-elevated: #394447;
+  --hios-text: #f2f5f1;
+  --hios-text-secondary: #c5d5d2;
+  --hios-text-muted: #a8bfbb;
+  --hios-border: #758681;
+  --accent-2: #91e1df;
+  --accent-2-text: #91e1df;
+  --hios-grid-line: color-mix(in srgb, var(--accent-2) 12%, transparent);
+}
+
+[data-skin='neon'] {
+  --intro-fill: linear-gradient(115deg, var(--hios-bg-secondary) 35%, color-mix(in srgb, #ef42d5 16%, var(--hios-bg-secondary)), color-mix(in srgb, var(--accent-2) 20%, var(--hios-bg-secondary)));
+}
+[data-skin='pastel'] {
+  --surface-radius: 20px;
+  --intro-fill: linear-gradient(115deg, var(--hios-bg-secondary) 25%, color-mix(in srgb, var(--accent-2) 15%, var(--hios-bg-elevated)));
+}
+[data-skin='win98'] {
+  --surface-radius: 0px;
+  --studio-radius: 0px;
+  --control-radius: 0px;
+  --control-radius-sm: 0px;
+  --control-radius-lg: 0px;
+  --font-stack-sans: Tahoma, Verdana, sans-serif;
+  --font-stack-display: var(--font-stack-sans);
+  --panel-bevel: inset 1px 1px var(--hios-bg-elevated), inset -2px -2px var(--hios-border);
 }
 
 * {

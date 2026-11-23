@@ -21,7 +21,7 @@
 .stationsHeader h2 { margin: 4px 0 6px; }
 .stationsHeader p { font-size: .95rem; color: var(--hios-text-secondary); }
 .hubGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 16px; margin-bottom: 36px; }
-.hubCard { display: flex; flex-direction: column; gap: 8px; padding: 18px 20px; border-radius: var(--surface-radius, 12px); border: 1px solid var(--hios-border); background: var(--hios-bg-secondary); color: var(--hios-text); text-decoration: none; box-shadow: var(--hios-shadow-sm); transition: border-color var(--hios-transition-fast), transform var(--hios-transition-fast), background var(--hios-transition-fast); }
+.hubCard { display: flex; flex-direction: column; gap: 8px; padding: 18px 20px; border-radius: var(--surface-radius, 12px); border: 1px solid var(--hios-border); background: var(--hios-bg-secondary); color: var(--hios-text); text-decoration: none; box-shadow: var(--panel-bevel, var(--hios-shadow-sm)); transition: border-color var(--hios-transition-fast), transform var(--hios-transition-fast), background var(--hios-transition-fast); }
 .hubCard:hover { border-color: var(--accent-2-text); background: var(--hios-bg-elevated); transform: translateY(-1px); }
 .hubCardHighlight { border-color: color-mix(in srgb, var(--accent-2-text) 65%, var(--hios-border)); background: color-mix(in srgb, var(--accent-2-text) 9%, var(--hios-bg-secondary)); }
 .hubBadge { font-family: var(--font-stack-mono); font-size: 0.72rem; color: var(--accent-2-text); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }

@@ -49,8 +49,11 @@ test('clearing preferences in another tab resets the appearance without recreati
   await page.getByRole('button', { name: es.Header.lightTheme, exact: true }).click();
   await other.goto('/es/workbench/settings');
   await expectTheme(other, 'light', 'terminal', '#0ea5e9');
+  await page.getByRole('checkbox', { name: es.Settings.decorations }).uncheck();
+  await expect(other.locator('html')).toHaveAttribute('data-decorations', 'off');
   await page.evaluate(() => localStorage.clear());
   await expectTheme(other, 'dark', 'datasheet', '#f59e0b');
+  await expect(other.getByRole('checkbox', { name: es.Settings.decorations })).toBeChecked();
   expect(await other.evaluate(() => ['theme', 'hios-skin', 'hios-theme-config'].map((key) => localStorage.getItem(key))))
     .toEqual([null, null, null]);
   expect(await other.evaluate(() => Reflect.get(window, 'themeWrites'))).toEqual([]);

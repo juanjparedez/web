@@ -19,9 +19,9 @@ const cStyle: React.CSSProperties = {
 const preStyle: React.CSSProperties = {
   margin: 0,
   padding: '14px 16px',
-  background: '#080c10',
-  color: '#e2e8f0',
-  fontFamily: 'var(--font-mono)',
+  background: 'var(--hios-bg-secondary)',
+  color: 'var(--hios-text)',
+  fontFamily: 'var(--font-stack-mono)',
   fontSize: 12.5,
   lineHeight: 1.55,
   overflowX: 'auto',
@@ -73,11 +73,11 @@ export function ProjectFirmwareExplorer({ files, slug }: ProjectFirmwareExplorer
                 padding: '6px 10px',
                 borderRadius: 8,
                 fontSize: 12,
-                fontFamily: 'var(--font-mono)',
+                fontFamily: 'var(--font-stack-mono)',
                 fontWeight: isSelected ? 700 : 500,
                 cursor: 'pointer',
-                background: isSelected ? 'var(--accent)' : 'var(--hios-bg-elevated)',
-                color: isSelected ? '#080c10' : 'var(--hios-text)',
+                background: isSelected ? 'var(--hios-bg-secondary)' : 'var(--hios-bg-elevated)',
+                color: isSelected ? 'var(--accent-text)' : 'var(--hios-text)',
                 border: isSelected ? '1px solid var(--accent)' : '1px solid var(--hios-border)',
               }}
             >
