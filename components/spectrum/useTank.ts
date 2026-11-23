@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { GRID_H, GRID_W, type RippleConfig } from '@/lib/spectrum/ripple/model';
 import type { Tank } from '@/lib/spectrum/ripple/tank';
-import { prefersReducedMotion, useFrameLoop, useOnScreen } from './useRenderer';
+import { prefersReducedMotion, useActive, useFrameLoop } from './useRenderer';
 
 export interface TankView { intensity: boolean; theory: boolean }
 
@@ -14,7 +14,7 @@ export function useTank(config: RippleConfig, view: TankView) {
   const tankRef = useRef<Tank | null>(null);
   const [mode, setMode] = useState<'pending' | 'webgl' | 'canvas'>('pending');
   const [running, setRunning] = useState(true);
-  const onScreen = useOnScreen(boxRef);
+  const onScreen = useActive(boxRef);
   const viewRef = useRef(view);
   viewRef.current = view;
 

@@ -5,7 +5,7 @@ import { BANDS } from '@/lib/spectrum/bands';
 import { LANDMARKS } from '@/lib/spectrum/landmarks';
 import { si } from '@/lib/spectrum/format';
 import { createStrip } from '@/lib/spectrum/stripScene';
-import { prefersReducedMotion, useFrameLoop, useOnScreen, useRenderer } from './useRenderer';
+import { useActive, useFrameLoop, useRenderer } from './useRenderer';
 import type { Range } from './useSpectrumView';
 import styles from './spectrum.module.css';
 
@@ -13,6 +13,7 @@ interface Props {
   range: Range;
   selected: number;
   width: number;
+  running: boolean;
   onSelect: (logF: number) => void;
   onMode: (mode: 'webgl' | 'canvas') => void;
 }
@@ -44,13 +45,13 @@ function Pins({ range, selected, onSelect }: { range: Range; selected: number; o
   );
 }
 
-export function SpectrumStrip({ range, selected, width, onSelect, onMode }: Props) {
+export function SpectrumStrip({ range, selected, width, running, onSelect, onMode }: Props) {
   const { canvasRef, rendererRef, mode } = useRenderer(createStrip);
   const boxRef = useRef<HTMLDivElement>(null);
-  const onScreen = useOnScreen(boxRef);
+  const active = useActive(boxRef);
   const state = useRef({ range, selected, time: 0 });
   state.current = { ...state.current, range, selected };
-  const animate = mode === 'webgl' && onScreen && !prefersReducedMotion();
+  const animate = mode === 'webgl' && active && running;
 
   useEffect(() => { if (mode !== 'pending') onMode(mode); }, [mode, onMode]);
   useEffect(() => { rendererRef.current?.render(state.current); }, [range, selected, width, mode, rendererRef]);
@@ -71,7 +72,7 @@ export function SpectrumStrip({ range, selected, width, onSelect, onMode }: Prop
   };
 
   return (
-    <div ref={boxRef} className={styles.strip} data-testid="spectrum-strip" data-renderer={mode}>
+    <div ref={boxRef} className={styles.strip} data-testid="spectrum-strip" data-renderer={mode} data-running={animate}>
       <BandLabels range={range} width={width} />
       <canvas ref={canvasRef} className={styles.stripCanvas} role="slider" tabIndex={0}
         aria-label="Frecuencia seleccionada en el espectro" aria-valuemin={0} aria-valuemax={26}
