@@ -1,4 +1,4 @@
-import type { DmmSimulationInput, DmmSimulationResult } from './multimeterSim';
+import type { DmmSimulationInput, DmmSimulationResult } from './multimeterSim.ts';
 
 /**
  * Scenario "high-z-divider": 12 V → R1 = 10 MΩ → node → R2 = 10 MΩ → GND.
