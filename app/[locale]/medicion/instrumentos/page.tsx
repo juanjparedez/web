@@ -1,7 +1,7 @@
 import { setRequestLocale } from 'next-intl/server';
 import { createPageMetadata } from '@/lib/seo';
 import { MeasurementShell } from '@/components/measurement/MeasurementShell';
-import { MultimeterGuide } from '@/components/radio/instruments/MultimeterGuide';
+import { InstrumentReference } from '@/components/radio/instruments/InstrumentReference';
 
 export const dynamic = 'force-static';
 
@@ -15,22 +15,18 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return createPageMetadata(
     locale,
     '/medicion/instrumentos',
-    'Banco de instrumentos: multímetro, osciloscopio, medidor de ROE y NanoVNA · HIOS',
-    'Entrenadores interactivos y guía física de los 4 instrumentos del taller: multímetro True-RMS, osciloscopio con puntas ×1/×10, medidor de ROE con carga fantasma de 50 Ω y NanoVNA.',
+    'Qué mide cada instrumento: multímetro, osciloscopio, ROE y NanoVNA · HIOS',
+    'Comparación de los 4 instrumentos del taller y tabla de conexión segura: impedancia, configuración y precauciones.',
   );
 }
 
-export default async function InstrumentsPage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function InstrumentsReferencePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
   return (
-    <MeasurementShell
-      locale={locale}
-      page="instrumentos"
-      title="Banco de instrumentos"
-      description="Multímetro, osciloscopio, medidor de ROE con carga fantasma de 50 Ω y NanoVNA: cómo se conectan, qué miden y qué pasa si te equivocás."
-    >
-      <MultimeterGuide />
+    <MeasurementShell page="instrumentos" eyebrow="Medición · Consultar" title="Qué mide cada instrumento"
+      description="Multímetro, osciloscopio, medidor de ROE con carga fantasma de 50 Ω y NanoVNA: para qué sirve cada uno y cómo se conecta sin riesgo.">
+      <InstrumentReference />
     </MeasurementShell>
   );
 }

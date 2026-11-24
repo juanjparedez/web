@@ -1,10 +1,11 @@
 'use client';
 
-import type { ReactNode } from 'react';
+import { useEffect, type ReactNode } from 'react';
 import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
 import { radioLessons, radioPagePath, radioCoursePath, type RadioPageId } from '@/config/radio-course';
 import { RadioCourseNavigation } from './RadioCourseNavigation';
+import { LAST_LESSON_KEY } from './RadioBasicsTool';
 import lessonStyles from './radioBasics.module.css';
 import styles from './radioCourse.module.css';
 
@@ -37,6 +38,10 @@ export function RadioCourseShell({
 }) {
   const t = useTranslations('RadioCourse');
   const index = radioLessons.findIndex((lesson) => lesson.id === page);
+  useEffect(() => {
+    if (index < 0) return;
+    try { window.localStorage.setItem(LAST_LESSON_KEY, page); } catch { /* storage blocked */ }
+  }, [index, page]);
   return (
     <div className={styles.shell} data-wide={['laboratory', 'glossary', 'bands'].includes(page)} data-radio-page={page}>
       <RadioCourseNavigation page={page} />

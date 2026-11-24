@@ -1,18 +1,1 @@
-.page { width: 100%; max-width: 1180px; margin: 0 auto; padding: 32px 24px 56px; }
-.tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0 8px; }
-.tab {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 8px 14px; border-radius: 999px;
-  border: 1px solid var(--hios-border); background: var(--hios-bg-secondary);
-  color: var(--hios-text); text-decoration: none; font-weight: 600; font-size: 0.92rem;
-}
-.tab:hover { border-color: var(--accent-2-text); }
-.tab[aria-current='page'] { border-color: var(--accent-2-text); background: color-mix(in srgb, var(--accent-2-text) 14%, var(--hios-bg-secondary)); }
-.marker { font: 700 0.7rem var(--font-stack-mono); color: var(--accent-2-text); letter-spacing: 0.05em; }
-.body { min-width: 0; line-height: 1.7; }
-.related { margin-top: 32px; padding-top: 16px; border-top: 1px solid var(--hios-border); color: var(--hios-text-secondary); font-size: 0.92rem; }
-.related a { color: var(--accent-2-text); }
-@media (max-width: 580px) {
-  .page { padding: 20px 16px 40px; }
-  .tab { flex: 1 1 100%; justify-content: flex-start; }
-}
+.body { min-width: 0; margin-top: 20px; line-height: 1.7; }

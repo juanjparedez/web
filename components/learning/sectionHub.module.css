@@ -1,0 +1,32 @@
+.block, .stripChip { --kind: #38bdf8; }
+.block[data-kind='practice'], .stripChip[data-kind='practice'] { --kind: #f59e0b; }
+.block[data-kind='exam'], .stripChip[data-kind='exam'] { --kind: #a78bfa; }
+.block[data-kind='reference'], .stripChip[data-kind='reference'] { --kind: #34d399; }
+
+.hub { display: grid; gap: 30px; margin-top: 8px; }
+
+.strip { display: flex; flex-wrap: wrap; gap: 8px; }
+.stripChip { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 6px 14px; border-radius: 99px; border: 1.5px solid var(--kind); color: color-mix(in srgb, var(--kind) 75%, var(--hios-text)); font-size: .85rem; font-weight: 700; text-decoration: none; }
+.stripChip:hover { background: var(--kind); color: #06101f; }
+
+.block { scroll-margin-top: calc(var(--layout-header-height, 64px) + 70px); }
+.blockHead { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; margin-bottom: 12px; }
+.blockHead h2 { display: flex; align-items: center; gap: 10px; margin: 0; font: 700 1.3rem/1.3 var(--font-stack-display); color: color-mix(in srgb, var(--kind) 75%, var(--hios-text)); }
+.blockHead p { margin: 0; font-size: .9rem; color: var(--hios-text-secondary); }
+.icon { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 8px; font-size: 1rem; background: var(--kind); }
+
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 210px), 1fr)); gap: 10px; }
+.card { display: flex; flex-direction: column; gap: 4px; padding: 12px 14px 14px; border-radius: 11px; border: 1px solid var(--hios-border); border-top: 3px solid var(--kind); background: var(--hios-bg-secondary); color: var(--hios-text); text-decoration: none; transition: transform .15s, border-color .15s, background .15s; }
+.card:hover { transform: translateY(-1px); border-color: var(--kind); background: var(--hios-bg-elevated); }
+.card strong { font-size: .98rem; line-height: 1.35; }
+.marker { font: 700 .8rem/1.4 var(--font-stack-mono); color: color-mix(in srgb, var(--kind) 80%, var(--hios-text)); }
+.summary { font-size: .84rem; line-height: 1.45; color: var(--hios-text-secondary); }
+
+@media (max-width: 580px) {
+  .hub { gap: 24px; }
+  .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .card { padding: 10px 11px 12px; }
+  .summary { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) { .card { transition: none; } .card:hover { transform: none; } }

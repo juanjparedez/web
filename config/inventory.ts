@@ -130,7 +130,7 @@ export const CORE_INVENTORY_ENTITIES: readonly InventoryEntity[] = [
     badge: 'INSTRUMENTOS · DMM · DSO · ROE · VNA',
     title: 'Medición e Instrumentos (Multímetro, Osciloscopio, ROE y NanoVNA)',
     summary: 'Simuladores interactivos de Multímetro Digital (bornes/fusibles), Osciloscopio (puntas ×10/masa PE), Medidor de ROE + Carga 50 Ω y NanoVNA.',
-    href: '/medicion/instrumentos',
+    href: '/medicion',
     tags: ['Multímetro', 'Osciloscopio', 'ROE', 'NanoVNA'],
     status: 'published',
     builtIn: true,

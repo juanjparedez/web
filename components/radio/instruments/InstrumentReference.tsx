@@ -1,53 +1,10 @@
-'use client';
-
-import { useState } from 'react';
 import { MathLine } from '@/components/common/MathLine';
-import type { InstrumentTabId } from '@/lib/radio/benchInstrumentsSim';
-import { MultimeterLab } from './MultimeterLab';
-import { OscilloscopeLab } from './OscilloscopeLab';
-import { SwrMeterLab } from './SwrMeterLab';
-import { NanoVnaLab } from './NanoVnaLab';
 import styles from './multimeter.module.css';
 
-type TabChoice = InstrumentTabId | 'all';
-
-const INSTRUMENT_TABS: readonly { id: TabChoice; label: string }[] = [
-  { id: 'multimeter', label: '1 · Multímetro Digital (DMM)' },
-  { id: 'oscilloscope', label: '2 · Osciloscopio (DSO y Puntas)' },
-  { id: 'swr-meter', label: '3 · Medidor de ROE y Carga 50 Ω' },
-  { id: 'nanovna', label: '4 · NanoVNA (S11 y Antenas)' },
-  { id: 'all', label: 'Ver los 4 instrumentos' },
-];
-
-export function MultimeterGuide() {
-  const [activeTab, setActiveTab] = useState<TabChoice>('multimeter');
-
-  const showDmm = activeTab === 'all' || activeTab === 'multimeter';
-  const showScope = activeTab === 'all' || activeTab === 'oscilloscope';
-  const showSwr = activeTab === 'all' || activeTab === 'swr-meter';
-  const showVna = activeTab === 'all' || activeTab === 'nanovna';
-
+/** Reference page: what each bench instrument measures and the safe-connection table. */
+export function InstrumentReference() {
   return (
-    <div data-testid="multimeter-guide">
-      <div className={styles.instrumentSelector} role="group" aria-label="Selector de instrumento de banco">
-        {INSTRUMENT_TABS.map((tab) => (
-          <button
-            key={tab.id}
-            type="button"
-            onClick={() => setActiveTab(tab.id)}
-            aria-pressed={activeTab === tab.id}
-            className={`${styles.instrumentTab} ${activeTab === tab.id ? styles.instrumentTabActive : ''}`}
-          >
-            {tab.label}
-          </button>
-        ))}
-      </div>
-
-      {showDmm ? <MultimeterLab /> : null}
-      {showScope ? <OscilloscopeLab /> : null}
-      {showSwr ? <SwrMeterLab /> : null}
-      {showVna ? <NanoVnaLab /> : null}
-
+    <div data-testid="instrument-reference">
       <section className={styles.guideSection} id="anatomia-dmm">
         <span className={styles.kicker}>01 · ARQUITECTURA INTERNA DE LOS 4 INSTRUMENTOS</span>
         <h2>Qué mide cada instrumento de banco y cuándo usar cada uno</h2>

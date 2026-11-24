@@ -42,7 +42,7 @@ export function ChapterB2() {
           cite="Programa ENACOM 3.c"
         />
         <Callout tone="info"><p>Un analizador de antenas tipo NanoVNA mide ROE e impedancia en un barrido de frecuencias. Hoy es barato y es la herramienta más útil para ajustar antenas.</p></Callout>
-        <Callout tone="info"><p>Para practicar con cada instrumento (cómo se conecta, qué marca y qué pasa si te equivocás) usá el <a href="../medicion/instrumentos">banco de instrumentos</a> de la sección Medición e instrumentos.</p></Callout>
+        <Callout tone="info"><p>Para practicar con cada instrumento (cómo se conecta, qué marca y qué pasa si te equivocás) usá el <a href="../medicion">entrenador de cada instrumento</a> en la sección Medición.</p></Callout>
       </Section>
 
       <Section id="banco" kicker="Examen" title="Preguntas del examen: bloque B">
