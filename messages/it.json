@@ -1565,7 +1565,10 @@
             "guestbook": "Libro degli ospiti",
             "about": "Informazioni su HIOS",
             "composer": "Compositore Chiptune",
-            "radio": "Radioamatore"
+            "radio": "Radioamatore",
+            "measurement": "Misure e strumenti",
+            "radioHub": "Radio e misure",
+            "spectrum": "Spettro EM"
         }
     },
     "Auth": {
@@ -4743,7 +4746,57 @@
         "jointBad": "Ponte tra terminali",
         "jointHint": "Schemi di riferimento. La lucentezza dipende dalla lega e da sola non dimostra la qualità della giunzione.",
         "sources": "Riferimento per la tecnica di saldatura",
-        "saveFailed": "Impossibile salvare i progressi. Rimarranno disponibili solo finché questa vista resta aperta."
+        "saveFailed": "Impossibile salvare i progressi. Rimarranno disponibili solo finché questa vista resta aperta.",
+        "overview": "Panoramica",
+        "overviewTitle": "Panoramica del PAD: alimentazione, binari e ogni parte",
+        "overviewHint": "Tutte le parti del PAD e da dove prendono alimentazione. Tocca una parte per vedere come si salda.",
+        "matrixBack": "Matrice vista da dietro (il lato che saldi). La banda di ogni diodo verso la riga.",
+        "short": {
+            "power": "Alimentazione",
+            "display": "Display",
+            "matrix": "Matrice",
+            "nav": "ALT",
+            "encoder": "Encoder",
+            "stick": "Stick",
+            "audio": "Audio",
+            "led": "LED"
+        },
+        "tag": {
+            "rail5v": "BINARIO 5V",
+            "rail3v3": "BINARIO 3V3",
+            "tftLed": "LED display"
+        },
+        "part": {
+            "tft": "Display ILI9488 4\"",
+            "keys": "Matrice 2×5",
+            "alt1": "Pulsante ALT 1",
+            "alt2": "Pulsante ALT 2",
+            "alts": "Pulsanti ALT",
+            "ky040": "Encoder KY-040",
+            "hw504": "Stick HW-504",
+            "ampL": "Ampli sinistro",
+            "ampR": "Ampli destro",
+            "speakerL": "Altoparlante sx 4–8Ω",
+            "speakerR": "Altoparlante dx 4–8Ω",
+            "ledA": "NeoPixel scheda A",
+            "ledB": "NeoPixel scheda B",
+            "leds": "2× NeoPixel (8 px)",
+            "buck": "Buck 5.0V ≥3A",
+            "sw1": "SW1 · celle",
+            "sw2": "SW2 · display",
+            "cells": "Celle 2S",
+            "charger": "Caricatore 2S"
+        },
+        "ov": {
+            "allGpio": "GPIO → ogni parte",
+            "legend5v": "Binario 5V (buck)",
+            "legend3v3": "Binario 3V3 (regolatore del DevKit, mai alimentato da fuori)",
+            "legendGnd": "Massa comune: ogni ⏚ è la stessa massa",
+            "legendGpio": "IO … = GPIO usati da quella parte sull’ESP32",
+            "legendOpen": "Tocca una parte per aprire il suo passo di cablaggio"
+        },
+        "showMore": "Mostra di più",
+        "showLess": "Mostra meno"
     },
     "Repositories": {
         "title": "Repository e documentazione",
@@ -5505,5 +5558,9 @@
                 "notes": "La tabella argentina identifica il servizio di radioamatore come primario e quello di radioamatore via satellite come secondario; riserva 435–438 MHz ai satelliti. Questo non equivale ad affermare che UHF attraversi gli edifici meglio di VHF."
             }
         }
+    },
+    "Spectrum": {
+        "title": "Lo spettro elettromagnetico",
+        "description": "Da 1 Hz a 10²⁶ Hz con grafica su GPU: lunghezza d'onda, energia del fotone, atmosfera, l'onda E/B in 3D e la legge di Planck (in spagnolo)."
     }
 }

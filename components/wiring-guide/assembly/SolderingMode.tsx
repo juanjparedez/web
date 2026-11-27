@@ -11,10 +11,21 @@ import { HeaderMap } from './HeaderMap';
 import { WireList } from './WireList';
 import { SolderJointGuide } from './SolderJointGuide';
 import { useAssemblyProgress } from './useAssemblyProgress';
+import { MODULE_DIAGRAMS } from '@/config/pinouts/padDiagram';
+import { DiagramMode } from './diagram/DiagramMode';
 import styles from './assembly.module.css';
 
-/** One module at a time: its joints on the real header, a tick per joint, and the module's own warnings. */
+/** Drawn wiring when the guide has diagrams for its board; the classic header map otherwise. */
 export function SolderingMode({ embedded = false }: { embedded?: boolean }) {
+  const guide = useWiringGuide();
+  const board = guide.meta.boardId ? getBreakout(guide.meta.boardId)?.board : undefined;
+  const diagrams = MODULE_DIAGRAMS[guide.meta.id];
+  if (diagrams && board) return <DiagramMode diagrams={diagrams} board={board} />;
+  return <ClassicSolderingMode embedded={embedded} />;
+}
+
+/** One module at a time: its joints on the real header, a tick per joint, and the module's own warnings. */
+function ClassicSolderingMode({ embedded = false }: { embedded?: boolean }) {
   const guide = useWiringGuide();
   const t = useTranslations('Assembly');
   const board = guide.meta.boardId ? getBreakout(guide.meta.boardId)?.board : undefined;

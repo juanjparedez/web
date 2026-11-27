@@ -1,3 +1,4 @@
+import { evaluateHighZDivider } from './multimeterDivider.ts';
 export type DmmMode = 'dcv' | 'acv' | 'ohm' | 'continuity' | 'ma' | '10a';
 export type DmmJack = 'v-ohm' | 'ma' | '10a';
 export type ProbePlacement = 'parallel' | 'series';
@@ -95,7 +96,7 @@ function evaluateJackMismatch(input: DmmSimulationInput): DmmSimulationResult | 
   const isCurrentJack = redJack === 'ma' || redJack === '10a';
   const isVoltageOrOhmMode = mode === 'dcv' || mode === 'acv' || mode === 'ohm' || mode === 'continuity';
 
-  if (isCurrentJack && placement === 'parallel' && circuitPowered && scenarioId !== 'coax-antenna') {
+  if (isCurrentJack && placement === 'parallel' && circuitPowered && scenarioId !== 'coax-antenna' && scenarioId !== 'high-z-divider') {
     const rShunt = redJack === '10a' ? 0.01 : 1.0;
     const iShort = 13.8 / rShunt;
     return {
@@ -256,6 +257,9 @@ export function simulateMultimeter(input: DmmSimulationInput): DmmSimulationResu
     };
   }
 
+  const divider = evaluateHighZDivider(input);
+  if (divider) return divider;
+
   if (scenarioId === 'coax-antenna') {
     if (mode === 'continuity' || mode === 'ohm') {
       if (placement === 'series') {
@@ -289,42 +293,6 @@ export function simulateMultimeter(input: DmmSimulationInput): DmmSimulationResu
         physicalExplanation:
           'En un latiguillo coaxial desconectado (o conectado a un dipolo abierto de λ/2), entre el pin central y la rosca exterior de masa debe haber resistencia infinita ("OL") y el buzzer debe permanecer mudo.',
         technicianTip: 'Ojo: si medís con una antena tipo J-Pole, Yagi con Gamma-Match o vertical con bobina a masa conectada, en DC dará continuidad aunque en RF tenga 50 Ω.',
-      };
-    }
-  }
-
-  if (scenarioId === 'high-z-divider') {
-    if (!circuitPowered) {
-      return {
-        displayMain: mode === 'ohm' ? '5,00' : '0,00',
-        displayUnit: mode === 'ohm' ? 'MΩ' : 'V DC',
-        displaySub: mode === 'ohm' ? 'R1 ∥ R2 = 10 MΩ ∥ 10 MΩ con fuente apagada' : 'Fuente de 12 V apagada',
-        status: 'ok',
-        beep: false,
-        fuseBlown: false,
-        meterImpedanceText: 'R_in = 10 MΩ',
-        circuitCurrentText: '0 µA',
-        burdenOrLoadingText: 'Circuito en reposo',
-        title: 'Divisor de alta impedancia sin alimentación',
-        physicalExplanation: 'Sin fuente aplicada no hay diferencia de potencial en el nodo central.',
-        technicianTip: 'Encendé la fuente para observar el efecto de carga de los 10 MΩ del multímetro.',
-      };
-    }
-    if (mode === 'dcv' && placement === 'parallel') {
-      return {
-        displayMain: '4,00',
-        displayUnit: 'V DC',
-        displaySub: '¡Valor real sin tester era 6,00 V! Error de −33,3 % por carga de R_in = 10 MΩ',
-        status: 'warning',
-        beep: false,
-        fuseBlown: false,
-        meterImpedanceText: 'R_in = 10 MΩ queda en paralelo con R2 = 10 MΩ → R_eq = 5 MΩ',
-        circuitCurrentText: 'I_total = 12 V / (10 MΩ + 5 MΩ) = 0,80 µA (0,40 µA pasan por el tester)',
-        burdenOrLoadingText: 'V_medido = 12 V · (5 MΩ / 15 MΩ) = 4,00 V en vez de 6,00 V',
-        title: 'Efecto de Carga del Voltímetro (Perturbación por Impedancia Finita)',
-        physicalExplanation:
-          'Un multímetro digital estándar tiene una impedancia de entrada fija de 10 MΩ. En circuitos de potencia (impedancias de decenas de Ω o kΩ) 10 MΩ es prácticamente infinito, pero en grillas de alta impedancia, sensores piezoeléctricos o polarización de FETs, el propio multímetro forma un divisor resistivo y baja la tensión del nodo.',
-        technicianTip: 'Siempre compará la impedancia de Thévenin del nodo con los 10 MΩ de tu instrumento: para menos de 1 % de error necesitás R_th < 100 kΩ.',
       };
     }
   }

@@ -1,0 +1,52 @@
+.device {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  margin: 0 auto;
+  user-select: none;
+}
+
+.holster { fill: #c2410c; stroke: #7c2d12; stroke-width: 2; }
+.face { fill: #1f2328; stroke: #0b0d10; stroke-width: 2; }
+.brand { fill: #9ca3af; font: 600 8px var(--font-stack-mono); letter-spacing: 0.05em; }
+
+.lcd { fill: #b9c8a8; stroke: #0b0d10; stroke-width: 3; transition: fill 0.2s; }
+.device[data-status='warning'] .lcd { fill: #e2cf7a; }
+.device[data-status='danger'] .lcd { fill: #e5a593; }
+.annunciator { fill: #1d2419; font: 700 10px var(--font-stack-mono); }
+.annunciatorAlert { fill: #9b1c1c; font: 800 10px var(--font-stack-mono); }
+.digits { fill: #141a12; font: 700 40px var(--font-stack-mono); letter-spacing: 0.02em; }
+.unit { fill: #1d2419; font: 700 12px var(--font-stack-mono); }
+
+.key { fill: #2d333b; stroke: #0b0d10; }
+.keyText { fill: #cbd5e1; font: 700 7px var(--font-stack-mono); }
+
+.dialRing { fill: none; stroke: #3a4048; stroke-width: 1.5; stroke-dasharray: 2 5; }
+.dialOff { fill: #6b7280; font: 700 10px var(--font-stack-mono); }
+.dialLabel { fill: #e5e7eb; font: 700 12px var(--font-stack-mono); }
+.dialLabelOn { fill: #facc15; font: 800 13px var(--font-stack-mono); }
+
+.knob { fill: #121417; stroke: #4b5563; stroke-width: 2; }
+.knobGrip { fill: #2b3138; stroke: #6b7280; stroke-width: 1; transition: transform 0.25s ease; }
+.pointer { fill: #facc15; }
+
+.hit { cursor: pointer; outline: none; }
+.hitArea { fill: transparent; }
+.hit:hover .hitArea { fill: rgba(250, 204, 21, 0.12); }
+.hit:focus-visible .hitArea { fill: rgba(250, 204, 21, 0.18); stroke: #facc15; stroke-width: 2; }
+
+.jackLabel { fill: #e5e7eb; font: 700 9px var(--font-stack-mono); }
+.jack { fill: #0b0d10; stroke: #dc2626; stroke-width: 3; }
+.jackCom { fill: #0b0d10; stroke: #9ca3af; stroke-width: 3; }
+.jackHole { fill: #2b3138; }
+.plugRed { fill: #ef4444; stroke: #7f1d1d; stroke-width: 2; }
+.plugBlack { fill: #111827; stroke: #9ca3af; stroke-width: 2; }
+
+.leadRed { fill: none; stroke: #ef4444; stroke-width: 6; stroke-linecap: round; transition: d 0.2s; }
+.leadEdge { fill: none; stroke: #6b7280; stroke-width: 9; stroke-linecap: round; }
+.leadBlack { fill: none; stroke: #0b0d10; stroke-width: 6; stroke-linecap: round; }
+
+@media (prefers-reduced-motion: reduce) {
+  .knobGrip, .leadRed, .lcd { transition: none; }
+}

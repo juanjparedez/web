@@ -5,6 +5,8 @@ import { BTDAC_WIRING } from '../config/pinouts/btdac.ts';
 import { SPEAKER_WIRING } from '../config/pinouts/speaker.ts';
 import { ESP32_S3_BOARD } from '../config/pinouts/modules/mcu.ts';
 import { assemblyModules, moduleWires, moduleSections, headerSpot, assemblyTaskIds, assemblyStorageKey, parseAssemblyProgress } from '../lib/padWiring/assembly.ts';
+import { diagramKeys, wireKeys } from '../lib/padWiring/diagram.ts';
+import { PAD_DIAGRAMS } from '../config/pinouts/padDiagram.ts';
 
 for (const guide of [PAD_WIRING, BTDAC_WIRING, SPEAKER_WIRING]) {
   const modules = assemblyModules(guide);
@@ -39,11 +41,35 @@ assert.deepEqual(display.filter(w => w.spot).map(w => `${w.spot!.header}-${w.spo
 
 assert.deepEqual(moduleWires(PAD_WIRING, 'power', board).filter(w => w.spot).map(w => `${w.spot!.header}-${w.spot!.pos}`), ['J1-21', 'J1-1', 'J1-22']);
 
+// Drawings: every PAD joint is drawn, nothing is drawn that is not a joint, and every
+// wire leaving the ESP32 leaves from the exact header hole the guide says.
+for (const item of assemblyModules(PAD_WIRING)) {
+  const spec = PAD_DIAGRAMS[item.id];
+  assert.ok(spec, `PAD module ${item.id} has a drawing`);
+  const joints = wireKeys(moduleWires(PAD_WIRING, item.id, board));
+  const drawn = new Set([...diagramKeys(spec)].filter(Boolean));
+  assert.deepEqual([...drawn].sort(), [...joints.keys()].sort(), `${item.id}: drawing covers exactly its joints`);
+  const ids = new Set(spec.cards.flatMap(card => card.pins.map(pin => pin.id)));
+  for (const link of spec.links) {
+    const refs = link.kind === 'esp' ? link.to : link.kind === 'tag' ? [link.from] : link.kind === 'wire' ? [link.from, link.to] : link.pins;
+    for (const ref of refs) assert.ok(ids.has(ref), `${item.id}: link points at missing pin ${ref}`);
+    if (link.kind !== 'esp') continue;
+    const spot = joints.get(link.key)?.spot;
+    if (spot) assert.deepEqual([spot.header, spot.pos], [spec.header, link.pos], `${item.id}: ${link.key} leaves from ${spot.header}-${spot.pos}`);
+    else assert.equal(headerSpot(board, '9')?.pos, link.pos, `${item.id}: only the SW2 backlight line may leave from an unlisted hole`);
+  }
+  for (const [key, wire] of joints) {
+    if (wire.spot) assert.ok(spec.links.some(link => link.kind === 'esp' && link.key === key), `${item.id}: ${key} drawn from the header`);
+  }
+}
+
+const flat = (value: unknown, prefix = ''): Array<[string, unknown]> => value && typeof value === 'object'
+  ? Object.entries(value as Record<string, unknown>).flatMap(([k, v]) => flat(v, prefix ? `${prefix}.${k}` : k)) : [[prefix, value]];
 const copies = ['en', 'es', 'de', 'it'].map(locale => JSON.parse(readFileSync(`messages/${locale}.json`, 'utf8')));
 for (const namespace of ['Assembly', 'PinExplorer']) {
   for (const copy of copies) {
-    assert.deepEqual(Object.keys(copy[namespace]).sort(), Object.keys(copies[0][namespace]).sort());
-    assert.ok(Object.values(copy[namespace]).every(value => typeof value === 'string' && value.trim()));
+    assert.deepEqual(flat(copy[namespace]).map(([k]) => k).sort(), flat(copies[0][namespace]).map(([k]) => k).sort());
+    assert.ok(flat(copy[namespace]).every(([, value]) => typeof value === 'string' && value.trim()));
   }
 }
-console.log('Assembly: soldering joints, header positions, stable progress, revision isolation and four locales OK');
+console.log('Assembly: soldering joints, PAD drawings, header positions, stable progress, revision isolation and four locales OK');

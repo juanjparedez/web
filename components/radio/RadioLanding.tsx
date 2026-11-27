@@ -8,7 +8,6 @@ import { LicenseLadder } from './LicenseLadder';
 import { ProgramMap } from './ProgramMap';
 import { LicenseSteps, SOURCES_TEXT } from './LicenseSteps';
 import { Callout } from './ui/Prose';
-import { RadioSubNav } from './RadioSubNav';
 import landing from './landing.module.css';
 import styles from './radio.module.css';
 
@@ -23,10 +22,11 @@ const TOOLS = [
   { href: 'c-antenas-propagacion#coaxil', label: 'Pérdida de coaxil', badge: 'COAX' },
   { href: 'c-antenas-propagacion#alcance', label: '¿Llego a 5 km?', badge: 'LINK' },
   { href: 'd-reglamento#bandas', label: 'Mapa de bandas', badge: 'BANDAS' },
-  { href: 'morse#alfabeto', label: 'Tabla Morse', badge: '·−' },
-  { href: 'morse#traductor', label: 'Traductor Morse', badge: 'CW' },
-  { href: 'morse#transmision', label: 'Transmitir en Morse', badge: 'CW' },
-  { href: 'morse#entrenador', label: 'Entrenador Koch', badge: 'KOCH' },
+  { href: 'morse/arbol', label: 'Árbol Morse', badge: '·−' },
+  { href: 'morse/alfabeto', label: 'Tabla Morse', badge: 'A–Z' },
+  { href: 'morse/traductor', label: 'Traductor Morse', badge: 'CW' },
+  { href: 'morse/transmitir', label: 'Transmitir en Morse', badge: 'CW' },
+  { href: 'morse/koch', label: 'Entrenador Koch', badge: 'KOCH' },
   { href: 'practica#quiz', label: 'Simulacro de examen', badge: 'QUIZ' },
 ];
 
@@ -34,7 +34,6 @@ export function RadioLanding({ locale }: { locale: string }) {
   const base = `/${locale}/radio`;
   return (
     <main className={courseStyles.page} lang="es">
-      <RadioSubNav />
       <div className={courseStyles.shell} data-wide="true">
         <RadioCourseNavigation page="programa" />
         <div className={courseStyles.reading}>

@@ -77,19 +77,19 @@ export function SignalLesson({ topic }: { topic: Topic }) {
     <section>
       {topic === 'morse' ? (
         <div className={styles.worked} data-testid="morse-console-callout" style={{ marginBottom: 24, borderColor: 'var(--accent-2-text)' }}>
-          <h2>★ Consola Interactiva de Código Morse (CW): Audio, Transmisión, Traductor y Koch</h2>
+          <h2>Practicá con los entrenadores Morse</h2>
           <p>
-            Esta página explica los fundamentos físicos del tiempo de punto y el ancho de banda en CW. Para practicar
-            con sonido real, control global de ruido QRN, manipulador (llave o paletas), traductor y recepción Koch,
-            entrá directo a la consola completa:
+            Esta página explica el tiempo de punto y el ancho de banda en CW. Para practicar con sonido real, elegí un
+            entrenador: cada uno trabaja una habilidad.
           </p>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginTop: 12 }}>
-            <Link href={`/${locale}/radio/morse#transmision`} style={{ fontWeight: 700, color: 'var(--accent-2-text)' }}>
-              ▶ {t('link')} (Consola CW Completa) →
+            <Link href={`/${locale}/radio/morse`} style={{ fontWeight: 700, color: 'var(--accent-2-text)' }}>
+              {t('link')} →
             </Link>
-            <Link href={`/${locale}/radio/morse#alfabeto`}>2 · Alfabeto Sonoro ITU →</Link>
-            <Link href={`/${locale}/radio/morse#traductor`}>3 · Traductor Texto ↔ Morse →</Link>
-            <Link href={`/${locale}/radio/morse#entrenador`}>4 · Entrenador Koch →</Link>
+            <Link href={`/${locale}/radio/morse/arbol`}>Árbol de letras →</Link>
+            <Link href={`/${locale}/radio/morse/reconocer`}>Reconocer de oído →</Link>
+            <Link href={`/${locale}/radio/morse/transmitir`}>Transmitir con llave →</Link>
+            <Link href={`/${locale}/radio/morse/koch`}>Recepción Koch →</Link>
           </div>
         </div>
       ) : null}

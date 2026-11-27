@@ -46,8 +46,8 @@ export async function exerciseGuide(page: Page, locale: GuideLocale, id: GuideId
   await page.goto(`/${locale}/pinouts/${id}`);
   await expect(page.getByText(copy.meta_subtitle, { exact: true })).toBeVisible();
   await expect(page.locator('[data-guide-note]')).toContainText(copy.meta_note);
-  // Soldering mode is the landing tab: one module, its joints, nothing overflowing.
-  await expect(page.locator('[data-soldering-mode] [data-wire]').first()).toBeVisible();
+  // Soldering mode is the landing tab. The PAD opens on its drawn overview; the others on their first module.
+  await expect(page.locator(id === 'pad' ? '[data-soldering-mode] [data-overview]' : '[data-soldering-mode] [data-wire]').first()).toBeVisible();
   if (mobile) expect(await page.evaluate(inspectMobileLayout)).toEqual([]);
   await tab('diagrama');
   await expect(page.getByText(ui.systemIntro, { exact: true })).toBeVisible();

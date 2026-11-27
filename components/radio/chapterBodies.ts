@@ -7,7 +7,7 @@ import { ChapterC } from './chapters/ChapterC';
 import { ChapterC2 } from './chapters/ChapterC2';
 import { ChapterD } from './chapters/ChapterD';
 import { ChapterD2 } from './chapters/ChapterD2';
-import { ChapterMorse } from './chapters/ChapterMorse';
+import { MorseWhy } from './morse/MorseWhy';
 import { ChapterPractice } from './chapters/ChapterPractice';
 
 /** Componentes que forman el cuerpo de cada capítulo, en orden. Los usan la web y la versión impresa. */
@@ -16,6 +16,6 @@ export const CHAPTER_BODIES: Record<string, ComponentType[]> = {
   'b-modulacion-equipos': [ChapterB, ChapterB2],
   'c-antenas-propagacion': [ChapterC, ChapterC2],
   'd-reglamento': [ChapterD, ChapterD2],
-  morse: [ChapterMorse],
+  morse: [MorseWhy],
   practica: [ChapterPractice],
 };

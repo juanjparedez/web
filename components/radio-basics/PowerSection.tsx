@@ -1,14 +1,15 @@
 'use client';
 
 import { Alert } from 'antd';
-import { useTranslations } from 'next-intl';
+import Link from 'next/link';
+import { useLocale, useTranslations } from 'next-intl';
 import { MathLine } from '@/components/common/MathLine';
-import { MultimeterLab } from '@/components/radio/instruments/MultimeterLab';
 import { MeterDiagram } from './MeterDiagram';
 import styles from './radioBasics.module.css';
 
 export function MeasurementSection() {
   const t = useTranslations('RadioBasics.power');
+  const locale = useLocale();
   return (
     <section id="measurement" aria-label={t('measurementTitle')}>
       <div className={styles.connections}>
@@ -25,7 +26,10 @@ export function MeasurementSection() {
       </div>
       <p>{t('ohmmeter')}</p>
       <Alert type="warning" showIcon message={t('meterWarning')} />
-      <MultimeterLab />
+      <Link className={styles.practiceLink} href={`/${locale}/medicion/instrumentos/multimetro`} data-testid="multimeter-practice-link">
+        <span>Practicar</span>
+        <strong>Entrenador de multímetro: selector, bornes y puntas →</strong>
+      </Link>
       <div className={styles.worked} data-testid="dual-approach-measurement">
         <h3>Enfoque 1 · Perturbación del circuito por la impedancia del instrumento</h3>
         <p>

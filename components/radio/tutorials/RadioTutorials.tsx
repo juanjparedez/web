@@ -5,7 +5,6 @@ import { useLocale } from 'next-intl';
 import { PageIntro } from '@/components/ui/PageIntro';
 import { RadioCourseNavigation } from '@/components/radio-basics/RadioCourseNavigation';
 import courseStyles from '@/components/radio-basics/radioCourse.module.css';
-import { RadioSubNav } from '../RadioSubNav';
 import { ChirpBuilder } from './ChirpBuilder';
 import { KeypadMenusSection, RxTemplateSection, WalkieTalkieSection } from './TutorialSections';
 import styles from './radioTutorials.module.css';
@@ -16,7 +15,6 @@ export function RadioTutorials() {
 
   return (
     <main className={courseStyles.page} lang="es">
-      <RadioSubNav />
       <div className={courseStyles.shell} data-wide="true">
         <RadioCourseNavigation page="tutoriales" />
         <div className={courseStyles.reading}>

@@ -18,6 +18,8 @@ export interface NavEntry {
   label: string;
   badge: string;
   desktopDirect?: boolean;
+  /** Other routes that also mark this entry as active (e.g. /medicion for Radio y medición). */
+  also?: string[];
 }
 
 export interface NavGroupConfig {
@@ -25,6 +27,10 @@ export interface NavGroupConfig {
   kicker: string;
   label: string;
   items: NavEntry[];
+}
+
+export function isEntryActive(pathname: string | null, entry: NavEntry, locale: string): boolean {
+  return isRouteActive(pathname, entry.href, locale) || (entry.also ?? []).some((href) => isRouteActive(pathname, href, locale));
 }
 
 export function isRouteActive(pathname: string | null, href: string, locale: string): boolean {
@@ -55,7 +61,8 @@ export function useNavGroups(): NavGroupConfig[] {
       kicker: '02 / RADIO & RF',
       label: sec('radio'),
       items: [
-        { href: `/${locale}/radio`, label: sec('radio'), badge: 'HAM', desktopDirect: true },
+        { href: `/${locale}/radio`, label: sec('radioHub'), badge: 'HAM', desktopDirect: true, also: [`/${locale}/medicion`] },
+        { href: `/${locale}/espectro`, label: sec('spectrum'), badge: 'EM' },
       ],
     },
     {

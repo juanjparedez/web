@@ -1565,7 +1565,10 @@
             "guestbook": "Libro de visitas",
             "about": "Acerca de HIOS",
             "composer": "Compositor Chiptune",
-            "radio": "Radioaficionado"
+            "radio": "Radioaficionado",
+            "measurement": "Medición e instrumentos",
+            "radioHub": "Radio y medición",
+            "spectrum": "Espectro EM"
         }
     },
     "Auth": {
@@ -4743,7 +4746,57 @@
         "jointBad": "Puente entre terminales",
         "jointHint": "Esquemas de referencia. El brillo depende de la aleación; por sí solo no demuestra la calidad de la unión.",
         "sources": "Referencia de técnica de soldadura",
-        "saveFailed": "No se pudo guardar el progreso. Se conservará solo mientras esta vista esté abierta."
+        "saveFailed": "No se pudo guardar el progreso. Se conservará solo mientras esta vista esté abierta.",
+        "overview": "Vista general",
+        "overviewTitle": "Vista general del PAD: energía, rieles y cada pieza",
+        "overviewHint": "Todas las piezas del PAD y de dónde toma energía cada una. Tocá una pieza para ver cómo se suelda.",
+        "matrixBack": "Matriz vista desde atrás (el lado que soldás). La raya de cada diodo hacia la fila.",
+        "short": {
+            "power": "Energía",
+            "display": "Pantalla",
+            "matrix": "Matriz",
+            "nav": "ALT",
+            "encoder": "Encoder",
+            "stick": "Stick",
+            "audio": "Audio",
+            "led": "LEDs"
+        },
+        "tag": {
+            "rail5v": "RIEL 5V",
+            "rail3v3": "RIEL 3V3",
+            "tftLed": "LED pantalla"
+        },
+        "part": {
+            "tft": "Pantalla ILI9488 4\"",
+            "keys": "Matriz 2×5",
+            "alt1": "Botón ALT 1",
+            "alt2": "Botón ALT 2",
+            "alts": "Botones ALT",
+            "ky040": "Encoder KY-040",
+            "hw504": "Stick HW-504",
+            "ampL": "Ampli izquierdo",
+            "ampR": "Ampli derecho",
+            "speakerL": "Parlante izq. 4–8Ω",
+            "speakerR": "Parlante der. 4–8Ω",
+            "ledA": "NeoPixel placa A",
+            "ledB": "NeoPixel placa B",
+            "leds": "2× NeoPixel (8 px)",
+            "buck": "Buck 5.0V ≥3A",
+            "sw1": "SW1 · celdas",
+            "sw2": "SW2 · pantalla",
+            "cells": "Celdas 2S",
+            "charger": "Cargador 2S"
+        },
+        "ov": {
+            "allGpio": "GPIO → cada pieza",
+            "legend5v": "Riel 5V (buck)",
+            "legend3v3": "Riel 3V3 (regulador del DevKit, nunca se alimenta de afuera)",
+            "legendGnd": "Masa común: todos los ⏚ son la misma masa",
+            "legendGpio": "IO … = GPIO que usa esa pieza en el ESP32",
+            "legendOpen": "Tocá una pieza para abrir su paso de cableado"
+        },
+        "showMore": "Ver más",
+        "showLess": "Ver menos"
     },
     "Repositories": {
         "title": "Repositorios y documentación",
@@ -5270,7 +5323,7 @@
         "futureIntro": "La guía del programa Novicio incluye ondas y propagación, reglamentación, Morse y práctica de examen.",
         "backToCourse": "Índice del curso",
         "navigation": "Navegación del curso",
-        "jump": "Cambiar de tema",
+        "jump": "Ir a otra sección",
         "previous": "Anterior",
         "next": "Siguiente",
         "lessonPosition": "Lección {current} de {total}",
@@ -5505,5 +5558,9 @@
                 "notes": "El cuadro argentino identifica al servicio de radioaficionados como primario y al de aficionados por satélite como secundario; reserva 435–438 MHz para satélites. Esto no equivale a afirmar que UHF atraviesa mejor los edificios que VHF."
             }
         }
+    },
+    "Spectrum": {
+        "title": "El espectro electromagnético",
+        "description": "Explorá de 1 Hz a 10²⁶ Hz con gráficos en la GPU: longitud de onda, energía del fotón, atmósfera, la onda E/B en 3D y la ley de Planck."
     }
 }

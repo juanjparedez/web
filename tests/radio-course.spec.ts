@@ -3,7 +3,7 @@ import es from '../messages/es.json';
 
 const COURSE = '/es/radio';
 const LESSON_BASE = `${COURSE}/lecciones`;
-const LESSONS = ['voltage', 'current', 'resistance', 'ohm', 'series', 'parallel', 'power', 'measurement', 'practice', 'waves', 'propagation', 'morse'] as const;
+const LESSONS = ['voltage', 'current', 'resistance', 'ohm', 'series', 'parallel', 'power', 'practice', 'waves', 'propagation', 'morse'] as const;
 const RESOURCES = ['bands', 'laboratory', 'glossary', 'sources'] as const;
 
 test.beforeEach(async ({ page }) => {
@@ -18,7 +18,7 @@ test('course home is an index and lessons have their own content, URLs and navig
   const home = page.getByTestId('radio-course-home');
   await expect(home).toBeVisible();
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Electricidad para radioaficionados');
-  await expect(page.getByTestId('radio-lesson-list').getByRole('link')).toHaveCount(12);
+  await expect(page.getByTestId('radio-lesson-list').getByRole('link')).toHaveCount(11);
   await expect(page.getByTestId('radio-resource-list').getByRole('link')).toHaveCount(4);
   await expect(home.locator('[data-concept]')).toHaveCount(0);
   await expect(page.getByTestId('dc-circuit-lab')).toHaveCount(0);
@@ -33,7 +33,7 @@ test('course home is an index and lessons have their own content, URLs and navig
   await expect(content).toContainText(es.RadioBasics.concepts.voltage.definition);
   await expect(content).not.toContainText(es.RadioBasics.concepts.current.definition);
   await expect(content).not.toContainText(es.RadioBasics.concepts.resistance.definition);
-  const navigation = page.getByRole('navigation', { name: es.RadioCourse.navigation, exact: true }).first();
+  const navigation = page.getByRole('navigation', { name: 'Contenido de Radioaficionado', exact: true }).first();
   for (const id of [...LESSONS, ...RESOURCES]) {
     await expect(navigation.locator(`a[href="${LESSON_BASE}/${id}"]`)).toHaveCount(1);
   }
@@ -75,7 +75,7 @@ test('series and parallel are separate lessons with scoped worked examples', asy
   await expect(content.locator('#series')).toHaveCount(0);
 });
 
-for (const lesson of ['resistance', 'ohm', 'power', 'measurement'] as const) {
+for (const lesson of ['resistance', 'ohm', 'power'] as const) {
   test(`${lesson} is directly addressable as a standalone lesson`, async ({ page }) => {
     await page.goto(`${LESSON_BASE}/${lesson}`);
     await expect(page.locator('#radio-page-title')).toHaveText(es.RadioCourse.pages[lesson].title);
@@ -115,11 +115,11 @@ test('reference resources do not display lesson previous or next controls', asyn
 
 test('the course keeps the official program and its chapter references accessible', async ({ page }) => {
   await page.goto(COURSE);
-  await page.locator(`a[href="${COURSE}/programa"]`).first().click();
+  await page.getByTestId('hub-group-exam').locator(`a[href="${COURSE}/programa"]`).click();
   await expect(page).toHaveURL(`${COURSE}/programa`);
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Radioaficionado, de cero a la licencia');
   await expect(page.locator(`a[href="${COURSE}/a-electricidad"]`).first()).toBeVisible();
-  await page.locator(`a[href="${COURSE}/morse"]`).first().click();
+  await page.locator(`main a[href="${COURSE}/morse"]:visible`).first().click();
   await expect(page).toHaveURL(`${COURSE}/morse`);
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Código Morse');
 });
@@ -160,11 +160,14 @@ test('the signal lessons lead from wave size to range and Morse timing', async (
   await expect(lesson.getByRole('button', { name: 'Escuchar' })).toBeDisabled();
 });
 
-test('radio sub-navigation connects tutorials, global Morse console and free vs licensed spectrum', async ({ page }) => {
+test('radio sidebar connects tutorials, the Morse trainers and the instrument bench', async ({ page }) => {
   await page.goto(COURSE);
-  const subnav = page.getByTestId('radio-subnav');
-  await expect(subnav).toBeVisible();
-  await subnav.getByRole('link', { name: /Tutoriales y Equipos/ }).click();
+  const sidebar = page.getByTestId('section-nav');
+  await expect(sidebar).toBeVisible();
+  await expect(page.getByTestId('radio-offline').first()).toBeVisible();
+  const group = (name: RegExp) => sidebar.locator('summary').filter({ hasText: name });
+  await group(/Consultar/).click();
+  await sidebar.getByRole('link', { name: /Baofeng UV-5R/ }).click();
   await expect(page).toHaveURL(`${COURSE}/tutoriales`);
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Baofeng UV-5R');
   await expect(page.getByText(/Duplex = off/).first()).toBeVisible();
@@ -180,19 +183,26 @@ test('radio sub-navigation connects tutorials, global Morse console and free vs 
     await page.setViewportSize({ width, height: 844 });
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   }
-  await page.getByTestId('radio-subnav').getByRole('link', { name: /Consola Morse/ }).click();
+  await page.setViewportSize({ width: 1280, height: 844 });
+  await group(/Practicar/).click();
+  await sidebar.getByRole('link', { name: /Código Morse/ }).click();
   await expect(page).toHaveURL(`${COURSE}/morse`);
-  const morseConsole = page.getByTestId('morse-global-console');
-  await expect(morseConsole).toBeVisible();
-  await morseConsole.getByRole('button', { name: /3 · Traductor CW/ }).click();
+  const picker = page.getByTestId('morse-trainer-picker');
+  await expect(picker.getByRole('link')).toHaveCount(6);
+  await picker.getByRole('link', { name: /Traductor/ }).click();
+  await expect(page).toHaveURL(`${COURSE}/morse/traductor`);
   await expect(page.locator('#traductor')).toBeVisible();
-  await expect(page.locator('#transmision')).toBeHidden();
-  await morseConsole.getByRole('button', { name: /Vista completa/ }).click();
-  await expect(page.locator('#transmision')).toBeVisible();
+  const switcher = page.getByTestId('morse-trainer-switcher');
+  await switcher.getByRole('link', { name: /Árbol de letras/ }).click();
+  await expect(page).toHaveURL(`${COURSE}/morse/arbol`);
+  await page.goto(`${COURSE}/morse#transmision`);
+  await expect(page).toHaveURL(`${COURSE}/morse/transmitir`);
 
-  await page.getByTestId('radio-subnav').getByRole('link', { name: /Instrumentos \(Multímetro\)/ }).click();
-  await expect(page).toHaveURL(`${COURSE}/instrumentos`);
-  await expect(page.getByTestId('radio-sidebar')).toBeVisible();
+  await sidebar.getByRole('link', { name: /Medición/ }).first().click();
+  await expect(page).toHaveURL('/es/medicion');
+  await expect(page.getByTestId('section-nav')).toHaveAttribute('data-section', 'medicion');
+  await page.getByTestId('hub-group-practice').getByRole('link', { name: /Entrenador de multímetro/ }).click();
+  await expect(page).toHaveURL('/es/medicion/instrumentos/multimetro');
   const dmm = page.getByTestId('multimeter-lab');
   await expect(dmm).toBeVisible();
   await expect(dmm.getByTestId('multimeter-digits')).toHaveText('13,80');
@@ -201,17 +211,20 @@ test('radio sub-navigation connects tutorials, global Morse console and free vs 
   await dmm.getByRole('button', { name: /Divisor de Alta Impedancia/ }).click();
   await expect(dmm.getByTestId('multimeter-digits')).toHaveText('4,00');
 
-  await page.getByRole('button', { name: /2 · Osciloscopio/ }).click();
+  await page.locator('[data-direction="next"]').click();
+  await expect(page).toHaveURL('/es/medicion/instrumentos/osciloscopio');
   const scope = page.getByTestId('oscilloscope-lab');
   await expect(scope).toBeVisible();
   await expect(scope.getByTestId('oscilloscope-vpp')).toContainText('0,60 Vpp');
 
-  await page.getByRole('button', { name: /3 · Medidor de ROE/ }).click();
+  await page.getByTestId('section-nav').getByRole('link', { name: /Medidor de ROE/ }).click();
+  await expect(page).toHaveURL('/es/medicion/instrumentos/roe');
   const swr = page.getByTestId('swr-meter-lab');
   await expect(swr).toBeVisible();
   await expect(swr.getByTestId('swr-reading')).toHaveText('1,19 : 1');
 
-  await page.getByRole('button', { name: /4 · NanoVNA/ }).click();
+  await page.locator('[data-direction="next"]').click();
+  await expect(page).toHaveURL('/es/medicion/instrumentos/nanovna');
   const vna = page.getByTestId('nanovna-lab');
   await expect(vna).toBeVisible();
   await vna.getByRole('button', { name: /Cortar varilla a resonancia exacta/ }).click();

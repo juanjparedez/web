@@ -10,7 +10,7 @@ export const dynamicParams = false;
 
 const locales = ['en', 'es', 'de', 'it'];
 export function generateStaticParams() {
-  return locales.flatMap((locale) => CHAPTERS.map((c) => ({ locale, chapter: c.slug })));
+  return locales.flatMap((locale) => CHAPTERS.filter((c) => c.slug !== 'morse').map((c) => ({ locale, chapter: c.slug })));
 }
 
 interface PageProps {
@@ -28,6 +28,6 @@ export default async function RadioChapterPage({ params }: PageProps) {
   const { locale, chapter } = await params;
   setRequestLocale(locale);
   const c = getChapter(chapter);
-  if (!c) notFound();
+  if (!c || c.slug === 'morse') notFound();
   return <ChapterView chapter={c} locale={locale} />;
 }

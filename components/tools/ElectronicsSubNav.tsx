@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useLocale } from 'next-intl';
-import styles from '@/components/radio/radioSubNav.module.css';
+import styles from './electronicsSubNav.module.css';
 
 export function ElectronicsSubNav() {
   const locale = useLocale();
@@ -15,7 +15,7 @@ export function ElectronicsSubNav() {
     { href: `${base}/workbench/ohms-law`, label: 'Ley de Ohm', badge: 'V=I·R' },
     { href: `${base}/workbench/resistor-color-code`, label: 'Código de Resistencias', badge: 'E24' },
     { href: `${base}/radio/lecciones/laboratory`, label: 'Laboratorio de Circuitos DC', badge: 'LAB' },
-    { href: `${base}/radio/instrumentos`, label: 'Instrumentos (DMM / DSO / ROE / VNA)', badge: '4 INST' },
+    { href: `${base}/medicion`, label: 'Medición (DMM / DSO / ROE / VNA)', badge: '4 INST' },
     { href: `${base}/workbench/qpsk-modulator`, label: 'Modulador QPSK (I/Q)', badge: 'DSP' },
     { href: `${base}/workbench/serial-monitor`, label: 'Monitor Serial UART', badge: 'USB' },
   ];

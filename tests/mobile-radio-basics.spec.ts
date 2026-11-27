@@ -1,14 +1,17 @@
 import { expect, test, type Page } from '@playwright/test';
 import es from '../messages/es.json';
 
+/** Mobile: the sticky bar's Menú opens the same colour-coded menu as the desktop sidebar. */
 async function changeTopic(page: Page, title: string) {
-  const select = page.getByRole('combobox', { name: 'Cambiar de tema' });
-  const option = page.locator(`.ant-select-dropdown:visible .ant-select-item-option[title="${title}"]`);
-  await select.press('ArrowDown');
-  for (let attempt = 0; attempt < 16 && !await option.isVisible(); attempt++) {
-    await select.press('ArrowDown');
+  await page.getByRole('button', { name: 'Menú de Radioaficionado' }).click();
+  const sheet = page.getByRole('dialog', { name: 'Menú de Radioaficionado' });
+  const link = sheet.getByRole('link', { name: new RegExp(`(^|\\s)${title}$`) });
+  for (const summary of await sheet.locator('details:not([open]) > summary').all()) {
+    if (await link.isVisible()) break;
+    await summary.click();
   }
-  await option.click();
+  await link.click();
+  await expect(sheet).toHaveCount(0);
 }
 
 test('radio course pages fit narrow screens and remain operable', async ({ page }, testInfo) => {

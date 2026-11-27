@@ -10,10 +10,11 @@
 .toc a:hover { color: var(--hios-text); background: var(--hios-bg-secondary); border-left-color: var(--accent-2); }
 .tocTitle { font-family: var(--font-stack-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--hios-text-muted); margin: 0 0 8px 10px; }
 
-.content { min-width: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 56px; }
-.section { scroll-margin-top: calc(var(--layout-header-height) + 16px); display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
+.content { min-width: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; }
+.content > :global(*):first-child + * { margin-top: -24px; }
+.section { scroll-margin-top: calc(var(--layout-header-height) + 16px); display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; padding-top: 32px; border-top: 1px solid var(--hios-border); }
 .section > h2 { margin: 0; font-family: var(--font-stack-display); font-size: clamp(1.4rem, 1.1rem + 1vw, 1.9rem); letter-spacing: -0.01em; }
-.kicker { font-family: var(--font-stack-mono); font-size: 0.75rem; letter-spacing: 0.1em; color: var(--accent-2-text); text-transform: uppercase; }
+.kicker { justify-self: start; font-family: var(--font-stack-mono); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; color: var(--accent-2-text); text-transform: uppercase; padding: 3px 9px; border-radius: 6px; background: color-mix(in srgb, var(--accent-2-text) 12%, transparent); border: 1px solid color-mix(in srgb, var(--accent-2-text) 30%, transparent); }
 .prose { max-width: var(--layout-reading); color: var(--hios-text); line-height: 1.7; font-size: 1.02rem; }
 .prose p { margin: 0 0 12px; }
 .prose ul { margin: 0 0 12px; padding-left: 20px; }

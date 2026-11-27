@@ -10,6 +10,7 @@ import {
   type ScopeProbeRatio,
   type ScopeSignalId,
 } from '@/lib/radio/benchInstrumentsSim';
+import { InstrumentFigure } from './InstrumentFigure';
 import styles from './multimeter.module.css';
 
 const SIGNALS: readonly { id: ScopeSignalId; badge: string; title: string }[] = [
@@ -67,6 +68,8 @@ export function OscilloscopeLab() {
           ✓ Aplicar ajuste óptimo de canal
         </button>
       </div>
+
+      <InstrumentFigure id="oscilloscope" />
 
       <div className={styles.scenarioGrid} role="group" aria-label="Señales de prueba del osciloscopio">
         {SIGNALS.map((sig) => (

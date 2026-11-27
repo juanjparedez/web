@@ -7,6 +7,7 @@ import {
   type SwrTerminationId,
   type SwrTxMode,
 } from '@/lib/radio/benchInstrumentsSim';
+import { InstrumentFigure } from './InstrumentFigure';
 import styles from './multimeter.module.css';
 
 const TERMINATIONS: readonly { id: SwrTerminationId; badge: string; title: string }[] = [
@@ -46,6 +47,8 @@ export function SwrMeterLab() {
           </p>
         </div>
       </div>
+
+      <InstrumentFigure id="swr-meter" />
 
       <div className={styles.scenarioGrid} role="group" aria-label="Cargas conectadas a la línea de 50 ohms">
         {TERMINATIONS.map((item) => (

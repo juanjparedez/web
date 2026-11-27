@@ -16,7 +16,7 @@ const BENCH_CONCEPTS = [
     badge: 'DMM · VALOR EFICAZ',
     title: 'True-RMS vs. Valor Medio y Punta Detectora RF',
     body: 'Un multímetro True-RMS integra v²(t) en vez de asumir forma senoidal (factor 1,11). Con un diodo Schottky (1N5711) rectifica picos de 145 MHz sobre 50 Ω para medir potencia en modo V⎓.',
-    href: '/radio/instrumentos',
+    href: '/medicion/instrumentos/multimetro',
     cta: 'Abrir Multímetro Digital →',
   },
   {
@@ -24,7 +24,7 @@ const BENCH_CONCEPTS = [
     badge: 'DSO · 10 MΩ ∥ 12 pF',
     title: 'Punta de Osciloscopio ×10, Compensación RC y Masa PE',
     body: 'La posición ×10 baja la capacidad parásita de ~100 pF a ~12 pF para no ahogar circuitos de RF. Recordá que el cocodrilo negro del BNC está conectado a Tierra (PE 220 V).',
-    href: '/radio/instrumentos',
+    href: '/medicion/instrumentos/osciloscopio',
     cta: 'Abrir Osciloscopio DSO →',
   },
   {
@@ -32,7 +32,7 @@ const BENCH_CONCEPTS = [
     badge: 'RF · PATRÓN 50 Ω',
     title: 'Carga Fantasma (Dummy Load 50 Ω) y ROE',
     body: 'Resistor no inductivo de 50 Ω que absorbe el 100 % de la onda directa (|Γ| = 0, ROE 1,0:1) sin irradiar. Colocada al final del coaxil permite distinguir fallas de cable de fallas de antena.',
-    href: '/radio/instrumentos',
+    href: '/medicion/instrumentos/roe',
     cta: 'Abrir Medidor de ROE →',
   },
   {
@@ -40,7 +40,7 @@ const BENCH_CONCEPTS = [
     badge: 'VNA · S₁₁ Y CARTA DE SMITH',
     title: 'NanoVNA, Calibración SOLT y Reactancia ±jX',
     body: 'Tras calibrar Short-Open-Load (50 Ω), barre la banda e indica si la antena quedó larga (resuena abajo, +jX_L → acortar) o corta (resuena arriba, −jX_C → alargar).',
-    href: '/radio/instrumentos',
+    href: '/medicion/instrumentos/nanovna',
     cta: 'Abrir Simulador NanoVNA →',
   },
   {
@@ -90,8 +90,8 @@ function GlossaryNotes() {
   const t = useTranslations('RadioGlossary');
   const locale = useLocale();
   const tools = [
-    { href: `/${locale}/radio/instrumentos`, label: 'Banco de 4 Instrumentos (Multímetro, Osciloscopio, ROE y NanoVNA)' },
-    { href: `/${locale}/radio/morse`, label: 'Consola Unificada de Código Morse (CW)' },
+    { href: `/${locale}/medicion`, label: 'Medición: multímetro, osciloscopio, ROE y NanoVNA' },
+    { href: `/${locale}/radio/morse`, label: 'Código Morse: seis entrenadores (CW)' },
     { href: `/${locale}/radio/tutoriales#generador-chirp`, label: 'Tutorial Baofeng UV-5R y Armador CSV CHIRP' },
     { href: `/${locale}/radio/b-modulacion-equipos#digitales`, label: 'Simulador SDR (I/Q), SNR y Límite de Shannon' },
     { href: `/${locale}/radio/lecciones/laboratory`, label: 'Laboratorio DC (Ohm y Kirchhoff)' },

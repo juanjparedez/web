@@ -56,7 +56,7 @@ interface PreviewTableProps {
 export function ChirpPreviewTable({ channels, forceRxOnly, walkieToneHz, onToggleTx }: PreviewTableProps) {
   return (
     <div className={styles.tableWrap}>
-      <table className={styles.table}>
+      <table className={styles.table} data-stack>
         <thead>
           <tr><th>Mem #</th><th>Display (7 car.)</th><th>Frecuencia</th><th>Modo / Paso</th><th>Subtono CTCSS</th><th>Estado TX (Duplex)</th></tr>
         </thead>
@@ -67,12 +67,12 @@ export function ChirpPreviewTable({ channels, forceRxOnly, walkieToneHz, onToggl
             const tone = ch.toneHz ?? (isWalkie && walkieToneHz > 0 ? walkieToneHz : 0);
             return (
               <tr key={ch.id}>
-                <td className={styles.mono}>{idx + 1}</td>
-                <td className={styles.mono}>{sanitizeUv5rName(ch.name)}</td>
-                <td className={styles.mono}>{ch.frequencyMhz.toFixed(5)} MHz</td>
-                <td>{ch.mode} · {ch.stepKhz} kHz</td>
-                <td className={styles.mono}>{tone > 0 ? `${tone.toFixed(1)} Hz` : 'OFF'}</td>
-                <td>
+                <td className={styles.mono} data-label="Mem #">{idx + 1}</td>
+                <td className={styles.mono} data-label="Display">{sanitizeUv5rName(ch.name)}</td>
+                <td className={styles.mono} data-label="Frecuencia">{ch.frequencyMhz.toFixed(5)} MHz</td>
+                <td data-label="Modo / paso">{ch.mode} · {ch.stepKhz} kHz</td>
+                <td className={styles.mono} data-label="Subtono">{tone > 0 ? `${tone.toFixed(1)} Hz` : 'OFF'}</td>
+                <td data-label="Estado TX">
                   {forceRxOnly || ch.lockedRxOnly ? (
                     <span className={styles.tagSafe}>off (TX Bloqueado)</span>
                   ) : (
