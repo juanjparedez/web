@@ -8,22 +8,28 @@ export function StatsTiles({ data }: { data: PublicTraffic }) {
   const locale = useLocale();
   const t = useTranslations('PublicStats');
   const tiles = [
-    { key: 'visitors', value: data.totals.visitors },
-    { key: 'views', value: data.totals.views },
-    { key: 'guestbook', value: data.guestbook },
+    { key: 'visitors', value: data.totals.visitors, hint: t('visitorSum', { days: data.range.days }) },
+    { key: 'views', value: data.totals.views, hint: t('lastDays', { days: data.range.days }) },
+    { key: 'guestbook', value: data.guestbook, hint: t('allTime') },
   ];
   return <section className={styles.tiles}>{tiles.map(tile => <article key={tile.key} className={styles.tile}>
     <span className={styles.tileValue}>{tile.value.toLocaleString(locale)}</span>
     <span className={styles.tileLabel}>{t(tile.key)}</span>
-    <span className={styles.tileHint}>{tile.key === 'guestbook' ? t('allTime') : t('lastDays', { days: data.range.days })}</span>
+    <span className={styles.tileHint}>{tile.hint}</span>
   </article>)}</section>;
 }
 
 export function StatsActivity({ data }: { data: PublicTraffic }) {
   const t = useTranslations('PublicStats');
+  const locale = useLocale();
+  const date = new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'short', timeZone: 'UTC' });
+  const first = data.perDay.find(day => day.views > 0);
   const max = Math.max(1, ...data.perDay.map(day => day.views));
   return <section className={styles.section}>
     <h2 className={styles.sectionTitle}>{t('activity')}</h2>
+    <p className={styles.intro}>{first
+      ? t('firstViews', { date: date.format(new Date(first.day)) })
+      : t('noViews')} {t('partialDay', { date: date.format(new Date(data.range.to)) })}</p>
     <div className={styles.sparkRow} role="img" aria-label={t('activity')}>
       {data.perDay.map(day => <span key={day.day} className={styles.sparkBar}
         style={{ height: `${day.views === 0 ? 0 : Math.max(2, Math.round(day.views / max * 100))}%` }}

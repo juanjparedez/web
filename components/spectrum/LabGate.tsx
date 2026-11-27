@@ -1,11 +1,13 @@
 'use client';
 
 import { useEffect, useState, type ReactNode } from 'react';
+import { sendUsage } from '@/lib/analytics/client';
+import type { SPECTRUM_LABS } from '@/lib/analytics/paths';
 import styles from './spectrum.module.css';
 
 interface Props {
   /** slug used for the section id and the #deep-link that opens it */
-  id: string;
+  id: (typeof SPECTRUM_LABS)[number];
   title: string;
   /** one line shown on the closed card */
   summary: string;
@@ -28,6 +30,9 @@ export function LabGate({ id, title, summary, lead, preview, footnote, children 
     window.addEventListener('hashchange', sync);
     return () => window.removeEventListener('hashchange', sync);
   }, [id]);
+  useEffect(() => {
+    if (open) sendUsage('tool_open', window.location.pathname, `espectro-${id}`);
+  }, [id, open]);
   return (
     <section id={id} className={styles.section} aria-labelledby={`${id}-title`} data-lab={id} data-open={open}>
       <div className={styles.labHead}>

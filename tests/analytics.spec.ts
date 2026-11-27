@@ -81,7 +81,9 @@ test('public stats show traction: visitors, pages, referrers and countries', asy
     referrers: [{ name: 'news.ycombinator.com', count: 4 }], countries: [{ name: 'AR', count: 9 }], locales: [{ name: 'es', count: 12 }] }, 0);
   await page.route('**/api/stats/public', route => route.fulfill({ json: data }));
   await page.goto('/es/stats');
-  await expect(page.getByText('Visitantes', { exact: true })).toBeVisible();
+  await expect(page.getByText(es.PublicStats.visitors, { exact: true })).toBeVisible();
+  await expect(page.getByText('Suma de los últimos 30 días')).toBeVisible();
+  await expect(page.getByText(/Primer día del período con vistas registradas: 24.*parte del día UTC/)).toBeVisible();
   await expect(page.getByText('/projects/pad', { exact: true })).toBeVisible();
   await expect(page.getByText('/secret-single')).toHaveCount(0);
   await expect(page.getByText('news.ycombinator.com', { exact: true })).toBeVisible();
@@ -109,4 +111,23 @@ test('stats page makes no third-party requests and survives an API failure', asy
   expect(external).toEqual([]);
   await page.setViewportSize({ width: 360, height: 800 });
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1)).toBe(true);
+});
+
+test('section visits and lab openings are distinct opt-in events', async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('hios-telemetry-v2', 'on'));
+  const events: string[] = [];
+  await page.route('**/api/usage/events', route => {
+    const { eventName, path, toolId } = route.request().postDataJSON();
+    events.push([eventName, path, toolId].join('|'));
+    return route.fulfill({ status: 204 });
+  });
+  await page.goto('/es/espectro');
+  await expect.poll(() => events.slice()).toEqual(['page_view|/espectro|']);
+  await page.locator('#cubeta button').click();
+  await expect.poll(() => events.slice(1)).toEqual(['tool_open|/espectro|espectro-cubeta']);
+  await page.goto('/es/medicion/instrumentos/nanovna');
+  await expect.poll(() => events.slice(2).sort()).toEqual([
+    'page_view|/medicion/instrumentos/nanovna|medicion-nanovna',
+    'tool_open|/medicion/instrumentos/nanovna|medicion-nanovna',
+  ]);
 });

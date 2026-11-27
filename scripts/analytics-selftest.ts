@@ -47,6 +47,20 @@ for (const invalid of [null, [], {}, { ...event, eventId: 'person@example.org' }
   { ...event, path: '/workbench/spaces/private' }, { ...event, path: '/workbench/hash-digest?secret=1' },
   { ...event, toolId: 'made-up-tool' }, { ...event, locale: 'xx' }, { ...event, eventName: 'search_open' },
   { ...event, path: '/workbench/notes' }, { ...event, path: '/workbench/settings' }]) assert.equal(parseUsageEvent(invalid), null);
+for (const path of ['/medicion', '/medicion/multimetro', '/medicion/instrumentos', '/espectro']) {
+  assert.equal(browserPage('/it' + path)?.toolId, '');
+}
+for (const instrument of ['multimetro', 'osciloscopio', 'roe', 'nanovna']) {
+  const page = browserPage('/de/medicion/instrumentos/' + instrument);
+  assert.equal(page?.toolId, 'medicion-' + instrument);
+  assert.ok(parseUsageEvent({ ...event, ...page }));
+}
+assert.equal(browserPage('/es/medicion/instrumentos/private'), null);
+for (const id of ['onda', 'cubeta', 'chladni', 'fibra', 'cuerpo-negro']) {
+  assert.ok(parseUsageEvent({ ...event, path: '/espectro', toolId: 'espectro-' + id }));
+}
+assert.equal(parseUsageEvent({ ...event, path: '/espectro', toolId: 'hash-digest' }), null);
+assert.equal(parseUsageEvent({ ...event, path: '/espectro', toolId: 'espectro-private' }), null);
 assert.equal(browserPage('/es/admin'), null);
 assert.equal(browserPage('/es/workbench/usage-analytics'), null);
 assert.equal(browserPage('/es/workbench/spaces/private-name')?.path, '/workbench/spaces');

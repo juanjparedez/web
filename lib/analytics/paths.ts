@@ -2,8 +2,13 @@ import { workbenchTools } from '../../config/workbench.ts';
 import { ANALYTICS_LOCALES, type AnalyticsLocale } from './model.ts';
 
 const toolsByPath = new Map<string, string>(workbenchTools.filter(tool => !tool.external && tool.id !== 'usage-analytics').map(tool => [tool.href, tool.id]));
-export const ANALYTICS_TOOL_IDS = new Set(toolsByPath.values());
-const pages = new Set(['/', '/workbench', '/workbench/spaces', '/workbench/sections', '/projects', '/blog', '/tools',
+for (const instrument of ['multimetro', 'osciloscopio', 'roe', 'nanovna']) {
+  toolsByPath.set(`/medicion/instrumentos/${instrument}`, `medicion-${instrument}`);
+}
+export const SPECTRUM_LABS = ['onda', 'cubeta', 'chladni', 'fibra', 'cuerpo-negro'] as const;
+export const SPECTRUM_TOOL_IDS = new Set(SPECTRUM_LABS.map(id => `espectro-${id}`));
+export const ANALYTICS_TOOL_IDS = new Set([...toolsByPath.values(), ...SPECTRUM_TOOL_IDS]);
+const pages = new Set(['/espectro', '/medicion', '/medicion/multimetro', '/medicion/instrumentos', '/', '/workbench', '/workbench/spaces', '/workbench/sections', '/projects', '/blog', '/tools',
   '/pinouts', '/pinouts/pad', '/pinouts/btdac', '/pinouts/speaker', '/stats', '/guestbook', '/explore', '/calculators', '/prints', '/colophon']);
 const families = ['/projects/:project', '/blog/:article', '/print/:document'];
 

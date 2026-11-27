@@ -1,4 +1,4 @@
-import { analyticsPath, ANALYTICS_TOOL_IDS } from './paths.ts';
+import { analyticsPath, ANALYTICS_TOOL_IDS, SPECTRUM_TOOL_IDS } from './paths.ts';
 import { ANALYTICS_LOCALES, EVENT_NAMES, type UsageEvent } from './model.ts';
 
 export function parseUsageEvent(input: unknown): UsageEvent | null {
@@ -12,6 +12,9 @@ export function parseUsageEvent(input: unknown): UsageEvent | null {
   const page = analyticsPath(value.path);
   if (!page || typeof value.toolId !== 'string') return null;
   if (value.toolId && !ANALYTICS_TOOL_IDS.has(value.toolId)) return null;
+  if (value.eventName === 'tool_open' && page.path === '/espectro') {
+    return SPECTRUM_TOOL_IDS.has(value.toolId) ? value as unknown as UsageEvent : null;
+  }
   if (['tool_open', 'handoff_complete', 'export_generated'].includes(String(value.eventName)) && (!page.toolId || value.toolId !== page.toolId)) return null;
   if (value.eventName === 'page_view' && value.toolId !== page.toolId) return null;
   if (value.eventName === 'preset_open' && !value.toolId) return null;
